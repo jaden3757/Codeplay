@@ -54,6 +54,7 @@ class prtext3:
     p3 = 0
     waiti = 0
     mm = 0
+    md = 0
     def __init__(self, txt, sz, speed):
         self.w = 0
         self.t = 0
@@ -68,6 +69,8 @@ class prtext3:
                     self.leng += 20
                 else:
                     self.leng += len(i)
+            if self.md == 1:
+                self.t = self.leng
             self.w += 1
             if self.w > self.speed:
                 if self.t < self.leng:
@@ -171,6 +174,7 @@ class prtext3:
         self.done = 0
         self.ln = 0
         self.wait = 0
+        self.md = 0
 
     def next(self, text):
         self.txt.append(text)
