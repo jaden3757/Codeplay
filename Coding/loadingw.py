@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 run = True
 loading1 = True
 
-load_button = button("Play", 100, 50, 450, 275)
+load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
 ri = 0
 
@@ -46,8 +46,8 @@ while run:
         run = False
 
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if load_button.check() == 1:
-            changemap(1)
+        if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
+            changemap(1) # main1.py 에 chagemap 함수를 참고하시오
             # import sample #room1
 
     pygame.display.flip()
