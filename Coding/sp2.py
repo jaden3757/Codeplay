@@ -36,6 +36,9 @@ def textls(): # 텍스트 수동 입력
             t1.reset("..")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("..")
+        # if scr == i: # i번째 대사 (샘플)
+        #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
+        #   t1.next("그 다음줄 추가")
         ch = 0
 
 # 버튼 만드는 곳
@@ -61,10 +64,9 @@ while run:
     pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
     # main [여기에 코드 입력]
     holy.draw()
-    floor_button.draw()
 
     # UI
-    prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+    prtext2("ROOMNUM | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
     drawui()
     textls()
     textprinting()

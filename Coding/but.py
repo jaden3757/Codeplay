@@ -251,7 +251,7 @@ def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
             itemui.mode = 1
             itemui.on()
         else:
-            if itemui.itemlist == buttonnm.item:
+            if itemui.isinv == buttonnm:
                 itemui.off()
         itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
         itemui.mousex = 0
