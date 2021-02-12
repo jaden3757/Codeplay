@@ -51,11 +51,12 @@ def textls(): # 텍스트 수동 입력
 
 # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
 
-sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가
+sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
 
 floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
-holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
+# 여기부터 자유롭게 추가
+holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
 holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
 while run:
