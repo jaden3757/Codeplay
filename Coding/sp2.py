@@ -6,6 +6,7 @@ from module1 import *
 from but import *
 from main1 import * #main
 from item import *
+from excel import *
 
 # 시작
 pygame.init() 
@@ -46,7 +47,13 @@ def textls(): # 텍스트 수동 입력
 # variable.textsize = (텍스트사이즈)
 
 # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
+
+sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가
+
+floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+
 holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
+holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
 while run:
     # 세팅 [ 건드리지 말아야 할 것]
@@ -54,6 +61,7 @@ while run:
     pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
     # main [여기에 코드 입력]
     holy.draw()
+    floor_button.draw()
 
     # UI
     prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)

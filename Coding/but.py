@@ -17,7 +17,7 @@ class button:
     count = 0
     onoff = 1
     font = 'gulim.ttf'
-    item = []
+    item = ['main', 50]
     def __init__(self, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -93,7 +93,8 @@ class itemobject:
     count = 0
     onoff = 1
     font = 'gulim.ttf'
-    item = ['마음']
+    item = ['main', 50]
+    item_list = []
     def __init__(self, name, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -177,7 +178,6 @@ itemmode_button.color = (20,20,20)
 floor_button = button("버려진 아이템", 100, 40, 750, 400)
 floor_button.textsize = 15
 floor_button.color = (100,100,100)
-floor_button.item = ['밥', '갑오징어']
 
 itemui = showitems()
 itemui.floornm = floor_button
@@ -226,7 +226,8 @@ def drawui():
     if msitem == 0:
         pass
     else:
-        floor_button.item.append(msitem)
+        # floor_button.item.append(msitem)
+        addxllist(floor_button.item[0], floor_button.item[1], msitem)
         msitem = 0
     # if itemui.clicking == 1:
     #     if itemui.isinv == 'inv':
@@ -236,7 +237,7 @@ def drawui():
     mapdraw()
 
 map_onoff = 0
-def itemcheck(buttonnm):
+def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
     if buttonnm.check() == 1:
         if itemui.onoff == 0:
             itemui.mode = 1
@@ -244,7 +245,7 @@ def itemcheck(buttonnm):
         else:
             if itemui.itemlist == buttonnm.item:
                 itemui.off()
-        itemui.itemlist = buttonnm.item
+        itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
         itemui.mousex = 0
         itemui.reseted = 1
         itemui.isinv = buttonnm
