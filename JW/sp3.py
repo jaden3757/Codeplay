@@ -74,8 +74,9 @@ while run:
         buttoncheck() # [삭제하면 안되는 것]
         itemcheck(box1_closed)
         if itemcheck(box1_closed) == 10:
-            box_stuts = 1
-            itemobject.item.append("손전등")
+            if box_stuts == 0:
+                box_stuts = 1
+                itemobject.item.append("손전등")
 
 
     if pygame.key.get_pressed()[pygame.K_m]:
