@@ -39,61 +39,12 @@ def getitem():
     # return itemlist
     return item_t
 
-o = [0,0,0,0]
-
-def changemap(a):
-    # if a == 0:
-    #     try:
-    #         reload(loadingw)
-    #     except:
-    #         pass
-    #     import loadingw
-    # if a == 1:
-    #     try:
-    #         del sp2
-    #     except:
-    #         pass
-    #     import sp2
-    # if a == 2:
-    #     try:
-    #         del gg
-    #     except:
-    #         pass
-    #     import gg
-    # if a == 3:
-    #     try:
-    #         del story2
-    #     except:
-    #         pass
-    #     import story2
-
-    # if a == 0:
-    #     try:
-    #         import loadingw
-    #     except:
-    #         reload(loadingw)
-    # if a == 1:
-    #     try:
-    #         import sp2
-    #     except:
-    #         reload(sp2)
-    # if a == 2:
-    #     try:
-    #         import gg
-    #     except:
-    #         reload(gg)
-    # if a == 3:
-    #     try:
-    #         import story2
-    #     except:
-    #         reload(story2)
-    if a == 0:
-        import loadingw
-    if a == 1:
-        import sp2
-    if a == 2:
-        import sp3
-    if a == 3:
-        import story2
-
-changemap(0)
+# def changemap(a):
+#     if a == 0:
+#         import loading2
+#     if a == 1:
+#         import sp2
+#     if a == 2:
+#         import sp3
+#     if a == 3:
+#         import story2

@@ -8,9 +8,6 @@ from main1 import * #main
 from item import *
 from excel import *
 
-if __name__ == '__main__':
-    pass
-
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
