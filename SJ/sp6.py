@@ -15,6 +15,9 @@ pygame.display.set_caption("Moon Side")
 clock = pygame.time.Clock()
 run = True
 
+pygame.mixer.init()
+mySound = pygame.mixer.Sound("duck.wav")
+
 # 텍스트관련 [삭제하지 말것]
 scr = 0
 ch = 1
@@ -38,17 +41,7 @@ def textls(): # 텍스트 수동 입력
             t1.reset("..")
         ch = 0
 
-# 버튼 만드는 곳
-# variable(버튼이름) = button(text, width, height, x좌표, y좌표)
-# variable.draw() // 버튼을 화면에 출력
-# variable.check() // 버튼 위에 마우스가 있다면 1, 아니면 0출력
-# variable.color = (R,G,B) // 버튼 색 설정
-# variable.textcolor = (R,G,B) // 텍스트 색 설정
-# variable.textsize = (텍스트사이즈)
-
-# objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
-# holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
-# map_image = 
+password = 19020
 
 while run:
     # 세팅 [ 건드리지 말아야 할 것]
@@ -107,8 +100,9 @@ while run:
         def btncmd():
             global password
             value = e.get()
-
             value = int(value)
+
+            mySound.play()
 
             if password == value:
                 print("Correct!!")

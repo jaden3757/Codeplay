@@ -50,44 +50,45 @@ def textls(): # 텍스트 수동 입력
 # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
 holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
 
-sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
+def game_over():
+    sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
 
-pygame.mixer.music.load(sound)
+    pygame.mixer.music.load(sound)
 
-pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
-while run:
-    # 세팅 [ 건드리지 말아야 할 것]
-    # screen.fill(pygame.color.Color(50, 50, 50))
-    # pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-    # main [여기에 코드 입력]
-    holy.draw()
+    while run:
+        # 세팅 [ 건드리지 말아야 할 것]
+        # screen.fill(pygame.color.Color(50, 50, 50))
+        # pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        # main [여기에 코드 입력]
+        holy.draw()
 
-    # UI
-    # prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
-    drawui()
-    textls()
-    textprinting()
-    # // All_event [이벤트창]
-    event = pygame.event.poll()
-    if event.type == pygame.QUIT:
-        run = False
-    # // Mouse_click
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        buttoncheck() # [삭제하면 안되는 것]
-        itemcheck(holy)
-    if pygame.key.get_pressed()[pygame.K_m]:
-        changemap(4)
-    if pygame.key.get_pressed()[pygame.K_q]:
-        changemap(1)
-    
-    screen.fill(LIGHT_BLACK)
+        # UI
+        # prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+        drawui()
+        textls()
+        textprinting()
+        # // All_event [이벤트창]
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            run = False
+        # // Mouse_click
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            buttoncheck() # [삭제하면 안되는 것]
+            itemcheck(holy)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            changemap(4)
+        if pygame.key.get_pressed()[pygame.K_q]:
+            changemap(1)
+        
+        screen.fill(LIGHT_BLACK)
 
-    myFont = pygame.font.SysFont( "microsoftphagspa", 50, True, False)
-    text_Title_yes= myFont.render("Game Over", True, BLACK)
-    screen.blit(text_Title_yes, (int(screen_width / 2) - 140, int(screen_height) / 2 - 100))
-    #fin [끝]
-    pygame.display.flip()
-    clock.tick(60)
+        myFont = pygame.font.SysFont( "microsoftphagspa", 50, True, False)
+        text_Title_yes= myFont.render("Game Over", True, BLACK)
+        screen.blit(text_Title_yes, (int(screen_width / 2) - 140, int(screen_height) / 2 - 100))
+        #fin [끝]
+        pygame.display.flip()
+        clock.tick(60)
 
-pygame.quit()
+    pygame.quit()
