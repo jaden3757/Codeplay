@@ -8,6 +8,8 @@ from main1 import * #main
 from item import *
 # from sp2 import *
 import sp2
+import sp6
+import Sound_controll
 
 LIGHT_BLACK = (50, 50, 50)
 # 시작
@@ -86,12 +88,12 @@ def game_over():
         if pygame.key.get_pressed()[pygame.K_w]:
             sp2.room1()
 
-        if pygame.key.get_pressed()[pygame.K_q]:
-            sp3.game_over()
-
         if pygame.key.get_pressed()[pygame.K_e]:
-            sp5.security_room()
+            sp6.security_room()
         
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+
         screen.fill(LIGHT_BLACK)
 
         myFont = pygame.font.SysFont( "microsoftphagspa", 50, True, False)
