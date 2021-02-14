@@ -7,11 +7,14 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+# import Sound_controll, sound2
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import security_room
+
 import time
 import Sound_controll
+
 
 # 시작
 pygame.init() 
@@ -108,6 +111,9 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
 
         # if pygame.key.get_pressed()[pygame.K_q]:
         #     sp3.game_over()
@@ -117,7 +123,6 @@ def maprun():
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
-        
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)
