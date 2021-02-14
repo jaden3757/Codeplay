@@ -40,69 +40,73 @@ def textls(): # 텍스트 수동 입력
             t1.reset("..")
         ch = 0
 
-password = 18392
+def security_room():
+    password = 18392
+    while run:
+        # 세팅 [ 건드리지 말아야 할 것]
+        screen.fill(LIGHT_BLACK)
+        # // All_event [이벤트창]
 
-while run:
-    # 세팅 [ 건드리지 말아야 할 것]
-    screen.fill(LIGHT_BLACK)
-    # // All_event [이벤트창]
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            run = False
+        # // Mouse_click
+        if pygame.key.get_pressed()[pygame.K_w]:
+            sp2.room1()
 
-    event = pygame.event.poll()
-    if event.type == pygame.QUIT:
-        run = False
-    # // Mouse_click
-    if pygame.key.get_pressed()[pygame.K_m]:
-        changemap(4)
-    if pygame.key.get_pressed()[pygame.K_q]:
-        changemap(1)
+        if pygame.key.get_pressed()[pygame.K_q]:
+            sp3.game_over()
 
-    btn = button("ENTER PASSWORD", 240, 40, (screen_width/2 - 90), (screen_height/2) - 100)
-    btn.draw()
-    btn.check()
-    btn.textsize = (2)
-    clicked = btn.clicking()
+        if pygame.key.get_pressed()[pygame.K_e]:
+            sp5.security_room()
 
-    if clicked == True:
-        print("accepted clicking")
-        time.sleep(0.2)
+        btn = button("ENTER PASSWORD", 240, 40, (screen_width/2 - 90), (screen_height/2) - 100)
+        btn.draw()
+        btn.check()
+        btn.textsize = (2)
+        clicked = btn.clicking()
 
-        root = Tk()
-        root.title("GUI")
-        # root.geometry("640x480")
-        root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
+        if clicked == True:
+            print("accepted clicking")
+            time.sleep(0.2)
 
-        root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
+            root = Tk()
+            root.title("GUI")
+            # root.geometry("640x480")
+            root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
 
-        label1 = Label(root, text="Enter password", bg="gray")
-        
-        label1.pack()
-        e = Entry(root, width=20)
-        e.pack()
-        e.insert(0, "")
+            root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
 
-        def btncmd():
-            global password
-            value = e.get()
+            label1 = Label(root, text="Enter password", bg="gray")
+            
+            label1.pack()
+            e = Entry(root, width=20)
+            e.pack()
+            e.insert(0, "")
 
-            value = int(value)
+            def btncmd():
+                global password
+                value = e.get()
 
-            if password == value:
-                print("Correct!!")
-                root.destroy()
-            else:
-                print("Worng!!")
+                value = int(value)
 
-            print(e.get())
-            e.delete(0, END)
+                if password == value:
+                    print("Correct!!")
+                    root.destroy()
+                else:
+                    print("Worng!!")
 
-        btn = Button(root, fg = "white", bg = "gray" ,text="Enter", command=btncmd)
-        btn.place(x = 100, y = 50)
+                print(e.get())
+                e.delete(0, END)
 
-        root.configure(bg='gray')
-        root.mainloop()
+            btn = Button(root, fg = "white", bg = "gray" ,text="Enter", command=btncmd)
+            btn.place(x = 100, y = 50)
 
-    #fin [끝]
-    pygame.display.flip()
-    clock.tick(60)
+            root.configure(bg='gray')
+            root.mainloop()
 
-pygame.quit()
+        #fin [끝]
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()

@@ -6,7 +6,8 @@ from module1 import *
 from but import *
 from main1 import * #main
 from item import *
-
+# from sp2 import *
+import sp2
 
 LIGHT_BLACK = (50, 50, 50)
 # 시작
@@ -48,21 +49,25 @@ def textls(): # 텍스트 수동 입력
 # variable.textsize = (텍스트사이즈)
 
 # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
-holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
+# holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
 
 def game_over():
+    global BLACK
+    global LIGHT_BLACK
     sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
 
     pygame.mixer.music.load(sound)
 
     pygame.mixer.music.play(-1)
 
+    run = True
+    
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         # screen.fill(pygame.color.Color(50, 50, 50))
         # pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력]
-        holy.draw()
+        # holy.draw()
 
         # UI
         # prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
@@ -76,11 +81,16 @@ def game_over():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy)
-        if pygame.key.get_pressed()[pygame.K_m]:
-            changemap(4)
+            # itemcheck(holy)
+
+        if pygame.key.get_pressed()[pygame.K_w]:
+            sp2.room1()
+
         if pygame.key.get_pressed()[pygame.K_q]:
-            changemap(1)
+            sp3.game_over()
+
+        if pygame.key.get_pressed()[pygame.K_e]:
+            sp5.security_room()
         
         screen.fill(LIGHT_BLACK)
 
