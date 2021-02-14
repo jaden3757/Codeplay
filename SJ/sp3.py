@@ -56,10 +56,8 @@ def textls(): # 텍스트 수동 입력
 def game_over():
     global BLACK
     global LIGHT_BLACK
-    sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
-
+    sound = ("Planets.mp3")
     pygame.mixer.music.load(sound)
-
     pygame.mixer.music.play(-1)
 
     run = True
@@ -87,12 +85,15 @@ def game_over():
 
         if pygame.key.get_pressed()[pygame.K_w]:
             sp2.room1()
+            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_e]:
             sp6.security_room()
+            pygame.mixer.music.stop()
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
 
         screen.fill(LIGHT_BLACK)
 

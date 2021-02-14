@@ -49,9 +49,15 @@ def textls(): # 텍스트 수동 입력
             t1.reset("..")
         ch = 0
 
+
+
 def room1():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
     run = True
+
+    sound = ("Cynthia.mp3")
+    pygame.mixer.music.load(sound)
+    pygame.mixer.music.play(-1)
 
     while run:
         password = 10293
@@ -66,6 +72,7 @@ def room1():
         drawui()
         textls()
         textprinting()
+        
         # // All_event [이벤트창]
         event = pygame.event.poll()
         if event.type == pygame.QUIT:

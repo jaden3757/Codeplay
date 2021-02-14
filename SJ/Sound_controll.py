@@ -23,26 +23,26 @@ def sound_controll():
         print("volume down")
         time.sleep(0.2)
 
-        btn_up = Button(root, width = 11, height = 2, text = "Volume Up", command = v_up)
-        btn_up.place(x = 50, y = 20)
+    btn_up = Button(root, width = 11, height = 2, text = "Volume Up", command = v_up)
+    btn_up.place(x = 50, y = 20)
 
-        btn_down = Button(root, width = 11, height = 2, text = "Volume Down", command = v_down)
-        btn_down.place(x = 50, y = 70)
+    btn_down = Button(root, width = 11, height = 2, text = "Volume Down", command = v_down)
+    btn_down.place(x = 50, y = 70)
 
-        mute = IntVar() #여기에 int형으로 값을 저장
-        mute_button = Radiobutton(root, text="pause", value=1, variable=mute) # value 가 숫자면 variable의 상태가 Int으로 적어야함
-        mute_button.place(x = 50, y = 130)
-        mute_button = Radiobutton(root, text="unpause", value=2, variable=mute) # value 가 숫자면 variable의 상태가 Int으로 적어야함
-        mute_button.place(x = 50, y = 170)
+    mute = IntVar() #여기에 int형으로 값을 저장
+    mute_button = Radiobutton(root, text="pause", value=1, variable=mute) # value 가 숫자면 variable의 상태가 Int으로 적어야함
+    mute_button.place(x = 50, y = 130)
+    mute_button = Radiobutton(root, text="unpause", value=2, variable=mute) # value 가 숫자면 variable의 상태가 Int으로 적어야함
+    mute_button.place(x = 50, y = 170)
 
-        mute_value = mute.get()
-        print(mute_value)
+    mute_value = mute.get()
+    print(mute_value)
                 
-        if mute_value == 1:
-            pygame.mixer.music.pause()
-            time.sleep(0.2)
-        elif mute_value == 2:
-            pygame.mixer.music.unpause()
-            time.sleep(0.2)
+    if mute_value == 1:
+        pygame.mixer.music.pause()
+        time.sleep(0.2)
+    elif mute_value == 2:
+        pygame.mixer.music.unpause()
+        time.sleep(0.2)
 
     root.mainloop()
