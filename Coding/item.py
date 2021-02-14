@@ -221,7 +221,8 @@ class showitems():
                                 if self.storage + self.clicking_i_a <= 100:
                                     self.massitem = self.clicking_i.txt
                                     del self.buttonlist[self.buttonnum]
-                                    del self.isinv.item[self.buttonnum]
+                                    delxllist(self.isinv.item[0], self.isinv.item[1], self.buttonnum)
+                                    # del self.isinv.item[self.buttonnum]
                         self.clicking_i_a = 0
                     self.clicking = 0
                 item.draw()
