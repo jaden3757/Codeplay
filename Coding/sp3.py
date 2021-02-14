@@ -7,6 +7,7 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+import Sound_controll, sound
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 
@@ -78,6 +79,8 @@ def maprun():
 
     test_button = button("테스트", 100, 50, 750, 400)
 
+    playsound('Planets.mp3')
+    
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -101,6 +104,9 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)
