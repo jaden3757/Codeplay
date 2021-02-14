@@ -8,9 +8,6 @@ from main1 import * #main
 from item import *
 from excel import *
 
-if __name__ == '__main__':
-    pass
-
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -64,6 +61,8 @@ floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가�
 holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
 holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
+story_button = button("스토리", 100, 50, 750, 400)
+
 while run:
     # 세팅 [ 건드리지 말아야 할 것]
     screen.fill(pygame.color.Color(50, 50, 50))
@@ -76,6 +75,7 @@ while run:
     drawui()
     textls()
     textprinting()
+    story_button.draw()
     # // All_event [이벤트창]
     event = pygame.event.poll()
     if event.type == pygame.QUIT:
@@ -84,6 +84,8 @@ while run:
     if event.type == pygame.MOUSEBUTTONDOWN:
         buttoncheck() # [삭제하면 안되는 것]
         itemcheck(holy)
+        if story_button.check() == 1:
+            pass
     #fin [끝]
     pygame.display.flip()
     clock.tick(60)

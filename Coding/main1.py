@@ -3,7 +3,13 @@
 # import loadingw
 import pygame
 import sys
+from importlib import reload
 from module1 import *
+import openpyxl # pip install openpyxl 필수
+
+wb = openpyxl.load_workbook('itemo.xlsx')
+wb.save('item.xlsx')
+
 from excel import *
 
 item_t = [] #현재 내가 소지중인 아이템 목록 : main시트의 1번째 가로줄( 리스트 형태 )
@@ -21,6 +27,8 @@ while getxl('items', 1, i) != None:
 
 # 주의할 점 : 아이템을 추가할 때는 반드시 item_y 에 고유 값을 지정해줘야함
 
+# ::::::::::::::
+
 def getitem():
     # i = 0
     # itemlist = []
@@ -30,13 +38,62 @@ def getitem():
     #     i += 1
     # return itemlist
     return item_t
-         
+
+o = [0,0,0,0]
+
 def changemap(a):
+    # if a == 0:
+    #     try:
+    #         reload(loadingw)
+    #     except:
+    #         pass
+    #     import loadingw
+    # if a == 1:
+    #     try:
+    #         del sp2
+    #     except:
+    #         pass
+    #     import sp2
+    # if a == 2:
+    #     try:
+    #         del gg
+    #     except:
+    #         pass
+    #     import gg
+    # if a == 3:
+    #     try:
+    #         del story2
+    #     except:
+    #         pass
+    #     import story2
+
+    # if a == 0:
+    #     try:
+    #         import loadingw
+    #     except:
+    #         reload(loadingw)
+    # if a == 1:
+    #     try:
+    #         import sp2
+    #     except:
+    #         reload(sp2)
+    # if a == 2:
+    #     try:
+    #         import gg
+    #     except:
+    #         reload(gg)
+    # if a == 3:
+    #     try:
+    #         import story2
+    #     except:
+    #         reload(story2)
     if a == 0:
         import loadingw
     if a == 1:
         import sp2
     if a == 2:
-        import story
-    
+        import sp3
+    if a == 3:
+        import story2
+
 changemap(0)

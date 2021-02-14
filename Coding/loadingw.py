@@ -48,7 +48,6 @@ while run:
     if event.type == pygame.MOUSEBUTTONDOWN:
         if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
             changemap(1) # main1.py 에 chagemap 함수를 참고하시오
-            # import sample #room1
 
     pygame.display.flip()
     clock.tick(60)
