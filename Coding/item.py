@@ -128,7 +128,7 @@ class showitems():
     lx = 0
     o = 0
     itemlist = []
-    reseted = 0
+    reseted = 0 # 1일 경우 초기화
     il = 0
     fuse = 1
     clicking_i = ""
@@ -142,7 +142,7 @@ class showitems():
     buttonnum = 0
     massitem = 0
     floornm = ''
-    intro = 0
+    intro = 0 # 현재 클릭중인 거 표현
     storage = 0
     def reseted1(self):
         if self.reseted == 1:
@@ -176,8 +176,8 @@ class showitems():
             screen.blit(t_surface, (0,0))
             self.i = 0
             self.il = 40
-            self.reseted1()
-            self.plpl3 = ""
+            self.reseted1() # 리셋 확인
+            self.plpl3 = "" 
             self.intro = 0
             self.storage = 0
             for item in item_t:
@@ -221,7 +221,8 @@ class showitems():
                                 if self.storage + self.clicking_i_a <= 100:
                                     self.massitem = self.clicking_i.txt
                                     del self.buttonlist[self.buttonnum]
-                                    del self.isinv.item[self.buttonnum]
+                                    delxllist(self.isinv.item[0], self.isinv.item[1], self.buttonnum)
+                                    # del self.isinv.item[self.buttonnum]
                         self.clicking_i_a = 0
                     self.clicking = 0
                 item.draw()

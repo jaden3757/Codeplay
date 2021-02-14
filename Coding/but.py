@@ -17,7 +17,8 @@ class button:
     count = 0
     onoff = 1
     font = 'gulim.ttf'
-    item = []
+    item = ['main', 50]
+    thick = 0
     def __init__(self, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -28,6 +29,8 @@ class button:
         if self.onoff == 1:
             if self.check() == 0:
                 pygame.draw.rect(screen, self.color, (self.x, self.y, self.sx, self.sy))
+                if self.thick > 0:
+                    pygame.draw.rect(screen, (100,150,100), (self.x, self.y, self.sx, self.sy), self.thick)
             else:
                 pygame.draw.rect(screen, (self.color[0]/2,self.color[1]/2,self.color[2]/2), (self.x, self.y, self.sx, self.sy))
                 pygame.draw.rect(screen, (255,255,255), (self.x, self.y, self.sx, self.sy), 3 - (self.clicking() * 2))
@@ -93,7 +96,8 @@ class itemobject:
     count = 0
     onoff = 1
     font = 'gulim.ttf'
-    item = ['마음']
+    item = ['main', 50]
+    item_list = []
     def __init__(self, name, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -171,13 +175,15 @@ class itemobject:
 item_button = button("I", 30, 30, 550, 550)
 item_button.color = (100, 0, 0)
 
-itemmode_button = button("View", 80, 30, 470, 550)
+itemmode_button = button("보기방식", 80, 30, 470, 550)
+itemmode_button.textsize = 15
 itemmode_button.color = (20,20,20)
 
-floor_button = button("버려진 아이템", 100, 40, 750, 400)
+floor_button = button("버려진 아이템", 100, 30, 370, 470)
 floor_button.textsize = 15
-floor_button.color = (100,100,100)
-floor_button.item = ['밥', '갑오징어']
+floor_button.color = (20,20,20)
+floor_button.thick = 0
+floor_button.onoff = 0
 
 itemui = showitems()
 itemui.floornm = floor_button
@@ -195,10 +201,12 @@ def drawui():
         itemmode_button.on()
         item_button.y = 470
         itemmode_button.y = 470
+        floor_button.on()
     else:
         itemmode_button.off()
         item_button.y = 550
         itemmode_button.y = 550
+        floor_button.off()
     # print(itemui.storage + itemui.clicking_i_a)
     if itemui.clicking == 1:
         if itemui.isinv == 'inv':
@@ -226,7 +234,8 @@ def drawui():
     if msitem == 0:
         pass
     else:
-        floor_button.item.append(msitem)
+        # floor_button.item.append(msitem)
+        addxllist(floor_button.item[0], floor_button.item[1], msitem)
         msitem = 0
     # if itemui.clicking == 1:
     #     if itemui.isinv == 'inv':
@@ -236,15 +245,15 @@ def drawui():
     mapdraw()
 
 map_onoff = 0
-def itemcheck(buttonnm):
+def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
     if buttonnm.check() == 1:
         if itemui.onoff == 0:
             itemui.mode = 1
             itemui.on()
         else:
-            if itemui.itemlist == buttonnm.item:
+            if itemui.isinv == buttonnm:
                 itemui.off()
-        itemui.itemlist = buttonnm.item
+        itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
         itemui.mousex = 0
         itemui.reseted = 1
         itemui.isinv = buttonnm
