@@ -8,6 +8,8 @@ from main1 import * #main
 from item import *
 # from sp2 import *
 import sp2
+import sp6
+import Sound_controll
 
 LIGHT_BLACK = (50, 50, 50)
 # 시작
@@ -54,10 +56,8 @@ def textls(): # 텍스트 수동 입력
 def game_over():
     global BLACK
     global LIGHT_BLACK
-    sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
-
+    sound = ("Planets.mp3")
     pygame.mixer.music.load(sound)
-
     pygame.mixer.music.play(-1)
 
     run = True
@@ -85,13 +85,16 @@ def game_over():
 
         if pygame.key.get_pressed()[pygame.K_w]:
             sp2.room1()
-
-        if pygame.key.get_pressed()[pygame.K_q]:
-            sp3.game_over()
+            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_e]:
-            sp5.security_room()
+            sp6.security_room()
+            pygame.mixer.music.stop()
         
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
+
         screen.fill(LIGHT_BLACK)
 
         myFont = pygame.font.SysFont( "microsoftphagspa", 50, True, False)
