@@ -6,9 +6,8 @@ from module1 import *
 from but import *
 from main1 import * #main
 from item import *
+from tkinter import *
 
-
-LIGHT_BLACK = (50, 50, 50)
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -48,20 +47,15 @@ def textls(): # 텍스트 수동 입력
 # variable.textsize = (텍스트사이즈)
 
 # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
-holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
-
-sound = ("C:\\Users\\정성환\\Desktop\\pythonworkspace\\Pygame\\pygame_info\\Planets.mp3")
-
-pygame.mixer.music.load(sound)
-
-pygame.mixer.music.play(-1)
+# holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
+# map_image = 
 
 while run:
     # 세팅 [ 건드리지 말아야 할 것]
-    # screen.fill(pygame.color.Color(50, 50, 50))
-    # pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+    screen.fill(pygame.color.Color(50, 50, 50))
+    pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
     # main [여기에 코드 입력]
-    holy.draw()
+    # holy.draw()
 
     # UI
     # prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
@@ -75,12 +69,65 @@ while run:
     # // Mouse_click
     if event.type == pygame.MOUSEBUTTONDOWN:
         buttoncheck() # [삭제하면 안되는 것]
-        itemcheck(holy)
-    if pygame.key.get_pressed()[pygame.K_q]:
-        pass
+        # itemcheck(holy)
+        # screen.blit()
+    if pygame.key.get_pressed()[pygame.K_e]:
+        changemap(3)
+    if pygame.key.get_pressed()[pygame.K_r]:
+        changemap(5)
     
-    screen.fill(LIGHT_BLACK)
-    #fin [끝]
+    # if pygame.key.get_pressed()[pygame.K_m]:
+
+    btn = button("ENTER PASSWORD", 190, 30, (screen_width/2 + 200), (screen_height/2) - 100)
+    btn.draw()
+    btn.check()
+    btn.textsize = (1)
+    clicked = btn.clicking()
+
+    if clicked == True:
+        print("accepted clicking")
+        time.sleep(0.2)
+
+        root = Tk()
+        root.title("GUI")
+        # root.geometry("640x480")
+        root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
+
+        root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
+
+        root.wm_attributes("-topmost", 1)
+
+        label1 = Label(root, text="Enter password", bg="gray")
+        
+        label1.pack()
+        e = Entry(root, width=20)
+        e.pack()
+        e.insert(0, "")
+
+        def btncmd():
+            global password
+            value = e.get()
+
+            value = int(value)
+
+            if password == value:
+                print("Correct!!")
+                root.destroy()
+            else:
+                print("Worng!!")
+
+            print(e.get())
+            e.delete(0, END)
+
+        btn = Button(root, fg = "black", bg = "gray" ,text="Enter", command=btncmd)
+        btn.place(x = 100, y = 50)
+
+        root.configure(bg='gray')
+        root.mainloop()
+
+
+    
+     #fin [끝]
     pygame.display.flip()
     clock.tick(60)
 

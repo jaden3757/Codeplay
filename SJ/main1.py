@@ -37,5 +37,9 @@ def changemap(a):
         import sp3
     if a == 4:
         import sp4
+    if a == 5:
+        import sp5
+    if a == 6:
+        import sp6
 
 changemap(0)
