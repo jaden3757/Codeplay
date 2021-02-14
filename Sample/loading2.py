@@ -51,7 +51,7 @@ def maprun():
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
-                import rooms
+                # import rooms
                 sp3.maprun()
 
         pygame.display.flip()

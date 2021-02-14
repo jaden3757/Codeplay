@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+
+# -*- coding: utf-8 -*-
+
 import pygame
 import sys
 from module1 import *
@@ -9,14 +12,26 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import security_room
+from tkinter import *
+import sp3
+import Sound_controll
+import time
 
+LIGHT_BLACK = (50, 50, 50)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+DARK_WHITE = (180, 180, 180)
+GREEN = (100, 255, 100)
+RED = (255, 50, 50)
+LIGHT_BLACK = (50, 50, 50)
+
+screen_width = 1000
+screen_height = 600
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("Moon Side")
 clock = pygame.time.Clock()
-run = True
 
 # 텍스트관련 [삭제하지 말것]
 scr = 0
@@ -51,11 +66,12 @@ def textls(): # 텍스트 수동 입력
 #    방이름(파일이름).maprun() 으로 다른 방으로 이동
 # 3. 변수 선언은 반드시 maprun함수 안에 해야함(지역변수 문제 때문)
 # 4. 대사 출력은 setscr(a), 대사들은 textls 안에 알아서 만들기
+password = 19020
 
 def maprun():
     global scr
     global ch
-    global run
+    global password
     # 버튼 만드는 곳
     # variable(버튼이름) = button(text, width, height, x좌표, y좌표)
     # variable.draw() // 버튼을 화면에 출력
@@ -84,20 +100,20 @@ def maprun():
     pygame.mixer.music.load(sound)
     pygame.mixer.music.play(-1)
 
+    run = True
+
     while run:
-        password = 10293
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력]
-        holy.draw()
+        # holy.draw()
 
         # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+        # prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
         drawui()
         textls()
         textprinting()
-        
         # // All_event [이벤트창]
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -105,16 +121,67 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy)
+            # itemcheck(holy)
+            # screen.blit()
+        if pygame.key.get_pressed()[pygame.K_w]:
+            sp3.maprun()
 
         # if pygame.key.get_pressed()[pygame.K_q]:
         #     sp3.game_over()
-
-        if pygame.key.get_pressed()[pygame.K_e]:
-            security_room.maprun()
-
+        
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
+
+        btn = button("ENTER PASSWORD", 230, 30, (screen_width/2 + 200), (screen_height/2) - 100)
+        btn.draw()
+        btn.check()
+        btn.textsize = (1)
+        clicked = btn.clicking()
+
+        if clicked == True:
+            print("accepted clicking")
+            time.sleep(0.2)
+
+            root = Tk()
+            root.title("GUI")
+            # root.geometry("640x480")
+            root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
+
+            root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
+
+            root.wm_attributes("-topmost", 1)
+
+            label1 = Label(root, text="Enter password", bg="gray")
+            
+            label1.pack()
+            e = Entry(root, width=20)
+            e.pack()
+            e.insert(0, "")
+
+            def btncmd():
+                global password
+                value = e.get()
+                value = int(value)
+
+                # my_sound.play()
+
+                if password == value:
+                    print("Correct!!")
+                    # door_effect.play()
+                    root.destroy()
+                else:
+                    print("Worng!!")
+
+                print(e.get())
+                e.delete(0, END)
+
+            btn = Button(root, fg = "black", bg = "gray" ,text="Enter", command=btncmd)
+            btn.place(x = 100, y = 50)
+
+            root.configure(bg='gray')
+            root.mainloop()
+
+
         
         #fin [끝]
         pygame.display.flip()
