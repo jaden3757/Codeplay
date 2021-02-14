@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import openpyxl # pip install openpyxl 필수
-wb = openpyxl.load_workbook('itemo.xlsx')
-wb.save('item.xlsx')
+# wb = openpyxl.load_workbook('itemo.xlsx')
+# wb.save('item.xlsx')
 wb = openpyxl.load_workbook('item.xlsx')
 
 # 읽기부분
