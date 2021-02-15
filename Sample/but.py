@@ -10,9 +10,9 @@ screen = pygame.display.set_mode((600, 800))
 clock = pygame.time.Clock()
 
 class button:
-    color = (40,40,40)
+    color = (150,150,0)
     textcolor = (255,255,255)
-    textsize = 20
+    textsize = 25
     cool = 0
     count = 0
     onoff = 1
