@@ -68,7 +68,7 @@ def maprun():
     # test_button.on() : 버튼의 모든 활동 활성화
     # test_button.off() : 버튼의 모든 기능 비활성화 (draw, check 등)
     
-    
+
     # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
     # 활용 예시 (아래 참고)
     # box = itemobject('box.png', '박스', width, height, x, y)
@@ -81,8 +81,12 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
-    test_button = button("테스트", 100, 50, 750, 400)
-    
+    test_button = button("Test", 100, 50, 750, 400)
+    test_button.color = (255,255,255)
+    test_button.textcolor = (0,0,0)
+    test_button.textsize = 30
+    test_button.font = 'moon.otf'
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -105,7 +109,9 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy)
+            if test_button.check() == 1: # 예시입니다
+                setscr(1)
+            itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
