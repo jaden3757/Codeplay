@@ -10,9 +10,9 @@ screen = pygame.display.set_mode((600, 800))
 clock = pygame.time.Clock()
 
 class button:
-    color = (40,40,40)
+    color = (150,150,0)
     textcolor = (255,255,255)
-    textsize = 20
+    textsize = 25
     cool = 0
     count = 0
     onoff = 1
@@ -172,6 +172,93 @@ class itemobject:
     def off(self):
         self.onoff = 0
 
+class imagebutton:
+    color = (150,150,0)
+    textcolor = (255,255,255)
+    textsize = 15
+    cool = 0
+    count = 0
+    onoff = 1
+    font = 'gulim.ttf'
+    item = ['main', 50]
+    item_list = []
+    def __init__(self, name, sx, sy, x, y):
+        self.sx = sx
+        self.sy = sy
+        self.x = x
+        self.y = y
+        self.name = name
+        self.img = pygame.image.load(self.name)
+        self.img = pygame.transform.scale(self.img, (self.sx, self.sy))
+    def draw(self):
+        if self.onoff == 1:
+            screen.blit(self.img, [self.x, self.y])
+            #primg2(self.name, self.x, self.y)
+            # if self.check() == 0 or itemui.clicking == 1:
+            #     pass
+            # else:
+            #     t_surface = screen.convert_alpha()
+            #     t_surface.fill((0,0,0,0))
+            #     pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+            #     screen.blit(t_surface, (0,0))
+            #     self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+        else:
+            pass
+    def check(self):
+        if self.onoff == 1:
+            if pygame.mouse.get_pos()[0] > self.x and pygame.mouse.get_pos()[0] < self.x + self.sx:
+                if pygame.mouse.get_pos()[1] > self.y and pygame.mouse.get_pos()[1] < self.y + self.sy:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            return 0
+    def clicked(self):
+        if self.onoff == 1:
+            if pygame.mouse.get_pressed()[0]:
+                if self.check() == 1:
+                    if self.cool == 0:
+                        self.cool = 1
+                        return 1
+                    else:
+                        return 0
+                else:
+                    self.cool = 0
+                    return 0
+            else:
+                self.cool = 0
+                return 0
+        else:
+            return 0
+    def clicking(self):
+        if self.onoff == 1:
+            if pygame.mouse.get_pressed()[0]:
+                if self.check() == 1:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            return 0
+    def prtext(self, txt, sz, x, y):
+        myFont = pygame.font.Font(self.font, sz)
+        text_title = myFont.render(txt, False, self.textcolor)
+        t_rect = text_title.get_rect()
+        t_rect.centerx = x
+        t_rect.centery = y
+        screen.blit(text_title, t_rect)
+    def on(self):
+        self.onoff = 1
+    def off(self):
+        self.onoff = 0
+    def changeimg(self, nm):
+        self.img = pygame.image.load(nm)
+        self.img = pygame.transform.scale(self.img, (self.sx, self.sy))
+
+
 item_button = button("I", 30, 30, 550, 550)
 item_button.color = (100, 0, 0)
 
@@ -231,6 +318,9 @@ def drawui():
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
+    # draw hunger
+    prtext2(str(hunger), 20, 30, 50)
+
     if msitem == 0:
         pass
     else:

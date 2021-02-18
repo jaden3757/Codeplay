@@ -302,3 +302,5 @@ class showitems():
             pygame.draw.rect(t_surface, (0,0,0,200), lll)
             screen.blit(t_surface, (0,0))
             prtextm(txt, 20, x, y)
+    def use(self, itemn):
+        pass

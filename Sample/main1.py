@@ -18,6 +18,8 @@ item_t = getxllist('main', 1)
 item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3번째 세로줄
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
 
+hunger = 100
+
 i = 1
 while getxl('items', 1, i) != None:
     item_s[getxl('items', 1, i)] = getxl('items', 3, i)
