@@ -6,8 +6,12 @@ from module1 import *
 from but import *
 from main1 import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
+<<<<<<< HEAD
 import start_room
 import production_facility
+=======
+import sp3
+>>>>>>> 27f65886b3409f6818745eeb1157d9e2583e4065
 
 font1 = 'gulim.ttf'
 
@@ -20,12 +24,12 @@ clock = pygame.time.Clock()
 run = True
 loading1 = True
 
-pygame.mixer.init()
-pygame.mixer.music.load('sounds\\Planets.mp3')
-pygame.mixer.music.play(-1)
-
 def maprun():
     global run
+    pygame.mixer.init()
+    pygame.mixer.music.load('sounds\\Planets.mp3')
+    pygame.mixer.music.play(-1)
+
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
     ri = -2
@@ -113,7 +117,11 @@ def maprun():
             pygame.draw.rect(tsurface, (0,0,0,fade*2), [0,0,1000,600])
             fade += 6
             if fade > 125:
+<<<<<<< HEAD
                 start_room.maprun()
+=======
+                sp3.maprun()
+>>>>>>> 27f65886b3409f6818745eeb1157d9e2583e4065
         # //All event
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
