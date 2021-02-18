@@ -101,7 +101,6 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
-<<<<<<< HEAD
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
@@ -115,8 +114,6 @@ def maprun():
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
-=======
->>>>>>> 6afaad614979097a28bf70277876d1df3b6b7688
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)

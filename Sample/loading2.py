@@ -20,13 +20,10 @@ clock = pygame.time.Clock()
 run = True
 loading1 = True
 
-<<<<<<< HEAD
 pygame.mixer.init()
-pygame.mixer.music.load('C:\\Users\\HS\\Desktop\\awesome file\\git\\Codeplay\\Sample\\sounds\\Planets.mp3')
+pygame.mixer.music.load('sounds\\Planets.mp3')
 pygame.mixer.music.play(-1)
 
-=======
->>>>>>> 6afaad614979097a28bf70277876d1df3b6b7688
 def maprun():
     global run
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
@@ -37,7 +34,6 @@ def maprun():
 
     play_button = imagebutton('images\\idle.png', 300, 150, 530, 280)
 
-<<<<<<< HEAD
     # pygame.mixer.music.load("Planets.mp3")
     # pygame.mixer.music.play(-1)
     # sound.playsound('Planets.mp3')
@@ -54,8 +50,6 @@ def maprun():
         pygame.display.flip()
         clock.tick(60)
     
-=======
->>>>>>> 6afaad614979097a28bf70277876d1df3b6b7688
     while run:
         scrclear = 1
         if scrclear == 1:
@@ -127,11 +121,8 @@ def maprun():
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
-<<<<<<< HEAD
                 # import rooms
-=======
                 import rooms
->>>>>>> 6afaad614979097a28bf70277876d1df3b6b7688
                 sp3.maprun()
             if play_button.check() == 1:
                 pygame.mixer.music.stop()
