@@ -5,18 +5,17 @@
 
 import pygame
 import sys
+from tkinter import *
 from module1 import *
 from but import *
-from main1 import * #main
+# from main1 import * #main
 from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-from tkinter import *
 import sp3
 import Sound_controll
 import time
-
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -72,22 +71,9 @@ def maprun():
     global scr
     global ch
     global password
-    # 버튼 만드는 곳
-    # variable(버튼이름) = button(text, width, height, x좌표, y좌표)
-    # variable.draw() // 버튼을 화면에 출력
-    # variable.check() // 버튼 위에 마우스가 있다면 1, 아니면 0출력
-    # variable.color = (R,G,B) // 버튼 색 설정
-    # variable.textcolor = (R,G,B) // 텍스트 색 설정
-    # variable.textsize = (텍스트사이즈)
 
     sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
-
-    # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
-    # 활용 예시 (아래 참고)
-    # box = itemobject('box.png', '박스', width, height, x, y)
-    # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
     # | 여기부터 자유롭게 추가 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
@@ -96,9 +82,9 @@ def maprun():
     test_button = button("테스트", 100, 50, 750, 400)
     run = True
 
-    sound = ("Cynthia.mp3")
-    pygame.mixer.music.load(sound)
-    pygame.mixer.music.play(-1)
+    # sound = ("Cynthia.mp3")
+    # pygame.mixer.music.load(sound)
+    # pygame.mixer.music.play(-1)
 
     run = True
 
@@ -123,20 +109,25 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             # itemcheck(holy)
             # screen.blit()
-        if pygame.key.get_pressed()[pygame.K_w]:
-            sp3.maprun()
-
-        # if pygame.key.get_pressed()[pygame.K_q]:
-        #     sp3.game_over()
+        # if pygame.key.get_pressed()[pygame.K_w]:
+        #     sp3.maprun()
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
 
-        btn = button("ENTER PASSWORD", 230, 30, (screen_width/2 + 200), (screen_height/2) - 100)
+        goto_b = button("B-HALL", 230, 30, (screen_width/2 + 195), (screen_height/2) - 180)
+        goto_b.draw()
+        goto_b.check()
+        goto_b_clicked = goto_b.clicking()
+
+        btn = button("ENTER PASSWORD", 230, 30, (screen_width/2 + 195), (screen_height/2) - 130)
         btn.draw()
         btn.check()
         btn.textsize = (1)
         clicked = btn.clicking()
+
+        if goto_b_clicked:
+            sp3.maprun()
 
         if clicked == True:
             print("accepted clicking")
@@ -146,11 +137,8 @@ def maprun():
             root.title("GUI")
             # root.geometry("640x480")
             root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
-
             root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
-
             root.wm_attributes("-topmost", 1)
-
             label1 = Label(root, text="Enter password", bg="gray")
             
             label1.pack()
@@ -180,8 +168,6 @@ def maprun():
 
             root.configure(bg='gray')
             root.mainloop()
-
-
         
         #fin [끝]
         pygame.display.flip()

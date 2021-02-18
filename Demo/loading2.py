@@ -5,8 +5,10 @@ import sys
 from module1 import *
 from but import *
 from main1 import *
+# import Sound_controll, sound2
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import sp3
+from sound import *
 
 font1 = 'gulim.ttf'
 
@@ -19,12 +21,19 @@ clock = pygame.time.Clock()
 run = True
 loading1 = True
 
+# pygame.mixer.init()
+# pygame.mixer.music.load("Planets.mp3")
+# pygame.mixer.music.play(-1)
+
 def maprun():
     global run
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
     ri = 0
 
+    # pygame.mixer.music.load("Planets.mp3")
+    # pygame.mixer.music.play(-1)
+    # sound.playsound('Planets.mp3')
     while run:
         scrclear = 1
         if scrclear == 1:
@@ -51,7 +60,6 @@ def maprun():
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
-                import rooms
                 sp3.maprun()
 
         pygame.display.flip()

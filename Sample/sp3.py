@@ -7,7 +7,6 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
-# import Sound_controll, sound2
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 
@@ -78,26 +77,22 @@ def maprun():
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
     test_button = button("테스트", 100, 50, 750, 400)
-    run = True
-
-    sound = ("Cynthia.mp3")
-    pygame.mixer.music.load(sound)
-    pygame.mixer.music.play(-1)
 
     while run:
-        password = 10293
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-        # main [여기에 코드 입력]
+        # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
 
         # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
-        
+        # 버튼 그리는 곳
+        test_button.draw()
+
         # // All_event [이벤트창]
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -106,6 +101,7 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
+<<<<<<< HEAD
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
@@ -119,9 +115,10 @@ def maprun():
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
+=======
+>>>>>>> 6afaad614979097a28bf70277876d1df3b6b7688
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)
 
     pygame.quit()
-
