@@ -16,6 +16,7 @@ import loading2
 import sp3
 import Sound_controll
 import time
+
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
