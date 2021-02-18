@@ -3,7 +3,6 @@
 # import loadingw
 import pygame
 import sys
-from importlib import reload
 from module1 import *
 import openpyxl # pip install openpyxl 필수
 
@@ -18,6 +17,8 @@ item_t = getxllist('main', 1)
 # item_y = {'지도' : 10, '손전등' : 10, '창고열쇠' : 10, '보안키' : 10, '연구일지' : 20, '오징어 맛살' : 10, '똥' : 10, '500원' : 10, '마음' : 0, '밥' : 10, '갑오징어' : 50} # 아이템의 고유 값(무게)
 item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3번째 세로줄
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
+
+hunger = 100
 
 i = 1
 while getxl('items', 1, i) != None:

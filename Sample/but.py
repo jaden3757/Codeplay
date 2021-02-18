@@ -318,6 +318,9 @@ def drawui():
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
+    # draw hunger
+    prtext2(str(hunger), 20, 30, 50)
+
     if msitem == 0:
         pass
     else:

@@ -7,25 +7,8 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
-# import Sound_controll, sound2
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import security_room
-
-import time
-import Sound_controll
-import sound
-
-screen_width = 1000
-screen_height = 600
-
-LIGHT_BLACK = (50, 50, 50)
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-DARK_WHITE = (180, 180, 180)
-GREEN = (100, 255, 100)
-RED = (255, 50, 50)
-LIGHT_BLACK = (50, 50, 50)
 
 # 시작
 pygame.init() 
@@ -94,34 +77,23 @@ def maprun():
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
     test_button = button("테스트", 100, 50, 750, 400)
-    run = True
-
-    #sound.py모듈을 불러와 cynthia.mp3출력
-    sound.play_cynthia_S()
 
     while run:
-        password = 10293
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-        # main [여기에 코드 입력]
+        # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
 
         # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
-        
-        # // All_event [이벤트창]
-        btn = button("SECURITY ROOM", 230, 30, (screen_width/2 + 195), (screen_height/2) - 180)
-        btn.draw()
-        btn.check()
-        btn.textsize = (1)
-        clicked = btn.clicking()
-        if clicked:
-            security_room.maprun()
+        # 버튼 그리는 곳
+        test_button.draw()
 
+        # // All_event [이벤트창]
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
@@ -129,19 +101,16 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
-
-        # if pygame.key.get_pressed()[pygame.K_q]:
-        #     sp3.game_over()
-
-        if pygame.key.get_pressed()[pygame.K_e]:
-            security_room.maprun()
+        
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
+        
         #fin [끝]
-        # screen.blit(text_Title,((screen_width/2) + 195, (screen_height/2) - 200))
         pygame.display.flip()
         clock.tick(60)
 
     pygame.quit()
-
