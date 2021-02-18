@@ -101,15 +101,10 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             itemcheck(holy)
+        
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
-
-        # if pygame.key.get_pressed()[pygame.K_q]:
-        #     sp3.game_over()
-
-        if pygame.key.get_pressed()[pygame.K_e]:
-            security_room.maprun()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
