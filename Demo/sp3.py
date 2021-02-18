@@ -63,20 +63,29 @@ def maprun():
     # variable.textcolor = (R,G,B) // 텍스트 색 설정
     # variable.textsize = (텍스트사이즈)
 
-    sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    #                *버튼 활용법*
+    # test_button.check() : 마우스가 위에 올려져 있으면 1을, 아니면 0을 리턴
+    # test_button.on() : 버튼의 모든 활동 활성화
+    # test_button.off() : 버튼의 모든 기능 비활성화 (draw, check 등)
     
-    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
     # 활용 예시 (아래 참고)
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
+    sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+
     # | 여기부터 자유롭게 추가 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
-    test_button = button("테스트", 100, 50, 750, 400)
+    test_button = button("Test", 100, 50, 750, 400)
+    test_button.color = (255,255,255)
+    test_button.textcolor = (0,0,0)
+    test_button.textsize = 30
+    test_button.font = 'moon.otf'
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -100,7 +109,9 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy)
+            if test_button.check() == 1: # 예시입니다
+                setscr(1)
+            itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

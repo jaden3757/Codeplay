@@ -4,6 +4,7 @@ from module1 import *
 from but import *
 from main1 import * #main
 from tkinter import *
+import time
 # from sp3 import *
 
 def sound_controll():

@@ -13,9 +13,11 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import sp3
+import start_room
 import Sound_controll
 import time
+import production_facility
+
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -59,7 +61,7 @@ def textls(): # 텍스트 수동 입력
         ch = 0
 
 #                       *중요*
-# 1. sheetname을 파일 이름으로 예시) sp3.py 면 'sp3'
+# 1. sheetname을 파일 이름으로 예시) start_room.py 면 'start_room'
 #    + itemo.xlsx에 파일 이름으로 시트를 추가해야함 (.py 빼고)
 # 2. 방을 이어지게(파일 오가기) 하고 싶다면 알아서 임포트 하고
 #    방이름(파일이름).maprun() 으로 다른 방으로 이동
@@ -67,10 +69,15 @@ def textls(): # 텍스트 수동 입력
 # 4. 대사 출력은 setscr(a), 대사들은 textls 안에 알아서 만들기
 password = 19020
 
+btn_on = False
+btn_on1 = False
+
 def maprun():
     global scr
     global ch
     global password
+    global btn_on
+    global btn_on1
 
     sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
@@ -87,6 +94,16 @@ def maprun():
     # pygame.mixer.music.play(-1)
 
     run = True
+
+    goto_b = button("B-HALL", 230, 30, (screen_width/2 + 195), (screen_height/2) - 180)
+    goto_b.check()
+    goto_b.textsize = (20)
+    goto_b.color = (30, 30, 30)
+
+    btn = button("ENTER PASSWORD", 230, 30, (screen_width/2 + 195), (screen_height/2) - 130)
+    btn.check()
+    btn.textsize = (20)
+    btn.color = (30, 30, 30)
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -110,24 +127,53 @@ def maprun():
             # itemcheck(holy)
             # screen.blit()
         # if pygame.key.get_pressed()[pygame.K_w]:
-        #     sp3.maprun()
-        
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
+        #     start_room.maprun()
 
-        goto_b = button("B-HALL", 230, 30, (screen_width/2 + 195), (screen_height/2) - 180)
-        goto_b.draw()
-        goto_b.check()
         goto_b_clicked = goto_b.clicking()
-
-        btn = button("ENTER PASSWORD", 230, 30, (screen_width/2 + 195), (screen_height/2) - 130)
-        btn.draw()
-        btn.check()
-        btn.textsize = (1)
+        
         clicked = btn.clicking()
 
-        if goto_b_clicked:
-            sp3.maprun()
+        exploration = button("집중 탐사", 100, 50, 650, 500)
+        exploration.color = (255,255,255)
+        exploration.textcolor = (000,000,000)
+        exploration.textsize = (20)
+        exploration.draw()
+        clicked5 = exploration.clicking()
+        if clicked5 == True:
+            setscr(1)
+            btn_on1 = True
+        
+        if btn_on1 == True:
+            btn.draw()
+
+        see = button("바닥 보기", 100, 50, 850, 500)
+        see.color = (255,255,255)
+        see.textcolor = (000,000,000)
+        see.textsize = (20)
+        see.draw()
+        see.check()
+        clicked1 = see.clicking()
+        if clicked1 == True:
+            setscr(2)
+
+        way = button("이동 목록", 100, 40, 750, 360)
+        way.color = (255,255,255)
+        way.textcolor = (000,000,000)
+        way.textsize = (20)
+        way.draw()
+        way.check()
+        clicked2 = way.clicking()
+        if clicked2 == True:
+            setscr(3)
+            btn_on = True
+
+        if btn_on == True:
+            goto_b.draw()
+            if goto_b_clicked:
+                start_room.maprun()
+
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
 
         if clicked == True:
             print("accepted clicking")
