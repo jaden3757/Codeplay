@@ -19,12 +19,12 @@ clock = pygame.time.Clock()
 run = True
 loading1 = True
 
-pygame.mixer.init()
-pygame.mixer.music.load('sounds\\Planets.mp3')
-pygame.mixer.music.play(-1)
-
 def maprun():
     global run
+    pygame.mixer.init()
+    pygame.mixer.music.load('sounds\\Planets.mp3')
+    pygame.mixer.music.play(-1)
+
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
     ri = -2

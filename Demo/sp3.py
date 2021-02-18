@@ -111,6 +111,7 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if test_button.check() == 1: # 예시입니다
                 setscr(1)
+                loading2.maprun()
             itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
