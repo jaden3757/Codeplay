@@ -7,3 +7,4 @@ print("hello")
 printf{"Hello"};
 finish Hello
 ㅇㅇㄴㅇ
+니 똥 굵다

@@ -3,7 +3,6 @@
 # import loadingw
 import pygame
 import sys
-from importlib import reload
 from module1 import *
 import openpyxl # pip install openpyxl 필수
 
