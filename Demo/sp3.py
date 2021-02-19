@@ -76,12 +76,12 @@ def maprun():
 
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     movelist = False
-    sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
+    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
     move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
     move_button.color = (255,255,255)
