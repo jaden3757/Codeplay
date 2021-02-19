@@ -405,3 +405,6 @@ def textprinting(): # 텍스트 출력
 
 def textprinting2(): # 텍스트 출력
     t1.printing(0, 1)
+
+def firstsetting():
+    itemui.off()

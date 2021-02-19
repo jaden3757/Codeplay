@@ -9,6 +9,7 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
+import sp3
 
 # 시작
 pygame.init() 
@@ -74,6 +75,9 @@ def maprun():
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
+    # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
+    firstsetting()
+    movelist = False
     sheetname = 'b_hall' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
@@ -118,8 +122,6 @@ def maprun():
     manage_button.textsize = 20
     manage_button.font = 'pixel.ttf'
 
-    movelist = False
-
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -132,7 +134,7 @@ def maprun():
         box5.draw()
 
         # UI
-        prtext4("ROOMNUM | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("B홀 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -177,6 +179,8 @@ def maprun():
             itemcheck(box3)
             itemcheck(box4)
             itemcheck(box5)
+            if security_button.check() == 1:
+                sp3.maprun()
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
