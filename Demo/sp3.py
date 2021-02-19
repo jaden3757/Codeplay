@@ -35,7 +35,7 @@ def textls(): # 텍스트 수동 입력
             t1.reset("> 샘플 맵입니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
-            t1.reset("..")
+            t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("..")
         # if scr == i: # i번째 대사 (샘플)
@@ -74,18 +74,25 @@ def maprun():
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
+    # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
+    movelist = False
     sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
-    # | 여기부터 자유롭게 추가 |
+    # | 여기부터 자유롭게 추가 또는 변경 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
-    test_button = button("Test", 100, 50, 750, 400)
-    test_button.color = (255,255,255)
-    test_button.textcolor = (0,0,0)
-    test_button.textsize = 30
-    test_button.font = 'moon.otf'
+    move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
+    move_button.color = (255,255,255)
+    move_button.textcolor = (0,0,0)
+    move_button.textsize = 22
+    move_button.font = 'pixel.ttf'
+
+    lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
+    lower_button.color = (0,0,0)
+    lower_button.textsize = 20
+    lower_button.font = 'pixel.ttf'
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -94,27 +101,37 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
 
-        # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
+        # | UI |
+        prtext2("ROOMNAME | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
-        # 버튼 그리는 곳
-        test_button.draw()
 
-        # // All_event [이벤트창]
+        # | 버튼 그리는 곳 |
+        if movelist == True: # 이동목록 켜진 경우
+            move_button.txt = '< 뒤로'
+            lower_button.on()
+        else: # 꺼진 경우
+            move_button.txt = '이동목록'
+            lower_button.off()
+
+        move_button.draw()
+        lower_button.draw()
+
+        # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            if test_button.check() == 1: # 예시입니다
-                setscr(1)
-<<<<<<< HEAD
-=======
-                loading2.maprun()
->>>>>>> 27f65886b3409f6818745eeb1157d9e2583e4065
+            if move_button.check() == 1: # 예시입니다
+                if movelist == True:
+                    setscr(0)
+                    movelist = False
+                elif movelist == False:
+                    setscr(1)
+                    movelist = True
             itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
@@ -129,3 +146,6 @@ def maprun():
         clock.tick(60)
 
     pygame.quit()
+
+if __name__ == '__main__':
+    maprun()

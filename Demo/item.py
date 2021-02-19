@@ -253,6 +253,9 @@ class showitems():
                 prtext2(self.plpl2 + " | " + self.plpl + " | " + self.plpl3, 15, 40, 510)
             else:
                 prtext2(self.plpl3, 15, 40, 510)
+            if len(self.buttonlist) == 0:
+                prtextm('비어 있습니다, 다른 오브젝트를 찾으십시오.', 20, 300, 555)
+
             self.lx = pygame.mouse.get_pos()[0]
             self.o = 1
             if pygame.mouse.get_pressed()[0] == 0:

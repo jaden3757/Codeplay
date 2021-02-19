@@ -295,6 +295,9 @@ def drawui():
         itemmode_button.y = 550
         floor_button.off()
     # print(itemui.storage + itemui.clicking_i_a)
+    # draw hunger
+    prtext2(str(hunger), 20, 30, 50)
+
     if itemui.clicking == 1:
         if itemui.isinv == 'inv':
             if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
@@ -318,8 +321,6 @@ def drawui():
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
-    # draw hunger
-    prtext2(str(hunger), 20, 30, 50)
 
     if msitem == 0:
         pass
@@ -344,6 +345,7 @@ def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
             if itemui.isinv == buttonnm:
                 itemui.off()
         itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
+        itemui.itemlist.pop(0)
         itemui.mousex = 0
         itemui.reseted = 1
         itemui.isinv = buttonnm
