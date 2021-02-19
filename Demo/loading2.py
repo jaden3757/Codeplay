@@ -6,14 +6,11 @@ from module1 import *
 from but import *
 from main1 import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
-<<<<<<< HEAD
 import sp3
 import b_hall
-=======
 import start_room
 import production_facility
 import sp3
->>>>>>> aecc454b51b98e6f34468f39e23ba2310c665a88
 
 font1 = 'gulim.ttf'
 
@@ -119,12 +116,7 @@ def maprun():
             pygame.draw.rect(tsurface, (0,0,0,fade*2), [0,0,1000,600])
             fade += 6
             if fade > 125:
-<<<<<<< HEAD
-                b_hall.maprun()
-=======
-                start_room.maprun()
                 sp3.maprun()
->>>>>>> aecc454b51b98e6f34468f39e23ba2310c665a88
         # //All event
         event = pygame.event.poll()
         if event.type == pygame.QUIT:

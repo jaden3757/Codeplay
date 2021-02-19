@@ -125,7 +125,6 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-<<<<<<< HEAD
             if move_button.check() == 1: # 예시입니다
                 if movelist == True:
                     setscr(0)
@@ -133,11 +132,6 @@ def maprun():
                 elif movelist == False:
                     setscr(1)
                     movelist = True
-=======
-            if test_button.check() == 1: # 예시입니다
-                setscr(1)
-                loading2.maprun()
->>>>>>> aecc454b51b98e6f34468f39e23ba2310c665a88
             itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
