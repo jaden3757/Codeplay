@@ -144,8 +144,10 @@ class showitems():
     floornm = ''
     intro = 0 # 현재 클릭중인 거 표현
     storage = 0
+    intro2 = ['None', 0, 0] # [가장 최근에 클릭된 아이템, 온오프, 번호]
     def reseted1(self):
         if self.reseted == 1:
+            self.intro2 = ['None', 0]
             # for item in self.buttonlist:
             #     del item
             self.buttonlist = []
@@ -180,6 +182,8 @@ class showitems():
             self.plpl3 = "" 
             self.intro = 0
             self.storage = 0
+            if pygame.mouse.get_pressed()[2] == False:
+                self.introtiming = 0
             for item in item_t:
                 self.storage += item_y[item]
             # buttonlist
@@ -205,6 +209,15 @@ class showitems():
                         self.plpl3 = item.txt + "[" + str(item_y[item.txt]) + "]"
                 if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and item.clicking2() == 1 and self.mode == 0:
                     self.intro = item.txt
+                    if self.introtiming == 0:
+                        if self.intro2[0] == item.txt and self.intro2[2] == self.i:
+                            if self.intro2[1] == 0:
+                                self.intro2[1] = 1
+                            else:
+                                self.intro2[1] = 0
+                        else:
+                            self.intro2 = [item.txt, 1, self.i]
+                    self.introtiming = 1
                 if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and self.mode == 0 and item.clicking() == 1 and self.clicking == 0:
                     self.clicking_i = item
                     self.clicking_i_a = item_y[item.txt]
@@ -244,7 +257,7 @@ class showitems():
             if self.mode == 1:
                 self.plpl = "좌우 드래그로 살펴보기"
             else:
-                self.plpl = "아이템 이동 / 상호작용"
+                self.plpl = "좌클릭 : 아이템 이동 / 우클릭 : 상호작용"
             if self.isinv == 'inv':
                 self.plpl2 = "소지품 " + str(self.storage) + "/100"
             else:
@@ -294,6 +307,7 @@ class showitems():
         self.onoff = 0
         self.mousex = 0
         self.o = 0
+        self.intro2 = ['None', 0, 0]
     def itemset(self, pp):
         self.itemlist = pp
     def drawrect(self, txt, sx, sy, x, y):
@@ -305,5 +319,9 @@ class showitems():
             pygame.draw.rect(t_surface, (0,0,0,200), lll)
             screen.blit(t_surface, (0,0))
             prtextm(txt, 20, x, y)
-    def use(self, itemn):
-        pass
+    def use(self):
+        del self.buttonlist[self.intro2[2]]
+        if self.isinv == 'inv':
+            del item_t[self.intro]
+        else:
+            delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])

@@ -33,12 +33,16 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 샘플 맵입니다")
+            t1.reset("> B홀에 있습니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("..")
+            t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("카드키가 없습니다.")
+        if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("success")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -77,7 +81,7 @@ def maprun():
 
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
-    movelist = False
+    buttonmode = 0
     sheetname = 'b_hall' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
@@ -96,11 +100,17 @@ def maprun():
     box5 = itemobject('images\\box.png', '상자5', 100, 100, 200, 400)
     box5.item = [sheetname, 7]
 
-    move_button = button("이동목록", 100, 50, 750, 500)
+    move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
+
+    find_button = button("집중탐사", 100, 50, 850, 500)
+    find_button.color = (255,255,255)
+    find_button.textcolor = (0,0,0)
+    find_button.textsize = 22
+    find_button.font = 'pixel.ttf'
 
     security_button = button("보안실", 300, 40, 650, 200)
     security_button.color = (0,0,0)
@@ -140,7 +150,12 @@ def maprun():
         textprinting()
 
         # 버튼 그리는 곳
-        if movelist == True:
+        find_button.off()
+        security_button.off()
+        bedroom_button.off()
+        warehouse_button.off()
+        manage_button.off()
+        if buttonmode == 1:
             move_button.txt = '< 뒤로'
             security_button.on()
             bedroom_button.on()
@@ -148,12 +163,10 @@ def maprun():
             manage_button.on()
         else:
             move_button.txt = '이동목록'
-            security_button.off()
-            bedroom_button.off()
-            warehouse_button.off()
-            manage_button.off()
+            find_button.on()
 
         move_button.draw()
+        find_button.draw()
         security_button.draw()
         bedroom_button.draw()
         warehouse_button.draw()
@@ -167,20 +180,26 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             if move_button.check() == 1: # 예시입니다
-                if movelist == True:
+                if buttonmode == 1:
                     setscr(0)
-                    movelist = False
-                elif movelist == False:
+                    buttonmode = 0
+                elif buttonmode == 0:
                     setscr(1)
-                    movelist = True
+                    buttonmode = 1
+            if find_button.check() == 1:
+                setscr(2)
+            if warehouse_button.check() == 1:
+                if '카드키' in getitem():
+                    setscr(4)
+                else:
+                    setscr(3)
+            
             # itemcheck(holy) # 이미지 오브젝트 예시
             itemcheck(box1)
             itemcheck(box2)
             itemcheck(box3)
             itemcheck(box4)
             itemcheck(box5)
-            if security_button.check() == 1:
-                sp3.maprun()
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

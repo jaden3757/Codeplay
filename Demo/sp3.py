@@ -9,7 +9,6 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import b_hall;
 
 # 시작
 pygame.init() 
@@ -77,7 +76,7 @@ def maprun():
 
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
-    movelist = False
+    buttonmode = 0
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
@@ -110,7 +109,7 @@ def maprun():
         textprinting()
 
         # | 버튼 그리는 곳 |
-        if movelist == True: # 이동목록 켜진 경우
+        if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             lower_button.on()
         else: # 꺼진 경우
@@ -128,15 +127,13 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             if move_button.check() == 1: # 예시입니다
-                if movelist == True:
+                if buttonmode == 1:
                     setscr(0)
-                    movelist = False
-                elif movelist == False:
+                    buttonmode = 0
+                elif buttonmode == 0:
                     setscr(1)
-                    movelist = True
+                    buttonmode = 1
             itemcheck(holy) # 이미지 오브젝트 예시
-            if lower_button.check() == 1:
-                b_hall.maprun()
         
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

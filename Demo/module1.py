@@ -32,6 +32,13 @@ def prtextm(txt, sz, x, y):
     t_rect.centery = y
     screen.blit(text_title, t_rect)
 
+def prtextm2(txt, sz, x, y, *col, ft):
+    myFont = pygame.font.Font(ft, sz)
+    text_title = myFont.render(txt, False, col)
+    t_rect = text_title.get_rect()
+    t_rect.centerx = x
+    t_rect.centery = y
+    screen.blit(text_title, t_rect)
 
 def primg(name, sclx, scly, x, y):
     img = pygame.image.load(name)
