@@ -16,10 +16,7 @@ import loading2
 import start_room
 import Sound_controll
 import time
-<<<<<<< HEAD
 import production_facility
-=======
->>>>>>> 27f65886b3409f6818745eeb1157d9e2583e4065
 
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)

@@ -29,18 +29,18 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 생산시설입니다.")
+            t1.reset("> B보안실 입니다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
             
         if scr == 1: # 1번째 대사
             t1.reset("중요한건 없는 것 같다.")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("어디로 가시겠습니까? ")
-
-
         ch = 0
 
 def maprun():
+    global scr
+    global ch
     global run
     # 버튼 만드는 곳
     # variable(버튼이름) = button(text, width, height, x좌표, y좌표)
@@ -57,25 +57,27 @@ def maprun():
     exploration.textcolor = (000,000,000)
     exploration.textsize = (20)
 
-    aaa = button("B보안실", 100, 50, 650, 500)
-    aaa.color = (255,255,255)
-    aaa.textcolor = (000,000,000)
-    aaa.textsize = (20)
+    move_A = button("생산시설", 100, 50, 650, 500)
+    move_A.color = (255,255,255)
+    move_A.textcolor = (000,000,000)
+    move_A.textsize = (20)
 
-    exploration = button("집중 탐사", 100, 50, 650, 500)
-    exploration.color = (255,255,255)
-    exploration.textcolor = (000,000,000)
-    exploration.textsize = (20)
-    
-    bbb = button("취소", 100, 50, 850, 500)
-    bbb.color = (255,255,255)
-    bbb.textcolor = (000,000,000)
-    bbb.textsize = (20)
+    move_B = button("B홀", 100, 50, 650, 450)
+    move_B.color = (255,255,255)
+    move_B.textcolor = (000,000,000)
+    move_B.textsize = (20)
+
+    cancel = button("취소", 100, 50, 850, 500)
+    cancel.color = (255,255,255)
+    cancel.textcolor = (000,000,000)
+    cancel.textsize = (20)
     
     see = button("이동 목록", 100, 50, 850, 500)
     see.color = (255,255,255)
     see.textcolor = (000,000,000)
     see.textsize = (20)
+
+   
     
     mode = 0
 
@@ -103,18 +105,20 @@ def maprun():
         else:
             exploration.off()
             see.off()
-        
         if mode == 1:
-            aaa.on()
-            bbb.on()
+            move_B.on()
+            cancel.on()
+            move_A.on()
         else:
-            aaa.off()
-            bbb.off()
+            move_B.off()
+            cancel.off()
+            move_A.off()
 
         exploration.draw()
         see.draw()
-        aaa.draw()
-        bbb.draw()
+        move_B.draw()
+        cancel.draw()
+        move_A.draw()
 
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -125,11 +129,14 @@ def maprun():
             if see.check() == 1:
                 setscr(2)
                 mode = 1
-            if aaa.check() == 1:
+            if move_B.check() == 1:
                 pass
-            if bbb.check() == 1:
+            if cancel.check() == 1:
                 mode = 0
                 setscr(0)
+            if move_A.check() == 1:
+                pass
+
         if pygame.key.get_pressed()[pygame.K_m]:
             pass
 

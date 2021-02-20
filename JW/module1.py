@@ -19,6 +19,11 @@ def prtext2(txt, sz, x, y):
     text_title = myFont.render(txt, False, (255, 255, 255))
     screen.blit(text_title, [x, y])
 
+def prtext4(txt, ft, sz, x, y): # choose font
+    myFont = pygame.font.Font(ft, sz)
+    text_title = myFont.render(txt, False, (255, 255, 255))
+    screen.blit(text_title, [x, y])
+
 def prtextm(txt, sz, x, y):
     myFont = pygame.font.Font(font1, sz)
     text_title = myFont.render(txt, False, (255, 255, 255))
@@ -27,6 +32,13 @@ def prtextm(txt, sz, x, y):
     t_rect.centery = y
     screen.blit(text_title, t_rect)
 
+def prtextm2(txt, sz, x, y, *col, ft):
+    myFont = pygame.font.Font(ft, sz)
+    text_title = myFont.render(txt, False, col)
+    t_rect = text_title.get_rect()
+    t_rect.centerx = x
+    t_rect.centery = y
+    screen.blit(text_title, t_rect)
 
 def primg(name, sclx, scly, x, y):
     img = pygame.image.load(name)
@@ -161,7 +173,7 @@ class prtext3:
         # t_rect = text_title.get_rect()
         # t_rect.left = 620 - mode * 600
         # t_rect.top = 20 + (line * 25) + (self.l-1) * 25
-        if self.t < self.leng and self.waiti == 0:
+        if self.t > 0 and self.t < self.leng and self.waiti == 0:
             cursor1 = pygame.Rect((t_rect.right - 20, t_rect.top), (20, t_rect.height))
             #print((t_rect.top - 20, t_rect.right))
             pygame.draw.rect(screen, (255, 255, 255), cursor1)
