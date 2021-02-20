@@ -180,12 +180,12 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             if move_button.check() == 1: # 예시입니다
-                if buttonmode == 1:
-                    setscr(0)
-                    buttonmode = 0
-                elif buttonmode == 0:
+                if buttonmode == 0:
                     setscr(1)
                     buttonmode = 1
+                else:
+                    setscr(0)
+                    buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
             if warehouse_button.check() == 1:

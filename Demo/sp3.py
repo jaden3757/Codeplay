@@ -37,7 +37,7 @@ def textls(): # 텍스트 수동 입력
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("..")
+            t1.reset("중요한 건 없는 것 같다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -84,11 +84,17 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
+    move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
+
+    find_button = button("집중탐사", 100, 50, 850, 500)
+    find_button.color = (255,255,255)
+    find_button.textcolor = (0,0,0)
+    find_button.textsize = 22
+    find_button.font = 'pixel.ttf'
 
     lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
     lower_button.color = (0,0,0)
@@ -109,14 +115,17 @@ def maprun():
         textprinting()
 
         # | 버튼 그리는 곳 |
+        find_button.off()
+        lower_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             lower_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
-            lower_button.off()
+            find_button.on()
 
         move_button.draw()
+        find_button.draw()
         lower_button.draw()
 
         # | 이벤트 관리소 |
@@ -127,12 +136,14 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             if move_button.check() == 1: # 예시입니다
-                if buttonmode == 1:
-                    setscr(0)
-                    buttonmode = 0
-                elif buttonmode == 0:
+                if buttonmode == 0:
                     setscr(1)
                     buttonmode = 1
+                else:
+                    setscr(0)
+                    buttonmode = 0
+            if find_button.check() == 1:
+                setscr(2)
             itemcheck(holy) # 이미지 오브젝트 예시
         
         if pygame.key.get_pressed()[pygame.K_m]:
