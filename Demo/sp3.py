@@ -144,8 +144,10 @@ def maprun():
                     buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
-            itemcheck(holy) # 이미지 오브젝트 예시
-        
+            # itemcheck(holy) # 이미지 오브젝트 예시
+        if pygame.mouse.get_pressed()[0] == 1:
+            itemcheck2(holy)
+        # key
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
