@@ -77,6 +77,7 @@ def maprun():
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
     buttonmode = 0
+    setscr(0)
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
