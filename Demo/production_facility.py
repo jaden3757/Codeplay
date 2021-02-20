@@ -6,6 +6,10 @@ from module1 import *
 from but import *
 from main1 import * #main
 from item import *
+from excel import *
+# 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
+import loading2
+import security_room
 
 # 시작
 pygame.init() 
@@ -31,17 +35,36 @@ def textls(): # 텍스트 수동 입력
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             t1.reset("> 생산시설입니다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
-            
         if scr == 1: # 1번째 대사
-            t1.reset("중요한건 없는 것 같다.")
+            t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("바닥이 흙인 것 같다.")
-        if scr == 3: 
-            t1.reset("이동목록")
-            
+            t1.reset("산소를 생산하시겠습니까?")
+        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("산소를 생산합니다.")
+        if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("산소생산을 중지합니다.")
+        if scr == 5: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("ON")
+        if scr == 6: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("OFF")
+
+
+        # if scr == i: # i번째 대사 (샘플)
+        #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
+        #   t1.next("그 다음줄 추가")
         ch = 0
 
+#                       *중요*
+# 1. sheetname을 파일 이름으로 예시) sp3.py 면 'sp3'
+#    + itemo.xlsx에 파일 이름으로 시트를 추가해야함 (.py 빼고)
+# 2. 방을 이어지게(파일 오가기) 하고 싶다면 알아서 임포트 하고
+#    방이름(파일이름).maprun() 으로 다른 방으로 이동
+# 3. 변수 선언은 반드시 maprun함수 안에 해야함(지역변수 문제 때문)
+# 4. 대사 출력은 setscr(a), 대사들은 textls 안에 알아서 만들기
+
 def maprun():
+    global scr
+    global ch
     global run
     # 버튼 만드는 곳
     # variable(버튼이름) = button(text, width, height, x좌표, y좌표)
@@ -51,66 +74,166 @@ def maprun():
     # variable.textcolor = (R,G,B) // 텍스트 색 설정
     # variable.textsize = (텍스트사이즈)
 
+    #                *버튼 활용법*
+    # test_button.check() : 마우스가 위에 올려져 있으면 1을, 아니면 0을 리턴
+    # test_button.on() : 버튼의 모든 활동 활성화
+    # test_button.off() : 버튼의 모든 기능 비활성화 (draw, check 등)
+    
+
     # objectname = itemobject(사진파일, 개체이름, x크기, y크기, x좌표, y좌표)
-    holy = itemobject("light2.png", "빛", 100, 100, 200, 200)
+    # 활용 예시 (아래 참고)
+    # box = itemobject('box.png', '박스', width, height, x, y)
+    # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
+
+    # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
+    firstsetting()
+    movelist = False
+    airlist = False
+    global mode
+    if mode != True:
+        mode = False
+    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
+
+    # | 여기부터 자유롭게 추가 또는 변경 |
+    holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
+    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+
+    move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
+    move_button.color = (255,255,255)
+    move_button.textcolor = (0,0,0)
+    move_button.textsize = 22
+    move_button.font = 'pixel.ttf'
+    
+    air_button = button("산소 생산 스위치", 200, 50, 700, 350) # 상위 버튼 디자인
+    air_button.color = (255,255,255)
+    air_button.textcolor = (0,0,0)
+    air_button.textsize = 22
+    air_button.font = 'pixel.ttf'
+    
+    mode_button = button("현재상태", 200, 50, 700, 400) # 상위 버튼 디자인
+    mode_button.color = (255,255,255)
+    mode_button.textcolor = (0,0,0)
+    mode_button.textsize = 22
+    mode_button.font = 'pixel.ttf'
+    
+    airon_button = button("ON", 100, 50, 650, 500) # 상위 버튼 디자인
+    airon_button.color = (255,255,255)
+    airon_button.textcolor = (0,0,0)
+    airon_button.textsize = 22
+    airon_button.font = 'pixel.ttf'
+    
+    airoff_button = button("OFF", 100, 50, 850, 500) # 상위 버튼 디자인
+    airoff_button.color = (255,255,255)
+    airoff_button.textcolor = (0,0,0)
+    airoff_button.textsize = 22
+    airoff_button.font = 'pixel.ttf'
+
+    lower_button = button("보안실", 300, 40, 650, 200) # 하위 버튼 디자인
+    lower_button.color = (0,0,0)
+    lower_button.textsize = 20
+    lower_button.font = 'pixel.ttf'
+
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-        # main [여기에 코드 입력]
+        # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
 
-        # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30)
+        # | UI |
+        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
+
+        # | 버튼 그리는 곳 |
+        if movelist == True: # 이동목록 켜진 경우
+            move_button.txt = '< 뒤로'
+            lower_button.on()
+            air_button.off()
+        else: # 꺼진 경우
+            move_button.txt = '이동목록'
+            lower_button.off()
+            air_button.on()
         
-        # // All_event [이벤트창]
+        if airlist == True:
+            air_button.txt = '< 뒤로'
+            airon_button.on()
+            airoff_button.on()
+            move_button.off()
+            mode_button.on()
+        else: # 꺼진 경우
+            air_button.txt = '산소 생산 스위치'
+            airon_button.off()
+            airoff_button.off()
+            move_button.on()
+            mode_button.off()
+
+
+        air_button.draw()
+        move_button.draw()
+        lower_button.draw()
+        airon_button.draw()
+        airoff_button.draw()
+        mode_button.draw()
+
+        # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
-
-        exploration = button("집중 탐사", 100, 50, 650, 500)
-        exploration.color = (255,255,255)
-        exploration.textcolor = (000,000,000)
-        exploration.textsize = (20)
-        exploration.draw()
-        clicked = exploration.clicking()
-        if clicked == True:
-            setscr(1)
-        
-
-        see = button("바닥 보기", 100, 50, 850, 500)
-        see.color = (255,255,255)
-        see.textcolor = (000,000,000)
-        see.textsize = (20)
-        see.draw()
-        see.check()
-        clicked1 = see.clicking()
-        if clicked1 == True:
-            setscr(2)
-
-        way = button("이동 목록", 100, 40, 750, 360)
-        way.color = (255,255,255)
-        way.textcolor = (000,000,000)
-        way.textsize = (20)
-        way.draw()
-        way.check()
-        clicked2 = way.clicking()
-        if clicked2 == True:
-            setscr(3)
-
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy)
+            
+            if move_button.check() == 1: # 예시입니다
+                if movelist == True:
+                    setscr(0)
+                    movelist = False
+                elif movelist == False:
+                    setscr(1)
+                    movelist = True
+            if air_button.check() == 1: # 예시입니다
+                if airlist == True:
+                    setscr(0)
+                    airlist = False
+                elif airlist == False:
+                    setscr(2)
+                    airlist = True
+            if airon_button.check() == 1:
+                setscr(3)
+                mode = True
+                mode_check = 1
+            if airoff_button.check() == 1:
+                setscr(4)
+                mode = False
+            if mode_button.check() == 1:
+                if mode == True:
+                    setscr(5)
+                else:
+                    setscr(6)
+
+
+
+
+
+            itemcheck(holy) # 이미지 오브젝트 예시
+            if lower_button.check() == 1:
+                security_room.maprun()
+        
         if pygame.key.get_pressed()[pygame.K_m]:
-            pass
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
+
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
         
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)
 
     pygame.quit()
+
+if __name__ == '__main__':
+    maprun()
