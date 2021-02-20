@@ -82,6 +82,7 @@ def maprun():
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
     buttonmode = 0
+    setscr(0)
     sheetname = 'b_hall' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
@@ -91,7 +92,7 @@ def maprun():
 
     box1 = itemobject('images\\box.png', '상자1', 100, 100, 300, 300)
     box1.item = [sheetname, 3]
-    box2 = itemobject('images\\box.png', '상자2', 100, 100, 123, 290)
+    box2 = itemobject('images\\box.png', '상자2', 100, 100, 50, 290)
     box2.item = [sheetname, 4]
     box3 = itemobject('images\\box.png', '상자3', 100, 100, 400, 100)
     box3.item = [sheetname, 5]
@@ -144,7 +145,7 @@ def maprun():
         box5.draw()
 
         # UI
-        prtext4("B홀 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("B 홀 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -172,7 +173,7 @@ def maprun():
         warehouse_button.draw()
         manage_button.draw()
 
-        # // All_event [이벤트창]
+        # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
@@ -193,14 +194,14 @@ def maprun():
                     setscr(4)
                 else:
                     setscr(3)
-            
             # itemcheck(holy) # 이미지 오브젝트 예시
-            itemcheck(box1)
-            itemcheck(box2)
-            itemcheck(box3)
-            itemcheck(box4)
-            itemcheck(box5)
-        
+        if pygame.mouse.get_pressed()[0] == 1:
+            itemcheck2(box1)
+            itemcheck2(box2)
+            itemcheck2(box3)
+            itemcheck2(box4)
+            itemcheck2(box5)
+        # key
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()

@@ -77,6 +77,7 @@ def maprun():
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
     buttonmode = 0
+    setscr(0)
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
@@ -144,8 +145,10 @@ def maprun():
                     buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
-            itemcheck(holy) # 이미지 오브젝트 예시
-        
+            # itemcheck(holy) # 이미지 오브젝트 예시
+        if pygame.mouse.get_pressed()[0] == 1:
+            itemcheck2(holy)
+        # key
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
