@@ -284,13 +284,14 @@ floor_button.onoff = 0
 itemui = showitems()
 itemui.floornm = floor_button
 
+t_surface = screen.convert_alpha()
+t_surface.fill((0,0,0,0))
+
 def mapdraw():
-    if [itemui.intro2[0], itemui.intro2[1]]== ['지도', 1]:
-        t_surface = screen.convert_alpha()
-        t_surface.fill((0,0,0,0))
+    if [itemui.intro2[0], itemui.intro2[1]] == ['지도', 1]:
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
-        primg("map560.png", 560, 560, 20, 20)
+        primg2("map560.png", 20, 20)
 
 def drawui():
     global hunger
