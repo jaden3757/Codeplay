@@ -382,7 +382,7 @@ def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
         itemui.isinv = buttonnm
 
 def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
-    if buttonnm.check() == 1:
+    if buttonnm.check() == 1 and itemui.clicking == 0:
         if buttonnm.finding_time < 61:
             pygame.draw.rect(screen, (200,0,0), [pygame.mouse.get_pos()[0]-30, pygame.mouse.get_pos()[1]+20, 60-buttonnm.finding_time, 10])
         if buttonnm.finding_time < 61:
