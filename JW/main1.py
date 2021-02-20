@@ -17,13 +17,16 @@ item_t = getxllist('main', 1)
 # item_y = {'지도' : 10, '손전등' : 10, '창고열쇠' : 10, '보안키' : 10, '연구일지' : 20, '오징어 맛살' : 10, '똥' : 10, '500원' : 10, '마음' : 0, '밥' : 10, '갑오징어' : 50} # 아이템의 고유 값(무게)
 item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3번째 세로줄
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
+item_f = {}
 
 hunger = 100
+hunger_cool = 0
 
 i = 1
 while getxl('items', 1, i) != None:
     item_s[getxl('items', 1, i)] = getxl('items', 3, i)
     item_y[getxl('items', 1, i)] = getxl('items', 2, i)
+    item_f[getxl('items', 1, i)] = getxl('items', 4, i)
     i += 1
 
 # 주의할 점 : 아이템을 추가할 때는 반드시 item_y 에 고유 값을 지정해줘야함
