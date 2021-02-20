@@ -91,7 +91,7 @@ def maprun():
 
     box1 = itemobject('images\\box.png', '상자1', 100, 100, 300, 300)
     box1.item = [sheetname, 3]
-    box2 = itemobject('images\\box.png', '상자2', 100, 100, 123, 290)
+    box2 = itemobject('images\\box.png', '상자2', 100, 100, 50, 290)
     box2.item = [sheetname, 4]
     box3 = itemobject('images\\box.png', '상자3', 100, 100, 400, 100)
     box3.item = [sheetname, 5]
