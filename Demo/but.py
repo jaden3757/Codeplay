@@ -292,10 +292,17 @@ def mapdraw():
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
         primg2("map560.png", 20, 20)
+<<<<<<< HEAD
     if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
         primg2("map560.png", 20, 20)
+=======
+    # if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
+    #     pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
+    #     screen.blit(t_surface, (0,0))
+    #     primg2("sosul.png", 20, 20)
+>>>>>>> 063117a7e12fac53c4f189eb73084873b8fda0be
 
 def drawui():
     global hunger
@@ -465,3 +472,4 @@ def textprinting2(): # 텍스트 출력
 def firstsetting():
     itemui.off()
     itemui.intro2 = ['None', 0, 0]
+    t1.mode = 0

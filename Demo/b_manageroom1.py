@@ -9,7 +9,7 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-
+import b_manageroom
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -32,12 +32,38 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 샘플 맵입니다")
-            t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
+            t1.reset("Enter a password")
+            t1.next("-LOCKED-")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3:
+            t1.reset("-Failed")
+        if scr == 4:
+            t1.reset("-보안실 키카드 등록-")
+            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('<키카드 등록법>')
+            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
+            t1.next('띄어쓰기를 확인해주십시오')
+        if scr == 5:
+            t1.reset("==잘못된 명령어==")
+            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('<키카드 등록법>')
+            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
+            t1.next('띄어쓰기를 확인해주십시오')
+        if scr == 6:
+            t1.reset("==이미 등록되어 있습니다==")
+            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('<키카드 등록법>')
+            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
+            t1.next('띄어쓰기를 확인해주십시오')
+        if scr == 7:
+            t1.reset("==등록 성공==")
+            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('<키카드 등록법>')
+            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
+            t1.next('띄어쓰기를 확인해주십시오')
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -85,7 +111,7 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    move_button = button("이동목록", 100, 50, 650, 500)
+    move_button = button("< 뒤로", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
@@ -102,20 +128,62 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    sound.play_cynthia_S()
-
+    intext = ''
+    retext = ''
+    re = 0
+    blink = 0
+    bcwait = 0
+    t1.mode = 1
+    comon = 0
+    textll = ['']
+    textn = 0
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        holy.draw()
-
+        pygame.draw.rect(screen, (0,0,180), [20, 20, 560, 560])
+        prtext5(intext, 'pixel.ttf', 23, 40, 530, (255,255,255))
+        myfont = pygame.font.Font('pixel.ttf', 23)
+        intext_rect = myfont.render(intext, False, (0,0,0))
+        intext_rect = intext_rect.get_rect()
+        intext_rect.x = 40
+        intext_rect.y = 530
+        if blink > 30:
+            pygame.draw.rect(screen, (255,255,255), [intext_rect.right, intext_rect.top, 2, 25])
+        blink += 1
+        if blink > 60:
+            blink = 1
+        
+        if re == 1:
+            re = 0
+            if comon == 0:
+                if retext == 'password':
+                    comon = 1
+                    setscr(4)
+                else:
+                    setscr(3)
+            else:
+                if retext == 'register A1 type40':
+                    if secure['A1'] == 0:
+                        setscr(7)
+                        secure['A1'] = 1
+                    else:
+                        setscr(6)
+                elif retext == 'register A2 type40':
+                    if secure['A1'] == 0:
+                        setscr(7)
+                        secure['A2'] = 1
+                    else:
+                        setscr(6)
+                elif retext == 'register B type40':
+                    setscr(6)
+                else:
+                    setscr(5) # failed
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
-        drawui()
         textls()
         textprinting()
+        pygame.draw.rect(screen, (255,255,255), [599.5, 20, 1, 560])
 
         # | 버튼 그리는 곳 |
         find_button.off()
@@ -124,8 +192,7 @@ def maprun():
             move_button.txt = '< 뒤로'
             lower_button.on()
         else: # 꺼진 경우
-            move_button.txt = '이동목록'
-            find_button.on()
+            move_button.txt = '< 뒤로'
 
         move_button.draw()
         find_button.draw()
@@ -138,15 +205,9 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            if test_button.check() == 1: # 예시입니다
-                setscr(1)
-                loading2.maprun()
-            itemcheck(holy) # 이미지 오브젝트 예시
-        
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
-                    setscr(1)
-                    buttonmode = 1
+                    b_manageroom.maprun()
                 else:
                     setscr(0)
                     buttonmode = 0
@@ -154,15 +215,46 @@ def maprun():
                 setscr(2)
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(holy)
+            pass
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
+        if pygame.key.get_pressed()[pygame.K_BACKSPACE]:
+            if bcwait == 0:
+                if len(intext)> 0:
+                    intext = intext[:-1]
+            if bcwait == 30:
+                if len(intext)> 0:
+                    intext = intext[:-1]
+                    bcwait = 28
+            if bcwait < 30:
+                bcwait += 1
+        else:
+            bcwait = 0
+        # key_input
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_BACKSPACE:
+                textn = 0
+                pass
+            elif event.key == pygame.K_RETURN:
+                retext = intext
+                re = 1
+                intext = ''
+                if textll[-1] != retext:
+                    textll.append(retext)
+                textn = 0
+            elif event.key == pygame.K_UP:
+                retext = intext
+                if textn < len(textll):
+                    textn += 1
+                    intext = textll[-textn]
+            elif event.key == pygame.K_DOWN:
+                retext = intext
+                if textn > 1:
+                    textn -= 1
+                    intext = textll[-textn]
+            else:
+                if intext_rect.width < 520:
+                    intext += event.unicode
+                    textn = 0
         
         #fin [끝]
         pygame.display.flip()
