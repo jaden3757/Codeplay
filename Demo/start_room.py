@@ -161,15 +161,11 @@ def maprun():
         way.textsize = (20)
         way.draw()
         way.check()
-        clicked2 = way.clicking()
+        clicked2 = button.on()
+
         if clicked2 == True:
             setscr(3)
-            btn_on = True
-
-        if btn_on == True:
-            btn.draw()
-            if clicked:
-                security_room.maprun()
+            security_room.maprun()
 
         if pygame.key.get_pressed()[pygame.K_e]:
             # security_room.maprun()

@@ -16,10 +16,8 @@ import loading2
 import start_room
 import Sound_controll
 import time
-<<<<<<< HEAD
 import production_facility
-=======
->>>>>>> 27f65886b3409f6818745eeb1157d9e2583e4065
+from sound import *
 
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)
@@ -204,10 +202,11 @@ def maprun():
 
                 if password == value:
                     print("Correct!!")
-                    # door_effect.play()
+                    play_check()
                     root.destroy()
                 else:
                     print("Worng!!")
+                    play_error()
 
                 print(e.get())
                 e.delete(0, END)
