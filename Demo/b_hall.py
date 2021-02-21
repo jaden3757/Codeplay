@@ -13,6 +13,7 @@ import sp3
 import b_bedroom
 import sound
 import security_room
+import b_manageroom
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -206,6 +207,7 @@ def maprun():
             if manage_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
+                    b_manageroom.maprun()
                 else:
                     setscr(3)
             # itemcheck(holy) # 이미지 오브젝트 예시

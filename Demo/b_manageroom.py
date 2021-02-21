@@ -10,6 +10,7 @@ from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import b_hall
 import b_manageroom1
+import b_long
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -174,11 +175,13 @@ def maprun():
             if b_hall_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
+                    b_hall.maprun()
                 else:
                     setscr(3)
             if b_long_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
+                    b_long.maprun()
                 else:
                     setscr(3)
             if com_button.check() == 1:
