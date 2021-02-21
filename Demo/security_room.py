@@ -9,11 +9,13 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import start_room
-import Sound_controll
 import time
-import production_facility
-from sound import *
+import Sound_controll
+import sound
+import b_hall
+
+screen_width = 1000
+screen_height = 600
 
 LIGHT_BLACK = (50, 50, 50)
 BLACK = (0, 0, 0)
@@ -22,12 +24,6 @@ DARK_WHITE = (180, 180, 180)
 GREEN = (100, 255, 100)
 RED = (255, 50, 50)
 LIGHT_BLACK = (50, 50, 50)
-
-screen_width = 1000
-screen_height = 600
-import production_facility
-import b_hall
-
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -50,11 +46,12 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 보안실입니다.")
+            t1.reset("> 샘플 맵입니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
-
+        if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
+            t1.reset("중요한 건 없는 것 같다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -93,8 +90,8 @@ def maprun():
 
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
-    movelist = False
-
+    buttonmode = 0
+    setscr(0)
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
@@ -102,7 +99,7 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
+    move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
@@ -114,24 +111,21 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-
-    lower_button = button("생산시설", 300, 40, 650, 200) # 하위 버튼 디자인
+    lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
     lower_button.color = (0,0,0)
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
-    
-    lower1_button = button("B홀", 300, 40, 650, 240) # 하위 버튼 디자인
-    lower1_button.color = (0,0,0)
-    lower1_button.textsize = 20
-    lower1_button.font = 'pixel.ttf'
 
-    password_button = button("ENTER PASSWORD", 300, 40, 650, 200) # 하위 버튼 디자인
-    password_button.color = (0,0,0)
-    password_button.textsize = 20
+    goto_b_button = button("B-홀", 300, 40, 650, 200)
+    goto_b_button.color = (0,0,0)
+    goto_b_button.textsize = 20
 
-    goto_b = button("B-HALL", 300, 40, 650, 200)
-    password_button.color = (0,0,0)
-    password_button.textsize = 20
+    goto_production_facility = button("관리실", 300, 40, 650, 250)
+    goto_production_facility.color = (0,0,0)
+    goto_production_facility.textsize = 20
+
+
+    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -147,41 +141,45 @@ def maprun():
         textprinting()
 
         # | 버튼 그리는 곳 |
+        find_button.off()
         lower_button.off()
-        lower1_button.off()
-        move_button.off()
-        password_button.off()
-        goto_b.off()
+        goto_b_button.off()
+        goto_production_facility.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             lower_button.on()
-            lower1_button.on()
-            move_button.on()
-            password_button.on()
-            goto_b.on()
-        else:
+            goto_b_button.on()
+            goto_production_facility.on()
+
+        else: # 꺼진 경우
             move_button.txt = '이동목록'
+            lower_button.off()
             find_button.on()
+            goto_b_button.off()
+            goto_production_facility.off()
 
         move_button.draw()
+        find_button.draw()
         lower_button.draw()
-        lower1_button.draw()
-        password_button.draw()
-        goto_b.draw()
+        goto_b_button.draw()
+        goto_production_facility.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
         # // Mouse_click
-        if event.type == pygame.MOUSEBUTTONDOWN: 
+        if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            if  password_button.check() == 1: # 예시입니다
+            if goto_b_button.check() == 1: # 예시입니다
                 setscr(1)
-                start_room.maprun()
-            itemcheck(holy) # 이미지 오브젝트 예시
-        
+                b_manageroom.maprun()
+
+            if goto_production_facility.check() == 1:
+                setscr(1)
+                testroom2.maprun()
+
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)
@@ -191,57 +189,14 @@ def maprun():
                     buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
+            # itemcheck(holy) # 이미지 오브젝트 예시
+        if pygame.mouse.get_pressed()[0] == 1:
+            itemcheck2(holy)
+        # key
 
-            itemcheck(holy) # 이미지 오브젝트 예시
-            if lower_button.check() == 1:
-                production_facility.maprun()
-            if lower1_button.check() == 1:
-                b_hall.maprun()
-        
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
-
-        if clicked == True:
-            print("accepted clicking")
-            time.sleep(0.2)
-
-            root = Tk()
-            root.title("GUI")
-            # root.geometry("640x480")
-            root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
-            root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
-            root.wm_attributes("-topmost", 1)
-            label1 = Label(root, text="Enter password", bg="gray")
-            
-            label1.pack()
-            e = Entry(root, width=20)
-            e.pack()
-            e.insert(0, "")
-
-            def btncmd():
-                global password
-                value = e.get()
-                value = int(value)
-
-                # my_sound.play()
-
-                if password == value:
-                    print("Correct!!")
-                    play_check()
-                    root.destroy()
-                else:
-                    print("Worng!!")
-                    play_error()
-
-                print(e.get())
-                e.delete(0, END)
-
-            btn = Button(root, fg = "black", bg = "gray" ,text="Enter", command=btncmd)
-            btn.place(x = 100, y = 50)
-
-            root.configure(bg='gray')
-            root.mainloop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

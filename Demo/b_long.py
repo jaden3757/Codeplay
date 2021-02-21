@@ -14,7 +14,9 @@ import time
 import Sound_controll
 import sound
 import b_hall
-import b_bedroom_a
+import password
+import b_manageroom
+
 screen_width = 1000
 screen_height = 600
 
@@ -129,6 +131,8 @@ def maprun():
     goto_a_button.color = (0,0,0)
     goto_a_button.textsize = 20
 
+    sound.play_cynthia_S()
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -180,11 +184,13 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if goto_b_button.check() == 1: # 예시입니다
                 setscr(1)
-                b_hall.maprun()
+                password.enter_password()
+                b_manageroom.maprun()
 
             if goto_a_button.check() == 1:
                 setscr(1)
-                b_bedroom_a.maprun()
+                password.enter_password()
+                b_hall.maprun()
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
