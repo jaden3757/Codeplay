@@ -18,6 +18,7 @@ item_t = getxllist('main', 1)
 item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3번째 세로줄
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
 item_f = {}
+secure = {'A1':0, 'A2':0, 'B':1}
 
 hunger = 100
 hunger_cool = 0

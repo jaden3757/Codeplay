@@ -116,7 +116,7 @@ def maprun():
             pygame.draw.rect(tsurface, (0,0,0,fade*2), [0,0,1000,600])
             fade += 6
             if fade > 125:
-                sp3.maprun()
+                b_hall.maprun()
         # //All event
         event = pygame.event.poll()
         if event.type == pygame.QUIT:

@@ -24,6 +24,11 @@ def prtext4(txt, ft, sz, x, y): # choose font
     text_title = myFont.render(txt, False, (255, 255, 255))
     screen.blit(text_title, [x, y])
 
+def prtext5(txt, ft, sz, x, y, *col): # choose font
+    myFont = pygame.font.Font(ft, sz)
+    text_title = myFont.render(txt, False, col)
+    screen.blit(text_title, [x, y])
+
 def prtextm(txt, sz, x, y):
     myFont = pygame.font.Font(font1, sz)
     text_title = myFont.render(txt, False, (255, 255, 255))
@@ -67,6 +72,7 @@ class prtext3:
     waiti = 0
     mm = 0
     md = 0
+    mode = 0
     def __init__(self, txt, sz, speed):
         self.w = 0
         self.t = 0
@@ -97,7 +103,11 @@ class prtext3:
             self.wait -= 1
         
     def prtext(self, txt, sz, line, mode):
-        myFont = pygame.font.Font(font1, sz) #TmoneyRoundWindExtraBold.ttf
+        font1 = 'gulim.ttf'
+        if self.mode == 1:
+            font1 = 'pixel.ttf'
+        coo = self.mode*255*0
+        myFont = pygame.font.Font(font1, sz+self.mode*3) #TmoneyRoundWindExtraBold.ttf
         # text_title = myFont.render(txt, False, (255, 255, 255))
         # t_rect = text_title.get_rect()
         # t_rect.left = 620 - mode * 600
@@ -110,7 +120,7 @@ class prtext3:
         self.p3 = 0
         self.waiti = 0
         self.mm = 0
-        text_title = myFont.render(txt[-1][self.io:self.p], False, (255, 255, 255))
+        text_title = myFont.render(txt[-1][self.io:self.p], False, (255-coo, 255-coo, 255-coo))
         t_rect = text_title.get_rect()
         for text in txt:
             if self.p2 < self.t:
@@ -144,26 +154,26 @@ class prtext3:
                     self.io = 0
                     while self.p < len(text) and self.p2 < self.t:
                         self.waiti = 0
-                        text_title = myFont.render(text[self.io:self.p], False, (255, 255, 255))
+                        text_title = myFont.render(text[self.io:self.p], False, (255-coo, 255-coo, 255-coo))
                         t_rect = text_title.get_rect()
-                        if t_rect.width > 340 + mode * 600:
-                            t_rect.left = 620 - mode * 600
+                        if t_rect.width > 340 + mode * 600 + self.mode*180:
+                            t_rect.left = 620 - mode * 600 - self.mode*580
                             if txt[self.mm-1] == '!!wait':
-                                text_title1 = myFont.render(txt[self.mm-2]+' ', False, (255, 255, 255))
+                                text_title1 = myFont.render(txt[self.mm-2]+' ', False, (255-coo, 255-coo, 255-coo))
                                 t_rect1 = text_title1.get_rect()
                                 t_rect.left += t_rect1.width
-                            t_rect.top = 20 + (line * 25) + self.l * 25
+                            t_rect.top = 20 + (line * 25) + self.l * 25 + self.mode*20
                             screen.blit(text_title, t_rect)
                             self.io = self.p
                             self.l += 1
                         self.p += 1
                         self.p2 += 1
-                    text_title = myFont.render(text[self.io:self.p], False, (255, 255, 255))
+                    text_title = myFont.render(text[self.io:self.p], False, (255-coo, 255-coo, 255-coo))
                     t_rect = text_title.get_rect()
-                    t_rect.left = 620 - mode * 600
-                    t_rect.top = 20 + (line * 25) + self.l * 25
+                    t_rect.left = 620 - mode * 600 - self.mode*580
+                    t_rect.top = 20 + (line * 25) + self.l * 25 + self.mode*20
                     if txt[self.mm-1] == '!!wait':
-                        text_title1 = myFont.render(txt[self.mm-2], False, (255, 255, 255))
+                        text_title1 = myFont.render(txt[self.mm-2], False, (255-coo, 255-coo, 255-coo))
                         t_rect1 = text_title1.get_rect()
                         t_rect.left += t_rect1.width
                     screen.blit(text_title, t_rect)
@@ -176,7 +186,7 @@ class prtext3:
         if self.t > 0 and self.t < self.leng and self.waiti == 0:
             cursor1 = pygame.Rect((t_rect.right - 20, t_rect.top), (20, t_rect.height))
             #print((t_rect.top - 20, t_rect.right))
-            pygame.draw.rect(screen, (255, 255, 255), cursor1)
+            pygame.draw.rect(screen, (255-coo, 255-coo, 255-coo), cursor1)
     
     def reset(self, text):
         self.txt = []
