@@ -102,6 +102,8 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
+    sound.play_cynthia_S()
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -136,6 +138,11 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
+            if test_button.check() == 1: # 예시입니다
+                setscr(1)
+                loading2.maprun()
+            itemcheck(holy) # 이미지 오브젝트 예시
+        
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)
@@ -149,6 +156,7 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             itemcheck2(holy)
         # key
+
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()

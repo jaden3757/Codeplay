@@ -11,6 +11,7 @@ from excel import *
 import loading2
 import sp3
 import b_bedroom
+import sound
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -132,6 +133,8 @@ def maprun():
     manage_button.color = (0,0,0)
     manage_button.textsize = 20
     manage_button.font = 'pixel.ttf'
+
+    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]

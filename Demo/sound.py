@@ -27,3 +27,19 @@ def play_Moodside_S():
     sound = ("Moon_side_1_completed.mp3")
     pygame.mixer.music.load(sound)
     pygame.mixer.music.play(-1)
+
+def play_check():
+    sound = pygame.mixer.Sound("sounds\\Check.wav")
+    sound.play()
+
+def play_typing():
+    sound = pygame.mixer.Sound("sounds\\Typing.wav")
+    sound.play()
+
+def play_error():
+    sound = pygame.mixer.Sound("sounds\\Error.wav")
+    sound.play()
+
+def play_warning():
+    sound = pygame.mixer.Sound("sounds\\Warning.wav")
+    sound.play()
