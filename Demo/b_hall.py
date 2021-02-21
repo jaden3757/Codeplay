@@ -12,6 +12,7 @@ import loading2
 import sp3
 import b_bedroom
 import sound
+import security_room
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -190,6 +191,9 @@ def maprun():
                 else:
                     setscr(0)
                     buttonmode = 0
+
+            if security_button.check() == 1:
+                security_room.maprun()
             if find_button.check() == 1:
                 setscr(2)
             if bedroom_button.check() == 1:
@@ -211,6 +215,7 @@ def maprun():
             itemcheck2(box3)
             itemcheck2(box4)
             itemcheck2(box5)
+
         # key
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
