@@ -135,7 +135,7 @@ def maprun():
     bcwait = 0
     t1.mode = 1
     comon = 0
-    textll = []
+    textll = ['']
     textn = 0
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -238,7 +238,8 @@ def maprun():
                 retext = intext
                 re = 1
                 intext = ''
-                textll.append(retext)
+                if textll[-1] != retext:
+                    textll.append(retext)
                 textn = 0
             elif event.key == pygame.K_UP:
                 retext = intext
