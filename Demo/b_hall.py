@@ -10,7 +10,8 @@ from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import sp3
-
+import b_bedroom
+import b_warehouse
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -43,6 +44,7 @@ def textls(): # 텍스트 수동 입력
             t1.reset("카드키가 없습니다.")
         if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("success")
+            b_warehouse.maprun()
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -118,7 +120,7 @@ def maprun():
     security_button.textsize = 20
     security_button.font = 'pixel.ttf'
 
-    bedroom_button = button("침실", 300, 40, 650, 250)
+    bedroom_button = button("침실 복도", 300, 40, 650, 250)
     bedroom_button.color = (0,0,0)
     bedroom_button.textsize = 20
     bedroom_button.font = 'pixel.ttf'
@@ -194,6 +196,9 @@ def maprun():
                     setscr(4)
                 else:
                     setscr(3)
+            if  bedroom_button.check() == 1:
+                b_bedroom.maprun()
+        
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
             itemcheck2(box1)

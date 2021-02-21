@@ -9,7 +9,7 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import sp3
+import b_hall
 import b_bedroom_a
 import b_bedroom_b
 import b_bedroom_c
@@ -121,6 +121,11 @@ def maprun():
     bedroom_d_button.textsize = 20
     bedroom_d_button.font = 'pixel.ttf'
 
+    b_hall_button = button("B홀", 300, 40, 650, 400)
+    b_hall_button.color = (0,0,0)
+    b_hall_button.textsize = 20
+    b_hall_button.font = 'pixel.ttf'
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -134,6 +139,7 @@ def maprun():
         textprinting()
 
         # 버튼 그리는 곳
+        b_hall_button.off()
         find_button.off()
         bedroom_a_button.off()
         bedroom_b_button.off()
@@ -141,6 +147,7 @@ def maprun():
         bedroom_d_button.off()
         if buttonmode == 1:
             move_button.txt = '< 뒤로'
+            b_hall_button.on()
             bedroom_a_button.on()
             bedroom_b_button.on()
             bedroom_c_button.on()
@@ -151,6 +158,7 @@ def maprun():
 
         move_button.draw()
         find_button.draw()
+        b_hall_button.draw()
         bedroom_a_button.draw()
         bedroom_b_button.draw()
         bedroom_c_button.draw()
@@ -180,7 +188,8 @@ def maprun():
                 b_bedroom_c.maprun()
             if bedroom_d_button.check() == 1:
                 b_bedroom_d.maprun()
-        
+            if b_hall_button.check() == 1:
+                b_hall.maprun()
             
             # itemcheck(holy) # 이미지 오브젝트 예시
         
