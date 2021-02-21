@@ -98,6 +98,7 @@ class itemobject:
     font = 'gulim.ttf'
     item = ['main', 50]
     item_list = []
+    finding_time = 0
     def __init__(self, name, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -108,6 +109,8 @@ class itemobject:
         self.img = pygame.image.load(self.name)
         self.img = pygame.transform.scale(self.img, (self.sx, self.sy))
     def draw(self):
+        if pygame.mouse.get_pressed()[0] == 0 or self.check() == 0:
+            self.finding_time = 0
         if self.onoff == 1:
             screen.blit(self.img, [self.x, self.y])
             #primg2(self.name, self.x, self.y)
@@ -116,7 +119,13 @@ class itemobject:
             else:
                 t_surface = screen.convert_alpha()
                 t_surface.fill((0,0,0,0))
-                pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                if itemui.isinv != 'inv' and type(itemui.isinv) != int:
+                    if itemui.isinv.txt == self.txt and itemui.onoff == 1:
+                        pygame.draw.rect(t_surface, (0,150,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                    else:
+                        pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                else:
+                    pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
                 screen.blit(t_surface, (0,0))
                 self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
@@ -275,15 +284,18 @@ floor_button.onoff = 0
 itemui = showitems()
 itemui.floornm = floor_button
 
+t_surface = screen.convert_alpha()
+t_surface.fill((0,0,0,0))
+
 def mapdraw():
-    if itemui.intro == '지도':
-        t_surface = screen.convert_alpha()
-        t_surface.fill((0,0,0,0))
+    if [itemui.intro2[0], itemui.intro2[1]] == ['지도', 1]:
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
-        primg("map560.png", 560, 560, 20, 20)
+        primg2("map560.png", 20, 20)
 
 def drawui():
+    global hunger
+    global hunger_cool
     if itemui.onoff == 1:
         itemmode_button.on()
         item_button.y = 470
@@ -295,6 +307,29 @@ def drawui():
         itemmode_button.y = 550
         floor_button.off()
     # print(itemui.storage + itemui.clicking_i_a)
+
+    # | hunger system / 배고픔 시스템 |
+    pygame.draw.rect(screen, (150,0,0), [30, 55, 200, 30])
+    pygame.draw.rect(screen, (255,255,255), [30, 55, hunger * 2, 30])
+    # pygame.draw.rect(screen, (255,255,0), [30, 55, hunger * 2 - hunger_cool/240 * hunger * 2, 30])
+    prtextm2(str(hunger) + '/100', 30, 130, 70, (0,0,0), ft = 'pixel.ttf')
+
+    hunger_cool += 1
+    if hunger_cool > 240:
+        hunger_cool = 0
+        hunger -= 1
+    if hunger < 1: # game over
+        hunger = 0
+        pass
+    if itemui.intro2[0] in item_f:
+        if type(item_f[itemui.intro2[0]]) == int:
+            hunger += item_f[itemui.intro2[0]]
+            itemui.use()
+            itemui.intro2 = ['None', 0, 0]
+    if hunger > 100:
+        hunger = 100
+    
+    #item trash
     if itemui.clicking == 1:
         if itemui.isinv == 'inv':
             if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
@@ -318,8 +353,6 @@ def drawui():
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
-    # draw hunger
-    prtext2(str(hunger), 20, 30, 50)
 
     if msitem == 0:
         pass
@@ -344,9 +377,30 @@ def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
             if itemui.isinv == buttonnm:
                 itemui.off()
         itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
+        itemui.itemlist.pop(0)
         itemui.mousex = 0
         itemui.reseted = 1
         itemui.isinv = buttonnm
+
+def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
+    if buttonnm.check() == 1 and itemui.clicking == 0:
+        if buttonnm.finding_time < 61:
+            pygame.draw.rect(screen, (200,0,0), [pygame.mouse.get_pos()[0]-30, pygame.mouse.get_pos()[1]+20, 60-buttonnm.finding_time, 10])
+        if buttonnm.finding_time < 61:
+            buttonnm.finding_time += 1
+        if itemui.onoff == 0:
+            if buttonnm.finding_time == 60:
+                itemui.mode = 1
+                itemui.on()
+        else:
+            if itemui.isinv == buttonnm and buttonnm.finding_time < 60:
+                itemui.off()
+        if buttonnm.finding_time == 60:
+            itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
+            itemui.itemlist.pop(0)
+            itemui.mousex = 0
+            itemui.reseted = 1
+            itemui.isinv = buttonnm
 
 def buttoncheck():
     if item_button.check() == 1:
@@ -403,3 +457,7 @@ def textprinting(): # 텍스트 출력
 
 def textprinting2(): # 텍스트 출력
     t1.printing(0, 1)
+
+def firstsetting():
+    itemui.off()
+    itemui.intro2 = ['None', 0, 0]

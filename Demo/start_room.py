@@ -161,6 +161,7 @@ def maprun():
         way.textsize = (20)
         way.draw()
         way.check()
+        
         clicked2 = button.on()
 
         if clicked2 == True:
@@ -180,3 +181,5 @@ def maprun():
 
     pygame.quit()
 
+if __name__ == '__main__':
+    maprun()

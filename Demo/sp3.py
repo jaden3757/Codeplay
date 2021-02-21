@@ -35,9 +35,9 @@ def textls(): # 텍스트 수동 입력
             t1.reset("> 샘플 맵입니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
-            t1.reset("..")
+            t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("..")
+            t1.reset("중요한 건 없는 것 같다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -74,18 +74,35 @@ def maprun():
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
-    sheetname = 'sp2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+    # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
+    firstsetting()
+    buttonmode = 0
+    setscr(0)
+    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
-    # | 여기부터 자유롭게 추가 |
+    # | 여기부터 자유롭게 추가 또는 변경 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
+    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    test_button = button("Test", 100, 50, 750, 400)
-    test_button.color = (255,255,255)
-    test_button.textcolor = (0,0,0)
-    test_button.textsize = 30
-    test_button.font = 'moon.otf'
+    move_button = button("이동목록", 100, 50, 650, 500)
+    move_button.color = (255,255,255)
+    move_button.textcolor = (0,0,0)
+    move_button.textsize = 22
+    move_button.font = 'pixel.ttf'
+
+    find_button = button("집중탐사", 100, 50, 850, 500)
+    find_button.color = (255,255,255)
+    find_button.textcolor = (0,0,0)
+    find_button.textsize = 22
+    find_button.font = 'pixel.ttf'
+
+    lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
+    lower_button.color = (0,0,0)
+    lower_button.textsize = 20
+    lower_button.font = 'pixel.ttf'
+
+    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -94,15 +111,27 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
 
-        # UI
-        prtext2("ROOMNUM | ROOMCODE", 20, 30, 30) # 여기는 바꿔도 됨
+        # | UI |
+        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
-        # 버튼 그리는 곳
-        test_button.draw()
 
-        # // All_event [이벤트창]
+        # | 버튼 그리는 곳 |
+        find_button.off()
+        lower_button.off()
+        if buttonmode == 1: # 이동목록 켜진 경우
+            move_button.txt = '< 뒤로'
+            lower_button.on()
+        else: # 꺼진 경우
+            move_button.txt = '이동목록'
+            find_button.on()
+
+        move_button.draw()
+        find_button.draw()
+        lower_button.draw()
+
+        # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
@@ -114,6 +143,20 @@ def maprun():
                 loading2.maprun()
             itemcheck(holy) # 이미지 오브젝트 예시
         
+            if move_button.check() == 1: # 예시입니다
+                if buttonmode == 0:
+                    setscr(1)
+                    buttonmode = 1
+                else:
+                    setscr(0)
+                    buttonmode = 0
+            if find_button.check() == 1:
+                setscr(2)
+            # itemcheck(holy) # 이미지 오브젝트 예시
+        if pygame.mouse.get_pressed()[0] == 1:
+            itemcheck2(holy)
+        # key
+
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
@@ -126,3 +169,6 @@ def maprun():
         clock.tick(60)
 
     pygame.quit()
+
+if __name__ == '__main__':
+    maprun()
