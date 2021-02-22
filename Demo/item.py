@@ -190,6 +190,7 @@ class showitems():
             for item in self.buttonlist:
                 item.checkon = 1
                 if self.clicking == 1:
+                    self.intro2[1] = 0
                     if item == self.clicking_i:
                         pass
                     else:
