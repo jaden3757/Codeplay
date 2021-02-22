@@ -251,6 +251,9 @@ def maprun():
                 if textn > 1:
                     textn -= 1
                     intext = textll[-textn]
+                    print(textn)
+                elif textn == 1:
+                    intext = ''
             else:
                 if intext_rect.width < 520:
                     intext += event.unicode

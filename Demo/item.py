@@ -322,6 +322,6 @@ class showitems():
     def use(self):
         del self.buttonlist[self.intro2[2]]
         if self.isinv == 'inv':
-            del item_t[self.intro]
+            item_t.pop(self.intro2[2])
         else:
             delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])

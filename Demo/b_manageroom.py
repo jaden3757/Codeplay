@@ -107,12 +107,12 @@ def maprun():
     com_button.textsize = 20
     com_button.font = 'pixel.ttf'
 
-    b_hall_button = button("B-Hall", 300, 40, 650, 200) # 하위 버튼 디자인
+    b_hall_button = button("B 홀", 300, 40, 650, 200) # 하위 버튼 디자인
     b_hall_button.color = (0,0,0)
     b_hall_button.textsize = 20
     b_hall_button.font = 'pixel.ttf'
     
-    b_long_button = button("B-long", 300, 40, 650, 250) # 하위 버튼 디자인
+    b_long_button = button("B Long", 300, 40, 650, 250) # 하위 버튼 디자인
     b_long_button.color = (0,0,0)
     b_long_button.textsize = 20
     b_long_button.font = 'pixel.ttf'

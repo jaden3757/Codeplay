@@ -13,6 +13,7 @@ import time
 import Sound_controll
 import sound
 import b_hall
+import production_facility
 
 screen_width = 1000
 screen_height = 600
@@ -116,11 +117,11 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    goto_b_button = button("B-홀", 300, 40, 650, 200)
+    goto_b_button = button("B-Hall", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
 
-    goto_production_facility = button("관리실", 300, 40, 650, 250)
+    goto_production_facility = button("생산시설", 300, 40, 650, 250)
     goto_production_facility.color = (0,0,0)
     goto_production_facility.textsize = 20
 
@@ -133,7 +134,6 @@ def maprun():
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         holy.draw()
-
         # | UI |
         prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
@@ -174,11 +174,11 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if goto_b_button.check() == 1: # 예시입니다
                 setscr(1)
-                b_manageroom.maprun()
+                b_hall.maprun()
 
             if goto_production_facility.check() == 1:
                 setscr(1)
-                testroom2.maprun()
+                production_facility.maprun()
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:

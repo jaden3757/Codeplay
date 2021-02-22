@@ -116,7 +116,7 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    security_button = button("보안실", 300, 40, 650, 200)
+    security_button = button("B 보안실", 300, 40, 650, 200)
     security_button.color = (0,0,0)
     security_button.textsize = 20
     security_button.font = 'pixel.ttf'
@@ -126,7 +126,7 @@ def maprun():
     bedroom_button.textsize = 20
     bedroom_button.font = 'pixel.ttf'
 
-    warehouse_button = button("B창고", 300, 40, 650, 300)
+    warehouse_button = button("B 창고", 300, 40, 650, 300)
     warehouse_button.color = (0,0,0)
     warehouse_button.textsize = 20
     warehouse_button.font = 'pixel.ttf'
@@ -226,6 +226,7 @@ def maprun():
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
+        mousechange()
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)
