@@ -16,7 +16,7 @@ import start_room
 import production_facility
 import sp3
 import b_long
-
+import Sound_controll
 font1 = 'gulim.ttf'
 
 pygame.init() 

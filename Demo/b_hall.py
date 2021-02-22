@@ -11,9 +11,13 @@ from excel import *
 import loading2
 import sp3
 import b_bedroom
+import b_warehouse
 import sound
 import security_room
 import b_manageroom
+import b_long
+import Sound_controll
+
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -46,6 +50,7 @@ def textls(): # 텍스트 수동 입력
             t1.reset("카드키가 없습니다.")
         if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("success")
+            b_warehouse.maprun()
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -116,12 +121,12 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    security_button = button("보안실", 300, 40, 650, 200)
+    security_button = button("B 보안실", 300, 40, 650, 200)
     security_button.color = (0,0,0)
     security_button.textsize = 20
     security_button.font = 'pixel.ttf'
 
-    bedroom_button = button("침실", 300, 40, 650, 250)
+    bedroom_button = button("침실 복도", 300, 40, 650, 250)
     bedroom_button.color = (0,0,0)
     bedroom_button.textsize = 20
     bedroom_button.font = 'pixel.ttf'
@@ -194,7 +199,7 @@ def maprun():
                     buttonmode = 0
 
             if security_button.check() == 1:
-                security_room.maprun()
+                b_manageroom.maprun()
             if find_button.check() == 1:
                 setscr(2)
             if bedroom_button.check() == 1:
@@ -226,6 +231,7 @@ def maprun():
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
+        mousechange()
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)

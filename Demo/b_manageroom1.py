@@ -31,6 +31,7 @@ def textls(): # 텍스트 수동 입력
     global ch
     global scr
     if ch == 1:
+        m1 = ['꺼짐', '켜짐']
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             t1.reset("Enter a password")
             t1.next("-LOCKED-")
@@ -42,25 +43,25 @@ def textls(): # 텍스트 수동 입력
             t1.reset("-Failed")
         if scr == 4:
             t1.reset("-보안실 키카드 등록-")
-            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
             t1.next('<키카드 등록법>')
             t1.next('\"register (보안실 이름) (키카드 아이디)\"')
             t1.next('띄어쓰기를 확인해주십시오')
         if scr == 5:
             t1.reset("==잘못된 명령어==")
-            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
             t1.next('<키카드 등록법>')
             t1.next('\"register (보안실 이름) (키카드 아이디)\"')
             t1.next('띄어쓰기를 확인해주십시오')
         if scr == 6:
             t1.reset("==이미 등록되어 있습니다==")
-            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
             t1.next('<키카드 등록법>')
             t1.next('\"register (보안실 이름) (키카드 아이디)\"')
             t1.next('띄어쓰기를 확인해주십시오')
         if scr == 7:
             t1.reset("==등록 성공==")
-            t1.next('보안실 목록 : A1, A2, B')
+            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
             t1.next('<키카드 등록법>')
             t1.next('\"register (보안실 이름) (키카드 아이디)\"')
             t1.next('띄어쓰기를 확인해주십시오')
@@ -135,7 +136,7 @@ def maprun():
     bcwait = 0
     t1.mode = 1
     comon = 0
-    textll = []
+    textll = ['']
     textn = 0
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -171,7 +172,7 @@ def maprun():
                     else:
                         setscr(6)
                 elif retext == 'register A2 type40':
-                    if secure['A1'] == 0:
+                    if secure['A2'] == 0:
                         setscr(7)
                         secure['A2'] = 1
                     else:
@@ -238,7 +239,8 @@ def maprun():
                 retext = intext
                 re = 1
                 intext = ''
-                textll.append(retext)
+                if textll[-1] != retext:
+                    textll.append(retext)
                 textn = 0
             elif event.key == pygame.K_UP:
                 retext = intext
@@ -250,6 +252,8 @@ def maprun():
                 if textn > 1:
                     textn -= 1
                     intext = textll[-textn]
+                elif textn == 1:
+                    intext = ''
             else:
                 if intext_rect.width < 520:
                     intext += event.unicode

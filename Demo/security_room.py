@@ -132,6 +132,7 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         # holy.draw()
 
+        holy.draw()
         # | UI |
         prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()

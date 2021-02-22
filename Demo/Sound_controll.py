@@ -11,7 +11,10 @@ def sound_controll():
     root = Tk()
     root.title("MUSIC CONTROLL")
     root.geometry("120x220+500+300") #가로 크기, 세로 크기, x좌표, y좌표
+    root.wm_attributes("-topmost", 1)
     root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
+    # root.overrideredirect(True)
+
     def v_up():
         v = pygame.mixer.music.get_volume()
         pygame.mixer.music.set_volume(v + 0.1)

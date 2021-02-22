@@ -292,6 +292,10 @@ def mapdraw():
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
         primg2("map560.png", 20, 20)
+    if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
+        pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
+        screen.blit(t_surface, (0,0))
+        primg2("map560.png", 20, 20)
     # if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
     #     pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
     #     screen.blit(t_surface, (0,0))
@@ -370,8 +374,9 @@ def drawui():
     #     else:
     #         drawrect("인벤토리에 넣기", 540, 480, 300, 260)
     mapdraw()
-
+    # primg2('images\\cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 map_onoff = 0
+
 def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
     if buttonnm.check() == 1:
         if itemui.onoff == 0:
@@ -389,7 +394,7 @@ def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
 def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
     if buttonnm.check() == 1 and itemui.clicking == 0:
         if buttonnm.finding_time < 61:
-            pygame.draw.rect(screen, (200,0,0), [pygame.mouse.get_pos()[0]-30, pygame.mouse.get_pos()[1]+20, 60-buttonnm.finding_time, 10])
+            pygame.draw.rect(screen, (250,0,0), [pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-40, (60-buttonnm.finding_time)/60*80, 10])
         if buttonnm.finding_time < 61:
             buttonnm.finding_time += 1
         if itemui.onoff == 0:
@@ -466,3 +471,11 @@ def firstsetting():
     itemui.off()
     itemui.intro2 = ['None', 0, 0]
     t1.mode = 0
+    pygame.mouse.set_visible(True)
+
+def mousechange():
+    pygame.mouse.set_visible(False)
+    if pygame.mouse.get_pressed()[0] == 1:
+        primg2('images\\cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    else:
+        primg2('images\\cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
