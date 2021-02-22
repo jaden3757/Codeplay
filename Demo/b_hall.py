@@ -126,7 +126,7 @@ def maprun():
     bedroom_button.textsize = 20
     bedroom_button.font = 'pixel.ttf'
 
-    warehouse_button = button("B창고", 300, 40, 650, 300)
+    warehouse_button = button("B-창고", 300, 40, 650, 300)
     warehouse_button.color = (0,0,0)
     warehouse_button.textsize = 20
     warehouse_button.font = 'pixel.ttf'
@@ -150,7 +150,7 @@ def maprun():
         box5.draw()
 
         # UI
-        prtext4("B 홀 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("B-hall | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()

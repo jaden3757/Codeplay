@@ -13,6 +13,7 @@ import time
 import Sound_controll
 import sound
 import b_hall
+import production_facility
 
 screen_width = 1000
 screen_height = 600
@@ -96,9 +97,6 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
-
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
@@ -116,11 +114,11 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    goto_b_button = button("B-홀", 300, 40, 650, 200)
+    goto_b_button = button("B-hall", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
 
-    goto_production_facility = button("관리실", 300, 40, 650, 250)
+    goto_production_facility = button("생산시설", 300, 40, 650, 250)
     goto_production_facility.color = (0,0,0)
     goto_production_facility.textsize = 20
 
@@ -132,7 +130,7 @@ def maprun():
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        holy.draw()
+        # holy.draw()
 
         # | UI |
         prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
@@ -174,11 +172,11 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if goto_b_button.check() == 1: # 예시입니다
                 setscr(1)
-                b_manageroom.maprun()
+                b_hall.maprun()
 
             if goto_production_facility.check() == 1:
                 setscr(1)
-                testroom2.maprun()
+                production_facility.maprun()
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
@@ -191,7 +189,7 @@ def maprun():
                 setscr(2)
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(holy)
+            pass
         # key
 
         if pygame.key.get_pressed()[pygame.K_m]:

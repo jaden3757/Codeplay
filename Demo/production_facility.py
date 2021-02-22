@@ -89,7 +89,7 @@ def maprun():
     firstsetting()
     movelist = False
     airlist = False
-    global mode
+    mode = False
     if mode != True:
         mode = False
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
