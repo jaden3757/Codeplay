@@ -90,9 +90,7 @@ def maprun():
     movelist = False
     airlist = False
     mode = False
-    if mode != True:
-        mode = False
-    setscr(0)
+
     sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
@@ -204,16 +202,19 @@ def maprun():
                     airlist = True
             if airon_button.check() == 1:
                 setscr(3)
-                mode1['oxygen'] = True
-                mode_check = 1
+                mode = True
             if airoff_button.check() == 1:
                 setscr(4)
-                mode1['oxygen'] = False
+                mode = False
             if mode_button.check() == 1:
-                if mode1['oxygen'] == True:
+                if mode == True:
                     setscr(5)
                 else:
                     setscr(6)
+
+
+
+
 
             itemcheck(holy) # 이미지 오브젝트 예시
             if lower_button.check() == 1:
