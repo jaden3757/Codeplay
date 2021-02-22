@@ -292,6 +292,10 @@ def mapdraw():
         pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
         primg2("map560.png", 20, 20)
+    if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
+        pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
+        screen.blit(t_surface, (0,0))
+        primg2("map560.png", 20, 20)
     # if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
     #     pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
     #     screen.blit(t_surface, (0,0))
