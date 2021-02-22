@@ -33,13 +33,9 @@ sound.play_Moodside_S()
 def maprun():
     global run
 
-    load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
-
     ri = -2
     p = 0
     fade = 0
-
-    play_button = imagebutton('images\\idle.png', 300, 150, 530, 280)
 
     tsurface = screen.convert_alpha()
     tsurface.fill((0,0,0,0))
