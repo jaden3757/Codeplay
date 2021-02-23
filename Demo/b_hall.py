@@ -204,8 +204,9 @@ def maprun():
             if warehouse_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
-                else:
                     b_warehouse.maprun()
+                else:
+                    setscr(3)
             if manage_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
@@ -215,8 +216,9 @@ def maprun():
             if security_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
-                else:
                     security_room.maprun()
+                else:
+                    setscr(3)
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
             itemcheck2(box1)
