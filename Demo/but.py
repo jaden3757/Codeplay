@@ -477,6 +477,6 @@ def firstsetting():
 def mousechange():
     pygame.mouse.set_visible(False)
     if pygame.mouse.get_pressed()[0] == 1:
-        primg2('images\\cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+        primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
     else:
-        primg2('images\\cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+        primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
