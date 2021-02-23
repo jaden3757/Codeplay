@@ -136,7 +136,7 @@ def maprun():
                     wirepng = pygame.image.load('images/wire2.png')
                 wirepng = pygame.transform.scale(wirepng, (560, 560))
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 발전소 | A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()

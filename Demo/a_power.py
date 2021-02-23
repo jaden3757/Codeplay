@@ -13,6 +13,7 @@ import Sound_controll
 # import a_long
 import a_power1
 import a_power2
+import a_security
 
 # 시작
 pygame.init() 
@@ -53,6 +54,8 @@ def textls(): # 텍스트 수동 입력
             t1.reset("발전기를 가동합니다. 지잉")
         if scr == 5:
             t1.reset("전기생산을 중지합니다")
+        if scr == 6:
+            t1.reset("카드키가 없습니다")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -112,10 +115,10 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    a_long_button = button("A 롱", 300, 40, 650, 200) # 하위 버튼 디자인
-    a_long_button.color = (0,0,0)
-    a_long_button.textsize = 20
-    a_long_button.font = 'pixel.ttf'
+    a_security_button = button("A 보안실1", 300, 40, 650, 200) # 하위 버튼 디자인
+    a_security_button.color = (0,0,0)
+    a_security_button.textsize = 20
+    a_security_button.font = 'pixel.ttf'
 
     on_button = button("켜기", 300, 40, 650, 200) # 하위 버튼 디자인
     on_button.color = (0,0,0)
@@ -127,8 +130,8 @@ def maprun():
     off_button.textsize = 20
     off_button.font = 'pixel.ttf'
 
-    wire1 = imagebutton('images\\electric.png', 150, 150, 100, 150)
-    wire2 = imagebutton('images\\electric.png', 150, 150, 420, 170)
+    wire1 = imagebutton('images\\none.png', 150, 150, 10, 320)
+    wire2 = imagebutton('images\\none.png', 150, 150, 420, 320)
 
     on_button = button("켜기", 300, 40, 650, 200) # 하위 버튼 디자인
     on_button.color = (0,0,0)
@@ -136,29 +139,31 @@ def maprun():
     on_button.font = 'pixel.ttf'
     
     sound.play_cynthia_S()
+    bg = pygame.image.load('images/a_power.png')
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (70,70,70), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        screen.blit(bg, (20, 20))
         wire1.draw()
         wire2.draw()
 
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 발전소 | A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
         # | 버튼 그리는 곳 |
         find_button.off()
-        a_long_button.off()
+        a_security_button.off()
         on_button.off()
         off_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            a_long_button.on()
+            a_security_button.on()
         elif buttonmode == 2: # 전기 온오프
             move_button.txt = '< 뒤로'
             on_button.on()
@@ -169,7 +174,7 @@ def maprun():
 
         move_button.draw()
         find_button.draw()
-        a_long_button.draw()
+        a_security_button.draw()
         on_button.draw()
         off_button.draw()
 
@@ -191,8 +196,11 @@ def maprun():
             if find_button.check() == 1:
                 setscr(3)
                 buttonmode = 2
-            if a_long_button.check() == 1:
-                pass
+            if a_security_button.check() == 1:
+                if '카드키' in getitem():
+                    a_security.maprun()
+                else:
+                    setscr(6)
             if wire1.check() == 1:
                 a_power1.maprun()
             if wire2.check() == 1:

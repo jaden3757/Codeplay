@@ -213,7 +213,8 @@ class showitems():
                     if self.introtiming == 0:
                         if self.intro2[0] == item.txt and self.intro2[2] == self.i:
                             if self.intro2[1] == 0:
-                                self.intro2[1] = 1
+                                if self.clicking == 0:
+                                    self.intro2[1] = 1
                             else:
                                 self.intro2[1] = 0
                         else:

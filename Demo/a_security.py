@@ -7,9 +7,11 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+import sound
+import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import security_room
+import a_power
 
 # 시작
 pygame.init() 
@@ -33,22 +35,14 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 생산시설입니다.")
+            t1.reset("> 샘플 맵입니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("산소를 생산하시겠습니까?")
-        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("산소를 생산합니다.")
-        if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("산소생산을 중지합니다.")
-        if scr == 5: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("ON")
-        if scr == 6: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("OFF")
-
-
+            t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3:
+            t1.reset("카드키가 없습니다")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -87,52 +81,38 @@ def maprun():
 
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
-    movelist = False
-    airlist = False
-    mode = False
-
-    sheetname = 'b_production' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    buttonmode = 0
+    setscr(0)
+    sheetname = 'a_security1' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
+    move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
-    
-    air_button = button("산소 생산 스위치", 200, 50, 700, 350) # 상위 버튼 디자인
-    air_button.color = (255,255,255)
-    air_button.textcolor = (0,0,0)
-    air_button.textsize = 22
-    air_button.font = 'pixel.ttf'
-    
-    mode_button = button("현재상태", 200, 50, 700, 400) # 상위 버튼 디자인
-    mode_button.color = (255,255,255)
-    mode_button.textcolor = (0,0,0)
-    mode_button.textsize = 22
-    mode_button.font = 'pixel.ttf'
-    
-    airon_button = button("ON", 100, 50, 650, 500) # 상위 버튼 디자인
-    airon_button.color = (255,255,255)
-    airon_button.textcolor = (0,0,0)
-    airon_button.textsize = 22
-    airon_button.font = 'pixel.ttf'
-    
-    airoff_button = button("OFF", 100, 50, 850, 500) # 상위 버튼 디자인
-    airoff_button.color = (255,255,255)
-    airoff_button.textcolor = (0,0,0)
-    airoff_button.textsize = 22
-    airoff_button.font = 'pixel.ttf'
 
-    lower_button = button("보안실", 300, 40, 650, 200) # 하위 버튼 디자인
-    lower_button.color = (0,0,0)
-    lower_button.textsize = 20
-    lower_button.font = 'pixel.ttf'
+    find_button = button("집중탐사", 100, 50, 850, 500)
+    find_button.color = (255,255,255)
+    find_button.textcolor = (0,0,0)
+    find_button.textsize = 22
+    find_button.font = 'pixel.ttf'
 
+    a_long_button = button("A 롱", 300, 40, 650, 200) # 하위 버튼 디자인
+    a_long_button.color = (0,0,0)
+    a_long_button.textsize = 20
+    a_long_button.font = 'pixel.ttf'
+
+    a_power_button = button("A 발전소", 300, 40, 650, 250) # 하위 버튼 디자인
+    a_power_button.color = (0,0,0)
+    a_power_button.textsize = 20
+    a_power_button.font = 'pixel.ttf'
+
+    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -141,41 +121,27 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
-        prtext4("B 생산시설 | B-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 보안실1 | A-Long : A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
         # | 버튼 그리는 곳 |
-        if movelist == True: # 이동목록 켜진 경우
+        find_button.off()
+        a_long_button.off()
+        a_power_button.off()
+        if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            lower_button.on()
-            air_button.off()
+            a_long_button.on()
+            a_power_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
-            lower_button.off()
-            air_button.on()
-        
-        if airlist == True:
-            air_button.txt = '< 뒤로'
-            airon_button.on()
-            airoff_button.on()
-            move_button.off()
-            mode_button.on()
-        else: # 꺼진 경우
-            air_button.txt = '산소 생산 스위치'
-            airon_button.off()
-            airoff_button.off()
-            move_button.on()
-            mode_button.off()
+            find_button.on()
 
-
-        air_button.draw()
         move_button.draw()
-        lower_button.draw()
-        airon_button.draw()
-        airoff_button.draw()
-        mode_button.draw()
+        find_button.draw()
+        a_long_button.draw()
+        a_power_button.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
@@ -184,41 +150,26 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            
             if move_button.check() == 1: # 예시입니다
-                if movelist == True:
-                    setscr(0)
-                    movelist = False
-                elif movelist == False:
+                if buttonmode == 0:
                     setscr(1)
-                    movelist = True
-            if air_button.check() == 1: # 예시입니다
-                if airlist == True:
-                    setscr(0)
-                    airlist = False
-                elif airlist == False:
-                    setscr(2)
-                    airlist = True
-            if airon_button.check() == 1:
-                setscr(3)
-                mode = True
-            if airoff_button.check() == 1:
-                setscr(4)
-                mode = False
-            if mode_button.check() == 1:
-                if mode == True:
-                    setscr(5)
+                    buttonmode = 1
                 else:
-                    setscr(6)
+                    setscr(0)
+                    buttonmode = 0
+            if find_button.check() == 1:
+                setscr(2)
+            if a_long_button.check() == 1:
+                pass
+            if a_power_button.check() == 1:
+                if '카드키' in getitem():
+                    a_power.maprun()
+                else:
+                    setscr(3)
+        if pygame.mouse.get_pressed()[0] == 1:
+            pass
+        # key
 
-
-
-
-
-            itemcheck(holy) # 이미지 오브젝트 예시
-            if lower_button.check() == 1:
-                security_room.maprun()
-        
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
@@ -227,6 +178,7 @@ def maprun():
             Sound_controll.sound_controll()
         
         #fin [끝]
+        mousechange()
         pygame.display.flip()
         clock.tick(60)
 
