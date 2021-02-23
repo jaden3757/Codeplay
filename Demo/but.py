@@ -375,7 +375,7 @@ def drawui():
     #     else:
     #         drawrect("인벤토리에 넣기", 540, 480, 300, 260)
     mapdraw()
-    # primg2('images\\cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+    # primg2('images/cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 map_onoff = 0
 
 def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름

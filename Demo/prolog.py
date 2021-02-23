@@ -56,7 +56,6 @@ def textls(): # 텍스트 수동 입력
 
         ch = 0
 
-
 def main():
     global scr
     global ch
@@ -77,7 +76,7 @@ def main():
                 return
 
         sprites.update(events)
-        primg2("images\\hole.jpg", 0, 0)
+        primg2("images/hole.jpg", 0, 0)
         sprites.draw(screen)
         pygame.display.update()
         clock.tick(60)
