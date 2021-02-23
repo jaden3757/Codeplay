@@ -117,7 +117,7 @@ def maprun():
     b_long_button.textsize = 20
     b_long_button.font = 'pixel.ttf'
 
-    box1 = itemobject('images\\box.png', ' 상자1', 100, 100, 100, 420)
+    box1 = itemobject('images/box.png', ' 상자1', 100, 100, 100, 420)
     box1.item = [sheetname, 3]
 
     while run:

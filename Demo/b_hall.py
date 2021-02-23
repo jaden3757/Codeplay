@@ -98,15 +98,15 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
-    box1 = itemobject('images\\box.png', '상자1', 100, 100, 300, 300)
+    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 300)
     box1.item = [sheetname, 3]
-    box2 = itemobject('images\\box.png', '상자2', 100, 100, 50, 290)
+    box2 = itemobject('images/box.png', '상자2', 100, 100, 50, 290)
     box2.item = [sheetname, 4]
-    box3 = itemobject('images\\box.png', '상자3', 100, 100, 400, 100)
+    box3 = itemobject('images/box.png', '상자3', 100, 100, 400, 100)
     box3.item = [sheetname, 5]
-    box4 = itemobject('images\\box.png', '상자4', 100, 100, 150, 330)
+    box4 = itemobject('images/box.png', '상자4', 100, 100, 150, 330)
     box4.item = [sheetname, 6]
-    box5 = itemobject('images\\box.png', '상자5', 100, 100, 200, 400)
+    box5 = itemobject('images/box.png', '상자5', 100, 100, 200, 400)
     box5.item = [sheetname, 7]
 
     move_button = button("이동목록", 100, 50, 650, 500)

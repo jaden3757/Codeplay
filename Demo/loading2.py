@@ -31,7 +31,7 @@ loading1 = True
 def maprun():
     global run
     pygame.mixer.init()
-    pygame.mixer.music.load('sounds\\Planets.mp3')
+    pygame.mixer.music.load('sounds/Planets.mp3')
     pygame.mixer.music.play(-1)
 
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
@@ -40,7 +40,7 @@ def maprun():
     p = 0
     fade = 0
 
-    play_button = imagebutton('images\\idle.png', 300, 150, 530, 280)
+    play_button = imagebutton('images/idle.png', 300, 150, 530, 280)
 
     # pygame.mixer.music.load("Planets.mp3")
     # pygame.mixer.music.play(-1)
@@ -88,32 +88,32 @@ def maprun():
             ri = -2
         
         if ri == -2:
-            play_button.changeimg('images\\idle.png')
+            play_button.changeimg('images/idle.png')
         if ri == -1:
-            play_button.changeimg('images\\p3.png')
+            play_button.changeimg('images/p3.png')
         if ri == 0:
-            play_button.changeimg('images\\p4.png')
+            play_button.changeimg('images/p4.png')
         if ri == 1:
-            play_button.changeimg('images\\p5.png')
+            play_button.changeimg('images/p5.png')
         if ri == 2:
-            play_button.changeimg('images\\p4.png')
+            play_button.changeimg('images/p4.png')
         if ri == 3:
-            play_button.changeimg('images\\p3.png')
+            play_button.changeimg('images/p3.png')
         if ri == 4:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 5:
-            play_button.changeimg('images\\p1.png')
+            play_button.changeimg('images/p1.png')
         if ri == 6:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 7:
-            play_button.changeimg('images\\p1.png')
+            play_button.changeimg('images/p1.png')
         if ri == 8:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 9:
-            play_button.changeimg('images\\idle.png')
+            play_button.changeimg('images/idle.png')
 
         if play_button.check() == 1:
-            primg('images\\txtbg.png', 300, 150, 530, 280)
+            primg('images/txtbg.png', 300, 150, 530, 280)
         play_button.draw()
         # load_button.draw()
 

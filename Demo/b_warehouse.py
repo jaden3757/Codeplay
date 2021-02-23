@@ -86,17 +86,17 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
-    box1 = itemobject('images\\box.png', '상자1', 100, 100, 300, 400)
+    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 400)
     box1.item = [sheetname, 2]
-    box2 = itemobject('images\\box.png', '상자2', 100, 100, 50, 450)
+    box2 = itemobject('images/box.png', '상자2', 100, 100, 50, 450)
     box2.item = [sheetname, 3]
-    box3 = itemobject('images\\box.png', '상자3', 100, 100, 250, 300)
+    box3 = itemobject('images/box.png', '상자3', 100, 100, 250, 300)
     box3.item = [sheetname, 4]
-    box4 = itemobject('images\\box.png', '상자4', 100, 100, 200, 330)
+    box4 = itemobject('images/box.png', '상자4', 100, 100, 200, 330)
     box4.item = [sheetname, 5]
-    box5 = itemobject('images\\box.png', '상자5', 100, 100, 450, 400)
+    box5 = itemobject('images/box.png', '상자5', 100, 100, 450, 400)
     box5.item = [sheetname, 6]
-    box6 = itemobject('images\\box.png', '상자6', 100, 100, 300, 450)
+    box6 = itemobject('images/box.png', '상자6', 100, 100, 300, 450)
     box6.item = [sheetname, 7]
 
     move_button = button("이동목록", 100, 50, 650, 500)
