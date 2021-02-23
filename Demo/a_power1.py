@@ -11,7 +11,7 @@ import sound
 import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-
+import a_power
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -34,12 +34,20 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 샘플 맵입니다")
-            t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
+            if mode1['wire1'] == False:
+                t1.reset("> 끊어진 전선이다. 전선을 사용하자")
+                t1.next("[ 인벤토리에서 전선 사용 ]")
+            else:
+                t1.reset("> 연결된 전선이다.")
+                t1.next("다른 전선을 확인해보자")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3:
+            t1.reset('전선을 수리했다. 전류를 흘려보낼 수 있다.')
+        if scr == 4:
+            t1.reset('이미 수리되어 있다.')
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -80,12 +88,12 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_power' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+    # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
+    # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -104,15 +112,30 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    sound.play_cynthia_S()
+    if mode1['wire1'] == False:
+        wirepng = pygame.image.load('images/wire1.png')
+    else:
+        wirepng = pygame.image.load('images/wire2.png')
+    wirepng = pygame.transform.scale(wirepng, (560, 560))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
-        pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        pygame.draw.rect(screen, (80,80,80), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        holy.draw()
-
+        screen.blit(wirepng, (20, 20))
+        if itemui.intro2[0:2] == ['전선', 1]:
+            if mode1['wire1'] == False:
+                itemui.intro2[1] = 0
+                setscr(3)
+                itemui.use()
+                mode1['wire1'] = True
+                if mode1['wire1'] == False:
+                    wirepng = pygame.image.load('images/wire1.png')
+                else:
+                    wirepng = pygame.image.load('images/wire2.png')
+                wirepng = pygame.transform.scale(wirepng, (560, 560))
+                
         # | UI |
         prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
@@ -124,10 +147,8 @@ def maprun():
         lower_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            lower_button.on()
         else: # 꺼진 경우
-            move_button.txt = '이동목록'
-            find_button.on()
+            move_button.txt = '< 뒤로'
 
         move_button.draw()
         find_button.draw()
@@ -140,18 +161,11 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-        
             if move_button.check() == 1: # 예시입니다
-                if buttonmode == 0:
-                    setscr(1)
-                    buttonmode = 1
-                else:
-                    setscr(0)
-                    buttonmode = 0
-            if find_button.check() == 1:
-                setscr(2)
+                a_power.maprun()
+            # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(holy) # 오브젝트 예시
+            pass
         # key
 
         if pygame.key.get_pressed()[pygame.K_m]:

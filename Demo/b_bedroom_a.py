@@ -84,10 +84,10 @@ def maprun():
     floor_button.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
-    bed = itemobject('images\\box.png', '침대', 100, 100, 400, 100)
-    drawer = itemobject('images\\box.png', '서랍', 100, 100, 100, 200)
-    desk = itemobject('images\\box.png', '책상', 100, 100, 150, 300)
-    box = itemobject('images\\box.png', '상자', 100, 100, 350, 350)
+    bed = itemobject('images/box.png', '침대', 100, 100, 400, 100)
+    drawer = itemobject('images/box.png', '서랍', 100, 100, 100, 200)
+    desk = itemobject('images/box.png', '책상', 100, 100, 150, 300)
+    box = itemobject('images/box.png', '상자', 100, 100, 350, 350)
     bed.item = [sheetname, 3]
     drawer.item = [sheetname, 4]
     desk.item = [sheetname, 5]

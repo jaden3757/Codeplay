@@ -191,6 +191,7 @@ class imagebutton:
     font = 'gulim.ttf'
     item = ['main', 50]
     item_list = []
+    mode = 0
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy
@@ -202,15 +203,15 @@ class imagebutton:
     def draw(self):
         if self.onoff == 1:
             screen.blit(self.img, [self.x, self.y])
-            #primg2(self.name, self.x, self.y)
-            # if self.check() == 0 or itemui.clicking == 1:
-            #     pass
-            # else:
-            #     t_surface = screen.convert_alpha()
-            #     t_surface.fill((0,0,0,0))
-            #     pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
-            #     screen.blit(t_surface, (0,0))
-            #     self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+            if self.check() == 0 or itemui.clicking == 1:
+                pass
+            else:
+                if self.mode == 0:
+                    t_surface = screen.convert_alpha()
+                    t_surface.fill((0,0,0,0))
+                    pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                    screen.blit(t_surface, (0,0))
+                    self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
             pass
     def check(self):
@@ -374,7 +375,7 @@ def drawui():
     #     else:
     #         drawrect("인벤토리에 넣기", 540, 480, 300, 260)
     mapdraw()
-    # primg2('images\\cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+    # primg2('images/cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 map_onoff = 0
 
 def itemcheck(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이름
@@ -476,6 +477,6 @@ def firstsetting():
 def mousechange():
     pygame.mouse.set_visible(False)
     if pygame.mouse.get_pressed()[0] == 1:
-        primg2('images\\cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+        primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
     else:
-        primg2('images\\cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+        primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)

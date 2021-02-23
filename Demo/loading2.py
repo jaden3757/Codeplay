@@ -31,8 +31,10 @@ loading1 = True
 def maprun():
     global run
     pygame.mixer.init()
-    pygame.mixer.music.load('sounds\\Planets.mp3')
+    pygame.mixer.music.load('sounds/Planets.mp3')
     pygame.mixer.music.play(-1)
+
+    firstsetting()
 
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
@@ -40,8 +42,8 @@ def maprun():
     p = 0
     fade = 0
 
-    play_button = imagebutton('images\\idle.png', 300, 150, 530, 280)
-
+    play_button = imagebutton('images/idle.png', 300, 150, 530, 280)
+    play_button.mode = 1
     # pygame.mixer.music.load("Planets.mp3")
     # pygame.mixer.music.play(-1)
     # sound.playsound('Planets.mp3')
@@ -51,13 +53,14 @@ def maprun():
     
     screen.fill(pygame.color.Color(50, 50, 50))
 
-    i = 0
-    while i < 60:
-        i += 1
-        screen.blit(tsurface, (0,0))
-        pygame.display.flip()
-        clock.tick(60)
-    
+    # i = 0
+    # while i < 60:
+    #     i += 1
+    #     screen.blit(tsurface, (0,0))
+    #     pygame.display.flip()
+    #     clock.tick(60)
+
+    img = pygame.image.load('teaser-5.png')
     while run:
         scrclear = 1
         if scrclear == 1:
@@ -75,7 +78,7 @@ def maprun():
         #         ri1 -= 100
         #     pygame.draw.rect(screen, (100,100,100), [500 - (ri1 * 5), 300 - (ri1 * 3), ri1 * 10, ri1 * 6], 3)
         #     w += 1
-        primg2('teaser-5.png', 0,0)
+        screen.blit(img, (0, 0))
         # prtextm("Moon Side", 80, 500, 70)
 
         p += 1
@@ -88,32 +91,32 @@ def maprun():
             ri = -2
         
         if ri == -2:
-            play_button.changeimg('images\\idle.png')
+            play_button.changeimg('images/idle.png')
         if ri == -1:
-            play_button.changeimg('images\\p3.png')
+            play_button.changeimg('images/p3.png')
         if ri == 0:
-            play_button.changeimg('images\\p4.png')
+            play_button.changeimg('images/p4.png')
         if ri == 1:
-            play_button.changeimg('images\\p5.png')
+            play_button.changeimg('images/p5.png')
         if ri == 2:
-            play_button.changeimg('images\\p4.png')
+            play_button.changeimg('images/p4.png')
         if ri == 3:
-            play_button.changeimg('images\\p3.png')
+            play_button.changeimg('images/p3.png')
         if ri == 4:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 5:
-            play_button.changeimg('images\\p1.png')
+            play_button.changeimg('images/p1.png')
         if ri == 6:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 7:
-            play_button.changeimg('images\\p1.png')
+            play_button.changeimg('images/p1.png')
         if ri == 8:
-            play_button.changeimg('images\\p2.png')
+            play_button.changeimg('images/p2.png')
         if ri == 9:
-            play_button.changeimg('images\\idle.png')
+            play_button.changeimg('images/idle.png')
 
         if play_button.check() == 1:
-            primg('images\\txtbg.png', 300, 150, 530, 280)
+            primg('images/txtbg.png', 300, 150, 530, 280)
         play_button.draw()
         # load_button.draw()
 
@@ -128,14 +131,13 @@ def maprun():
             run = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
-                # import rooms
-                start_room.maprun()
             if play_button.check() == 1:
                 pygame.mixer.music.stop()
                 play_button.off()
                 fade = 1
+
         screen.blit(tsurface, (0,0))
+        mousechange()
         pygame.display.flip()
         clock.tick(60)
 
