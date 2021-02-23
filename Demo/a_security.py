@@ -10,10 +10,8 @@ from excel import *
 import sound
 import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
-# import a_long
-import a_power1
-import a_power2
-import a_security
+import loading2
+import a_power
 
 # 시작
 pygame.init() 
@@ -36,25 +34,14 @@ def textls(): # 텍스트 수동 입력
     global ch
     global scr
     if ch == 1:
-        if mode1['electric'] == True:
-            m1 = '켜짐'
-        else:
-            m1 = '꺼짐'
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 발전소에 들어왔다.")
-            t1.next('현재 발전기 %s' % m1)
+            t1.reset("> 샘플 맵입니다")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
         if scr == 3:
-            t1.reset("전기생산 스위치가 보인다.")
-        if scr == 4:
-            t1.reset("발전기를 가동합니다. 지잉")
-        if scr == 5:
-            t1.reset("전기생산을 중지합니다")
-        if scr == 6:
             t1.reset("카드키가 없습니다")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
@@ -96,7 +83,7 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'a_power' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_security1' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
@@ -115,68 +102,46 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    a_security_button = button("A 보안실1", 300, 40, 650, 200) # 하위 버튼 디자인
-    a_security_button.color = (0,0,0)
-    a_security_button.textsize = 20
-    a_security_button.font = 'pixel.ttf'
+    a_long_button = button("A 롱", 300, 40, 650, 200) # 하위 버튼 디자인
+    a_long_button.color = (0,0,0)
+    a_long_button.textsize = 20
+    a_long_button.font = 'pixel.ttf'
 
-    on_button = button("켜기", 300, 40, 650, 200) # 하위 버튼 디자인
-    on_button.color = (0,0,0)
-    on_button.textsize = 20
-    on_button.font = 'pixel.ttf'
+    a_power_button = button("A 발전소", 300, 40, 650, 250) # 하위 버튼 디자인
+    a_power_button.color = (0,0,0)
+    a_power_button.textsize = 20
+    a_power_button.font = 'pixel.ttf'
 
-    off_button = button("끄기", 300, 40, 650, 250) # 하위 버튼 디자인
-    off_button.color = (0,0,0)
-    off_button.textsize = 20
-    off_button.font = 'pixel.ttf'
-
-    wire1 = imagebutton('images\\none.png', 150, 150, 10, 320)
-    wire2 = imagebutton('images\\none.png', 150, 150, 420, 320)
-
-    on_button = button("켜기", 300, 40, 650, 200) # 하위 버튼 디자인
-    on_button.color = (0,0,0)
-    on_button.textsize = 20
-    on_button.font = 'pixel.ttf'
-    
     sound.play_cynthia_S()
-    bg = pygame.image.load('images/a_power.png')
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
-        pygame.draw.rect(screen, (70,70,70), [20, 20, 560, 560])
+        pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        screen.blit(bg, (20, 20))
-        wire1.draw()
-        wire2.draw()
 
         # | UI |
-        prtext4("A 발전소 | A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 보안실1 | A-Long : A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
         # | 버튼 그리는 곳 |
         find_button.off()
-        a_security_button.off()
-        on_button.off()
-        off_button.off()
+        a_long_button.off()
+        a_power_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            a_security_button.on()
-        elif buttonmode == 2: # 전기 온오프
-            move_button.txt = '< 뒤로'
-            on_button.on()
-            off_button.on()
+            a_long_button.on()
+            a_power_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             find_button.on()
 
         move_button.draw()
         find_button.draw()
-        a_security_button.draw()
-        on_button.draw()
-        off_button.draw()
+        a_long_button.draw()
+        a_power_button.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
@@ -185,7 +150,6 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-        
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)
@@ -194,24 +158,14 @@ def maprun():
                     setscr(0)
                     buttonmode = 0
             if find_button.check() == 1:
-                setscr(3)
-                buttonmode = 2
-            if a_security_button.check() == 1:
+                setscr(2)
+            if a_long_button.check() == 1:
+                pass
+            if a_power_button.check() == 1:
                 if '카드키' in getitem():
-                    a_security.maprun()
+                    a_power.maprun()
                 else:
-                    setscr(6)
-            if wire1.check() == 1:
-                a_power1.maprun()
-            if wire2.check() == 1:
-                a_power2.maprun()
-            if on_button.check() == 1:
-                setscr(4)
-                mode1['electric'] = True
-            if off_button.check() == 1:
-                setscr(5)
-                mode1['electric'] = False
-            # itemcheck(holy) # 이미지 오브젝트 예시
+                    setscr(3)
         if pygame.mouse.get_pressed()[0] == 1:
             pass
         # key
