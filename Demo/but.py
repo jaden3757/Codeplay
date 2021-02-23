@@ -191,6 +191,7 @@ class imagebutton:
     font = 'gulim.ttf'
     item = ['main', 50]
     item_list = []
+    mode = 0
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy
@@ -205,11 +206,12 @@ class imagebutton:
             if self.check() == 0 or itemui.clicking == 1:
                 pass
             else:
-                t_surface = screen.convert_alpha()
-                t_surface.fill((0,0,0,0))
-                pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
-                screen.blit(t_surface, (0,0))
-                self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+                if self.mode == 0:
+                    t_surface = screen.convert_alpha()
+                    t_surface.fill((0,0,0,0))
+                    pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                    screen.blit(t_surface, (0,0))
+                    self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
             pass
     def check(self):

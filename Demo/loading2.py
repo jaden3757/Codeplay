@@ -34,6 +34,8 @@ def maprun():
     pygame.mixer.music.load('sounds\\Planets.mp3')
     pygame.mixer.music.play(-1)
 
+    firstsetting()
+
     load_button = button("Play", 100, 50, 450, 275) # PLAY 써진 버튼 하나 생성
 
     ri = -2
@@ -41,7 +43,7 @@ def maprun():
     fade = 0
 
     play_button = imagebutton('images\\idle.png', 300, 150, 530, 280)
-
+    play_button.mode = 1
     # pygame.mixer.music.load("Planets.mp3")
     # pygame.mixer.music.play(-1)
     # sound.playsound('Planets.mp3')
@@ -136,6 +138,7 @@ def maprun():
                 play_button.off()
                 fade = 1
         screen.blit(tsurface, (0,0))
+        mousechange()
         pygame.display.flip()
         clock.tick(60)
 
