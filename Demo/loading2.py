@@ -16,7 +16,7 @@ import start_room
 import production_facility
 import sp3
 import b_long
-
+import Sound_controll
 font1 = 'gulim.ttf'
 
 pygame.init() 
@@ -121,7 +121,7 @@ def maprun():
             pygame.draw.rect(tsurface, (0,0,0,fade*2), [0,0,1000,600])
             fade += 6
             if fade > 125:
-                b_long.maprun()
+                b_hall.maprun()
         # //All event
         event = pygame.event.poll()
         if event.type == pygame.QUIT:

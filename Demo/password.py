@@ -1,14 +1,13 @@
 from tkinter import *
 
 def enter_password():
-
     root = Tk()
     root.title("GUI")
-    # root.geometry("640x480")
     root.geometry("170x80+500+300") #가로 크기, 세로 크기, x좌표, y좌표
     root.resizable(False, False) #x(너비), y(높이) 값 변경 불가
     root.wm_attributes("-topmost", 1)
     label1 = Label(root, text="Enter password", bg="gray")
+    root.overrideredirect(True)
             
     label1.pack()
     e = Entry(root, width=20)
@@ -20,8 +19,6 @@ def enter_password():
 
         value = e.get()
         value = int(value)
-
-                # my_sound.play()
 
         if password == value:
             print("Correct!!")

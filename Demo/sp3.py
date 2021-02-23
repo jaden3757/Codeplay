@@ -10,7 +10,8 @@ from excel import *
 import sound
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-
+import sound
+import Sound_controll
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
