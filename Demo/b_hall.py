@@ -50,7 +50,6 @@ def textls(): # 텍스트 수동 입력
             t1.reset("카드키가 없습니다.")
         if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("success")
-            b_warehouse.maprun()
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -198,8 +197,6 @@ def maprun():
                     setscr(0)
                     buttonmode = 0
 
-            if security_button.check() == 1:
-                b_manageroom.maprun()
             if find_button.check() == 1:
                 setscr(2)
             if bedroom_button.check() == 1:
@@ -207,12 +204,19 @@ def maprun():
             if warehouse_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
+                    b_warehouse.maprun()
                 else:
                     setscr(3)
             if manage_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
                     b_manageroom.maprun()
+                else:
+                    setscr(3)
+            if security_button.check() == 1:
+                if '카드키' in getitem():
+                    setscr(4)
+                    security_room.maprun()
                 else:
                     setscr(3)
             # itemcheck(holy) # 이미지 오브젝트 예시
