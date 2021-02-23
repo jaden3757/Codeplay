@@ -247,13 +247,16 @@ def maprun():
                 if textn < len(textll):
                     textn += 1
                     intext = textll[-textn]
+                print(textn)
             elif event.key == pygame.K_DOWN:
                 retext = intext
-                if textn > 1:
+                if textn > 0:
                     textn -= 1
                     intext = textll[-textn]
-                elif textn == 1:
+                if textn == 0:
+                # elif textn == 1:
                     intext = ''
+                print(textn)
             else:
                 if intext_rect.width < 520:
                     intext += event.unicode
