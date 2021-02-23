@@ -202,15 +202,14 @@ class imagebutton:
     def draw(self):
         if self.onoff == 1:
             screen.blit(self.img, [self.x, self.y])
-            #primg2(self.name, self.x, self.y)
-            # if self.check() == 0 or itemui.clicking == 1:
-            #     pass
-            # else:
-            #     t_surface = screen.convert_alpha()
-            #     t_surface.fill((0,0,0,0))
-            #     pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
-            #     screen.blit(t_surface, (0,0))
-            #     self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+            if self.check() == 0 or itemui.clicking == 1:
+                pass
+            else:
+                t_surface = screen.convert_alpha()
+                t_surface.fill((0,0,0,0))
+                pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
+                screen.blit(t_surface, (0,0))
+                self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
             pass
     def check(self):
