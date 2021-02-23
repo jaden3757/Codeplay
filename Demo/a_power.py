@@ -127,8 +127,8 @@ def maprun():
     off_button.textsize = 20
     off_button.font = 'pixel.ttf'
 
-    wire1 = imagebutton('images\\electric.png', 150, 150, 100, 150)
-    wire2 = imagebutton('images\\electric.png', 150, 150, 420, 170)
+    wire1 = imagebutton('images\\none.png', 150, 150, 10, 320)
+    wire2 = imagebutton('images\\none.png', 150, 150, 420, 320)
 
     on_button = button("켜기", 300, 40, 650, 200) # 하위 버튼 디자인
     on_button.color = (0,0,0)
@@ -136,12 +136,14 @@ def maprun():
     on_button.font = 'pixel.ttf'
     
     sound.play_cynthia_S()
+    bg = pygame.image.load('images/a_power.png')
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (70,70,70), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        screen.blit(bg, (20, 20))
         wire1.draw()
         wire2.draw()
 

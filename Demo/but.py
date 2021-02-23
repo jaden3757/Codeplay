@@ -288,19 +288,46 @@ itemui.floornm = floor_button
 t_surface = screen.convert_alpha()
 t_surface.fill((0,0,0,0))
 
-def mapdraw():
+itemusing = 580
+itemon = 0
+nowitem = ''
+
+def mapdraw(): # 아이템 상호작용
+    global itemusing
+    global nowitem
+    itemon = 0
+    # event = pygame.event.poll()
+    if pygame.key.get_pressed()[pygame.K_x]:
+        itemui.intro2[1] = 0
     if [itemui.intro2[0], itemui.intro2[1]] == ['지도', 1]:
-        pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
-        screen.blit(t_surface, (0,0))
-        primg2("map560.png", 20, 20)
+        # pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
+        # screen.blit(t_surface, (0,0))
+        # primg2("map560.png", 20, 20)
+        itemon = 1
+        nowitem = 'map560.png'
     if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
-        pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
+        itemon = 1
+        nowitem = 'map560.png'
+    if [itemui.intro2[0], itemui.intro2[1]] == ['카드키', 1]:
+        itemon = 1
+        nowitem = 'images/cardkey.png'
+    # [ 이 아래로는 건드리지 마시오 ]
+    if itemon == 1:
+        if itemui.intro2[1] == 1:
+            itemusing -= itemusing/8 + 1
+            if itemusing < 20:
+                itemusing = 20
+    else:
+        if itemui.intro2[1] == 0:
+            itemusing += (580-itemusing)/8 + 1
+            if itemusing > 580:
+                itemusing = 580
+    if itemusing < 580:
+        pygame.draw.rect(t_surface, (0, 0, 0, (1-itemusing/580)*200), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
-        primg2("map560.png", 20, 20)
-    # if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
-    #     pygame.draw.rect(t_surface, (0, 0, 0, 150), [20, 20, 560, 560])
-    #     screen.blit(t_surface, (0,0))
-    #     primg2("sosul.png", 20, 20)
+        primg2(nowitem, 20, itemusing)
+        if itemusing == 20:
+            prtextm2('Press X to get out', 25, 300, 560, (255,255,255), ft='moon.otf')
 
 def drawui():
     global hunger
