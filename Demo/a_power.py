@@ -11,6 +11,8 @@ import sound
 import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 # import a_long
+import a_power1
+import a_power2
 
 # 시작
 pygame.init() 
@@ -33,8 +35,13 @@ def textls(): # 텍스트 수동 입력
     global ch
     global scr
     if ch == 1:
+        if mode1['electric'] == True:
+            m1 = '켜짐'
+        else:
+            m1 = '꺼짐'
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             t1.reset("> 발전소에 들어왔다.")
+            t1.next('현재 발전기 %s' % m1)
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
@@ -42,6 +49,10 @@ def textls(): # 텍스트 수동 입력
             t1.reset("중요한 건 없는 것 같다.")
         if scr == 3:
             t1.reset("전기생산 스위치가 보인다.")
+        if scr == 4:
+            t1.reset("발전기를 가동합니다. 지잉")
+        if scr == 5:
+            t1.reset("전기생산을 중지합니다")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -129,7 +140,7 @@ def maprun():
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
-        pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        pygame.draw.rect(screen, (70,70,70), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         wire1.draw()
         wire2.draw()
@@ -182,6 +193,16 @@ def maprun():
                 buttonmode = 2
             if a_long_button.check() == 1:
                 pass
+            if wire1.check() == 1:
+                a_power1.maprun()
+            if wire2.check() == 1:
+                a_power2.maprun()
+            if on_button.check() == 1:
+                setscr(4)
+                mode1['electric'] = True
+            if off_button.check() == 1:
+                setscr(5)
+                mode1['electric'] = False
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
             pass
