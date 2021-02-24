@@ -11,9 +11,7 @@ import sound
 import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import a_security2
-import a_system1
-import a_communication
+import a_system
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -36,22 +34,18 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 시스템실에 들어왔다.")
+            t1.reset("> 통신실에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("중앙컴퓨터가 있다.")
+            t1.reset("통신할 수 있는 장비가 있다.")
         if scr == 3:
-            t1.reset("카드키가 없습니다")
+            t1.reset("통신 장치가 고장난 듯하다.")
         if scr == 4:
-            t1.reset("전기가 공급되지 않고 있다.")
+            t1.reset("..신호가 없다.")
         if scr == 5:
-            t1.reset("중앙 컴퓨터 전원을 켰다")
-        if scr == 6:
-            t1.reset("이미 켜져 있다.")
-        if scr == 7:
-            t1.reset("전원이 아직 꺼져 있다.")
+            t1.reset("열리지 않는다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -92,12 +86,14 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'a_system' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_communication' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+
+    ddu = imagebutton("light2.png", 100, 100, 300, 420) # 예시
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -111,70 +107,47 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    security_button = button("A 보안실2", 300, 40, 650, 200) # 하위 버튼 디자인
-    security_button.color = (0,0,0)
-    security_button.textsize = 20
-    security_button.font = 'pixel.ttf'
+    system_button = button("시스템실", 300, 40, 650, 200) # 하위 버튼 디자인
+    system_button.color = (0,0,0)
+    system_button.textsize = 20
+    system_button.font = 'pixel.ttf'
 
-    communication_button = button("통신실", 300, 40, 650, 250) # 하위 버튼 디자인
-    communication_button.color = (0,0,0)
-    communication_button.textsize = 20
-    communication_button.font = 'pixel.ttf'
+    com_button = button("통신하기", 300, 40, 650, 200) # 하위 버튼 디자인
+    com_button.color = (0,0,0)
+    com_button.textsize = 20
+    com_button.font = 'pixel.ttf'
 
-    onoff_button = button("전원 키기", 300, 40, 650, 200) # 하위 버튼 디자인
-    onoff_button.color = (0,0,0)
-    onoff_button.textsize = 20
-    onoff_button.font = 'pixel.ttf'
-
-    control_button = button("문 제어 장치", 300, 40, 650, 250) # 하위 버튼 디자인
-    control_button.color = (0,0,0)
-    control_button.textsize = 20
-    control_button.font = 'pixel.ttf'
-
-    cctv_button = button("CCTV", 300, 40, 650, 300) # 하위 버튼 디자인
-    cctv_button.color = (0,0,0)
-    cctv_button.textsize = 20
-    cctv_button.font = 'pixel.ttf'
-
-    # mode1['system'] = True
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        ddu.draw()
 
         # | UI |
-        prtext4("시스템실 | A-5", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("Communication room | None", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
         # | 버튼 그리는 곳 |
         find_button.off()
-        security_button.off()
-        communication_button.off()
-        onoff_button.off()
-        control_button.off()
-        cctv_button.off()
+        system_button.off()
+        com_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            security_button.on()
-            communication_button.on()
+            system_button.on()
         elif buttonmode == 2:
             move_button.txt = '< 뒤로'
-            onoff_button.on()
-            control_button.on()
+            com_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             find_button.on()
 
         move_button.draw()
         find_button.draw()
-        security_button.draw()
-        communication_button.draw()
-        onoff_button.draw()
-        control_button.draw()
-        cctv_button.draw()
+        system_button.draw()
+        com_button.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
@@ -193,33 +166,24 @@ def maprun():
             if find_button.check() == 1:
                 setscr(2)
                 buttonmode = 2
-            if security_button.check() == 1:
-                if '카드키' in getitem():
-                    a_security2.maprun()
-                else:
-                    setscr(3)
-            if communication_button.check() == 1:
-                if '카드키' in getitem():
-                    a_communication.maprun()
-                else:
-                    setscr(3)
-            # 2
-            if onoff_button.check() == 1:
-                if [mode1['electric'],mode1['wire1'],mode1['wire2']] == [True,True,True]:
-                    if mode1['system'] == False:
-                        setscr(5)
-                        mode1['system'] = True
+            if system_button.check() == 1:
+                a_system.maprun()
+            if com_button.check() == 1:
+                if mode1['communication'] == True:
+                    if mode1['main_event'] == 1:
+                        pass # 통신 시작
                     else:
-                        setscr(6)
+                        setscr(4)
                 else:
-                    setscr(4)
-            if control_button.check() == 1:
-                if mode1['system'] == True:
-                    a_system1.maprun()
+                    setscr(3)
+            if ddu.check() == 1:
+                if mode1['main_event'] == 1:
+                    pass
                 else:
-                    setscr(7)
+                    setscr(5)
         if pygame.mouse.get_pressed()[0] == 1:
             pass
+            # itemcheck2(holy) # 오브젝트 예시
         # key
 
         if pygame.key.get_pressed()[pygame.K_m]:

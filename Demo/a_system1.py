@@ -45,21 +45,22 @@ def textls(): # 텍스트 수동 입력
         if scr == 4:
             t1.reset("--보안 모드 설정하기--")
             t1.next('::문 목록::')
-            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('B-long[%s], C-long[%s]' % (m1[secure['b_long']], m1[secure['c_long']]))
             t1.next('<문 설정법> (on:열림, off:닫힘)')
             t1.next('\"set (문 이름) ( on / off )\"')
             t1.next('띄어쓰기/대소문자를 확인해주십시오')
         if scr == 5:
             t1.reset("==잘못된 명령어==")
             t1.next('::문 목록::')
-            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('::문 목록::')
+            t1.next('B-long[%s], C-long[%s]' % (m1[secure['b_long']], m1[secure['c_long']]))
             t1.next('<문 설정법> (on:열림, off:닫힘)')
             t1.next('\"set (문 이름) ( on / off )\"')
             t1.next('띄어쓰기/대소문자를 확인해주십시오')
         if scr == 6:
             t1.reset("==설정 성공==")
             t1.next('::문 목록::')
-            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('B-long[%s], C-long[%s]' % (m1[secure['b_long']], m1[secure['c_long']]))
             t1.next('<문 설정법> (on:열림, off:닫힘)')
             t1.next('\"set (문 이름) ( on / off )\"')
             t1.next('띄어쓰기/대소문자를 확인해주십시오')
@@ -163,18 +164,12 @@ def maprun():
                 else:
                     setscr(3)
             else:
-                if retext == 'set A-long on' or retext == 'set a-long on':
-                    setscr(6)
-                    secure['a_long'] = 1
-                elif retext == 'set B-long on' or retext == 'set b-long on':
+                if retext == 'set B-long on' or retext == 'set b-long on':
                     setscr(6)
                     secure['b_long'] = 1
                 elif retext == 'set C-long on' or retext == 'set c-long on':
                     setscr(6)
                     secure['c_long'] = 1
-                elif retext == 'set A-long off' or retext == 'set a-long off':
-                    setscr(6)
-                    secure['a_long'] = 0
                 elif retext == 'set B-long off' or retext == 'set b-long off':
                     setscr(6)
                     secure['b_long'] = 0

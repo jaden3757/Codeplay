@@ -159,7 +159,7 @@ def maprun():
         if re == 1:
             re = 0
             if comon == 0:
-                if retext == 'password':
+                if retext == '198206':
                     comon = 1
                     setscr(4)
                 else:

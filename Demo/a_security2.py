@@ -13,7 +13,7 @@ import Sound_controll
 import loading2
 import a_power
 import a_system
-
+import a_long
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -160,7 +160,7 @@ def maprun():
                 setscr(2)
             if a_long_button.check() == 1:
                 if '카드키' in getitem():
-                    pass
+                    a_long.maprun()
                 else:
                     setscr(3)
             if a_system_button.check() == 1:
