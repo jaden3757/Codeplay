@@ -160,9 +160,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             if computer.check() == 1:
                 computer1.maprun()
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

@@ -6,7 +6,7 @@ SIZE = width,height = 640,240
 screen = pygame.display.set_mode(SIZE)
 screen.fill((0,0,150))
 pygame.init()
- 
+
 BLACK = (0,0,0)
 C1_BLUE = (0,0,255)
 RED = (255,0,0)

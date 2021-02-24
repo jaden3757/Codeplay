@@ -140,7 +140,7 @@ def maprun():
     manage_button.textsize = 20
     manage_button.font = 'pixel.ttf'
 
-    sound.play_cynthia_S()
+    # sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -228,10 +228,6 @@ def maprun():
             itemcheck2(box5)
 
         # key
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
-
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
