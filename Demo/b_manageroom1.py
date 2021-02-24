@@ -159,7 +159,7 @@ def maprun():
         if re == 1:
             re = 0
             if comon == 0:
-                if retext == 'password':
+                if retext == '198206':
                     comon = 1
                     setscr(4)
                 else:
@@ -247,7 +247,6 @@ def maprun():
                 if textn < len(textll):
                     textn += 1
                     intext = textll[-textn]
-                print(textn)
             elif event.key == pygame.K_DOWN:
                 retext = intext
                 if textn > 0:
@@ -256,13 +255,13 @@ def maprun():
                 if textn == 0:
                 # elif textn == 1:
                     intext = ''
-                print(textn)
             else:
                 if intext_rect.width < 520:
                     intext += event.unicode
                     textn = 0
         
         #fin [끝]
+        mousechange()
         pygame.display.flip()
         clock.tick(60)
 

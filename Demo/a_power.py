@@ -51,7 +51,7 @@ def textls(): # 텍스트 수동 입력
         if scr == 3:
             t1.reset("전기생산 스위치가 보인다.")
         if scr == 4:
-            t1.reset("발전기를 가동합니다. 지잉")
+            t1.reset("발전기를 가동합니다.")
         if scr == 5:
             t1.reset("전기생산을 중지합니다")
         if scr == 6:
@@ -215,11 +215,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             pass
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
-
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         

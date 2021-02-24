@@ -230,10 +230,6 @@ def maprun():
         # key
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
         
         mousechange()
         #fin [끝]

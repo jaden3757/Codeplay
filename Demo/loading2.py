@@ -6,10 +6,8 @@ from module1 import *
 from but import *
 from main1 import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
-
 import start_room
 import production_facility
-
 import sp3
 import b_hall
 import start_room
@@ -17,6 +15,8 @@ import production_facility
 import sp3
 import b_long
 import Sound_controll
+import b_long
+
 font1 = 'gulim.ttf'
 
 pygame.init() 

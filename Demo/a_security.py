@@ -12,7 +12,7 @@ import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import a_power
-
+import a_long
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -35,7 +35,7 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 샘플 맵입니다")
+            t1.reset("> A 보안실1에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
@@ -160,7 +160,10 @@ def maprun():
             if find_button.check() == 1:
                 setscr(2)
             if a_long_button.check() == 1:
-                pass
+                if '카드키' in getitem():
+                    a_long.maprun()
+                else:
+                    setscr(3)
             if a_power_button.check() == 1:
                 if '카드키' in getitem():
                     a_power.maprun()
@@ -169,11 +172,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             pass
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
-
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         

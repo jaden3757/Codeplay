@@ -85,7 +85,7 @@ def maprun():
 
     # | 여기부터 자유롭게 추가 또는 변경 |
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+    holy.item = [sheetname, 3] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -153,10 +153,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             itemcheck2(holy) # 오브젝트 예시
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

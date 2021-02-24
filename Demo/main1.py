@@ -18,12 +18,19 @@ item_t = getxllist('main', 1)
 item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3번째 세로줄
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
 item_f = {}
-secure = {'A1':0, 'A2':0, 'B':1}
-mode1 = {'oxygen':False, 'electric':False, 'wire1':False, 'wire2':False}
+secure = {'A1':0, 'A2':0, 'B':1, 'a_long':1, 'b_long':1, 'c_long':1}
+mode1 = {'main_event':0,'oxygen':False, 'electric':False, 'wire1':False, 'wire2':False, 'system':False, 'b_long':False, 'a_long':False, 'c_long':False, 'communication':False}
 
-hunger = 100
-hunger_cool = 0
+# hunger = 100
+# hunger_cool = 0
 
+# def hungeradd(a):
+#     global hunger
+#     print(hunger)
+#     hunger += a
+#     print(hunger)
+#     if hunger > 100:
+#         hunger = 100
 i = 1
 while getxl('items', 1, i) != None:
     item_s[getxl('items', 1, i)] = getxl('items', 3, i)

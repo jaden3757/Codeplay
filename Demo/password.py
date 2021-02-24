@@ -1,4 +1,6 @@
 from tkinter import *
+import pygame
+import b_long
 
 def enter_password():
     root = Tk()
@@ -28,9 +30,15 @@ def enter_password():
 
         print(e.get())
         e.delete(0, END)
-
+    def esc():
+        root.destroy()
+        b_long.maprun()
+        
     btn = Button(root, fg = "black", bg = "gray" ,text="Enter", command=btncmd)
     btn.place(x = 119, y = 50)
+
+    btn = Button(root, fg = "black", bg = "gray" ,text="ESC", command=esc)
+    btn.place(x = 80, y = 50)
 
     root.configure(bg='gray')
     root.mainloop()
