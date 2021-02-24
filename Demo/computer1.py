@@ -37,6 +37,10 @@ def textls(): # 텍스트 수동 입력
             t1.reset("> Loading. . .")
         if scr == 1: # 1번째 대사
             t1.reset("> 환영합니다 .")
+        if scr == 2:
+            t1.reset('''> 나는 에드워드 연구원이다. 자고나면 지구로 갈 시간이다. 시간이 없기도 하고 혹시 몰라 이 자료를 남겨둔다. 내 동료 휴스턴 연구원의 정부는 위험한 일들을 진행하고 있는 것 같다. 나는 그의 연구노트를 우연히 보게되었다. 그곳에는 휴스턴 정부가 곧 전쟁을 하려는 같다. 그곳에 적혀있던 이전에 달에서 발견된 외계 바이러스의 내용들은 전부 사실이며. 연구 내용들도 상세하게 작성되어있는 것을 보면 꽤 오랜 기간 준비를 해온 것 같다. 현재로서는 연구내용들과 사실들이 이해가 가지 않지만 만약 이것이 사실이라면 나는 어떻게 해야 하는지..
+휴스턴을 말렸지만 이 CT-I30 프로젝트는 
+계속 진행될 것 같다...''')
        
 
         # if scr == i: # i번째 대사 (샘플)
@@ -83,12 +87,12 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
+    icon_check_mode = 1
+
     computer_loading_count = 0
     computer = computer_object('images\\computer.png', 1200, 1000, -250, -200)
     loading_bar = computer_object('images\\cp_loading_bar.png', 150, 100, 225, 270)
-    loading_logo = computer_object('images\\black_widows.png', 200, 150, 200, 120)
-    computer_desktop = computer_object('images\\computer_desktop.png', 1200, 1000, -250, -200)
-
+    
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -96,15 +100,19 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         computer.draw()
         loading_bar.draw()
-        loading_logo.draw()
+     
         if computer_loading_count < 760:
             computer_loading(computer_loading_count)
             if computer_loading_count % 60 == 0 and computer_loading_count < 660:
                 setscr(0)
         else:
-            computer_desktop.draw()
+            computer_run(icon_check_mode)
+            icondraw(icon_check_mode)
             if scr == 0:
                 setscr(1)
+            if scr == 1 and icon_check_mode == 3:
+                setscr(2)
+
         # UI
 
         textls()
@@ -120,9 +128,12 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            
-
-            
+            if txt_icon.check() == 1:
+                txt_icon.off()
+                icon_check_mode = 2
+            elif txt_icon_clicked.check() == 1:
+                txt_icon_clicked.off()
+                icon_check_mode = 3
             # itemcheck(holy) # 이미지 오브젝트 예시
             
         if pygame.key.get_pressed()[pygame.K_m]:
@@ -133,8 +144,8 @@ def maprun():
             Sound_controll.sound_controll()
             
         #print(pygame.mouse.get_pos())
-        if pygame.mouse.get_pos()[0] > 135 and pygame.mouse.get_pos()[1] > 70:
-            if pygame.mouse.get_pos()[0] < 465 and pygame.mouse.get_pos()[1] < 365:
+        if pygame.mouse.get_pos()[0] > 145 and pygame.mouse.get_pos()[1] > 85:
+            if pygame.mouse.get_pos()[0] < 470 and pygame.mouse.get_pos()[1] < 375:
                 mousechange_cp()
         #fin [끝]
         pygame.display.flip()
