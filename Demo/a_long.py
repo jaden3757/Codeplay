@@ -120,7 +120,7 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    goto_b_button = button("관리실", 300, 40, 650, 150)
+    goto_b_button = button("B-long", 300, 40, 650, 150)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
 
@@ -196,19 +196,18 @@ def maprun():
 
             if security1_button.check() == 1:
                 setscr(1)
-                password.enter_password()
+                # password.enter_password()
                 # security1_button.maprun()
 
             if security2_button.check() == 1:
                 setscr(1)
-                password.enter_password()
+                # password.enter_password()
                 # security2_button.maprun()
             
             if goto_c_button.check() == 1:
                 setscr(1)
-                password.enter_password()
+                # password.enter_password()
                 # c_hall.maprun()
-                pass
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
