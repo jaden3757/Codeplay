@@ -12,6 +12,7 @@ import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import a_power
+import a_system
 
 # 시작
 pygame.init() 
@@ -107,7 +108,7 @@ def maprun():
     a_long_button.textsize = 20
     a_long_button.font = 'pixel.ttf'
 
-    a_system_button = button("A 시스템실", 300, 40, 650, 250) # 하위 버튼 디자인
+    a_system_button = button("시스템실", 300, 40, 650, 250) # 하위 버튼 디자인
     a_system_button.color = (0,0,0)
     a_system_button.textsize = 20
     a_system_button.font = 'pixel.ttf'
@@ -160,10 +161,13 @@ def maprun():
             if find_button.check() == 1:
                 setscr(2)
             if a_long_button.check() == 1:
-                pass
-            if a_system_button.check() == 1:
                 if '카드키' in getitem():
                     pass
+                else:
+                    setscr(3)
+            if a_system_button.check() == 1:
+                if '카드키' in getitem():
+                    a_system.maprun()
                 else:
                     setscr(3)
         if pygame.mouse.get_pressed()[0] == 1:
