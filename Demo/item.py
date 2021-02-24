@@ -322,8 +322,11 @@ class showitems():
             screen.blit(t_surface, (0,0))
             prtextm(txt, 20, x, y)
     def use(self):
-        del self.buttonlist[self.intro2[2]]
+        self.buttonlist.pop(self.intro2[2])
         if self.isinv == 'inv':
             item_t.pop(self.intro2[2])
         else:
             delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])
+    def refresh(self):
+        if self.isinv == 'inv':
+            self.reseted = 1

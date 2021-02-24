@@ -12,7 +12,7 @@ import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import a_power
-
+import a_long
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -160,7 +160,10 @@ def maprun():
             if find_button.check() == 1:
                 setscr(2)
             if a_long_button.check() == 1:
-                pass
+                if '카드키' in getitem():
+                    a_long.maprun()
+                else:
+                    setscr(3)
             if a_power_button.check() == 1:
                 if '카드키' in getitem():
                     a_power.maprun()

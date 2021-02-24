@@ -16,7 +16,6 @@ import sound
 import time
 
 sound.play_cynthia_S()
-
 class Fade(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()

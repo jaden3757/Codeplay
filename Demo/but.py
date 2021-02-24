@@ -192,6 +192,7 @@ class imagebutton:
     item = ['main', 50]
     item_list = []
     mode = 0
+    getted = 0
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy
@@ -292,6 +293,14 @@ itemusing = 580
 itemon = 0
 nowitem = ''
 
+hunger = 100
+hunger_cool = 0
+def hungeradd(a):
+    global hunger
+    hunger += a
+    if hunger > 100:
+        hunger = 100
+
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
@@ -312,6 +321,10 @@ def mapdraw(): # 아이템 상호작용
         itemon = 1
         nowitem = 'images/cardkey.png'
     # [ 이 아래로는 건드리지 마시오 ]
+    if [itemui.intro2[0], itemui.intro2[1]] == ['빵', 1]:
+        itemui.intro2[1] = 0
+        itemui.use()
+        hungeradd(20)
     if itemon == 1:
         if itemui.intro2[1] == 1:
             itemusing -= itemusing/8 + 1
