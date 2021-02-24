@@ -133,8 +133,6 @@ def maprun():
     cctv_button.textsize = 20
     cctv_button.font = 'pixel.ttf'
 
-    sound.play_cynthia_S()
-
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -142,7 +140,7 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("시스템실 | A-5", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -162,7 +160,6 @@ def maprun():
             move_button.txt = '< 뒤로'
             onoff_button.on()
             control_button.on()
-            cctv_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             find_button.on()
