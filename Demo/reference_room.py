@@ -11,7 +11,7 @@ from excel import *
 import loading2
 import computer1
 import computer_module
-#import a_hall
+import a_hall
 
 # 시작
 pygame.init() 
