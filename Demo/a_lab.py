@@ -127,6 +127,7 @@ def maprun():
     goto_A_long_button = button("a홀", 300, 40, 650, 200)
     goto_A_long_button.color = (0,0,0)
     goto_A_long_button.textsize = 20
+    goto_A_long_button.font = 'pixel.ttf'
 
     a1_button = button("현미경", 100, 50, 300, 100)
     a1_button.color = (255,255,255)

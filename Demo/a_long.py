@@ -16,8 +16,10 @@ import sound
 import b_hall
 import password
 import b_manageroom
-# import a_security1
-# import a_security2
+import a_hall
+import a_security
+import a_security2
+import b_long
 
 screen_width = 1000
 screen_height = 600
@@ -52,12 +54,18 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 샘플 맵입니다")
+            t1.reset("> A 롱에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3:
+            t1.reset("카드키가 필요하다.")
+        if scr == 4:
+            t1.reset("문이 닫혀 있다.")
+        if scr == 5:
+            t1.reset("카드키와 권한이 필요하다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -98,7 +106,7 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_long' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
@@ -120,21 +128,30 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    goto_b_button = button("B-long", 300, 40, 650, 150)
+    hall_button = button("A 홀", 300, 40, 650, 150)
+    hall_button.color = (0,0,0)
+    hall_button.textsize = 20
+    hall_button.font = 'pixel.ttf'
+    
+    goto_b_button = button("B-long", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
+    goto_b_button.font = 'pixel.ttf'
 
-    security1_button = button("보안실1", 300, 40, 650, 200)
+    security1_button = button("보안실1", 300, 40, 650, 250)
     security1_button.color = (0,0,0)
     security1_button.textsize = 20
+    security1_button.font = 'pixel.ttf'
 
-    security2_button = button("보안실2", 300, 40, 650, 250)
+    security2_button = button("보안실2", 300, 40, 650, 300)
     security2_button.color = (0,0,0)
     security2_button.textsize = 20
+    security2_button.font = 'pixel.ttf'
 
-    goto_c_button = button("C-hall", 300, 40, 650, 300)
+    goto_c_button = button("C 롱", 300, 40, 650, 350)
     goto_c_button.color = (0,0,0)
     goto_c_button.textsize = 20
+    goto_c_button.font = 'pixel.ttf'
 
     sound.play_cynthia_S()
 
@@ -145,7 +162,7 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 롱 | None", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -157,6 +174,7 @@ def maprun():
         security1_button.off()
         security2_button.off()
         goto_c_button.off()
+        hall_button.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
@@ -165,7 +183,7 @@ def maprun():
             security1_button.on()
             security2_button.on()
             goto_c_button.on()
-
+            hall_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             lower_button.off()
@@ -182,7 +200,7 @@ def maprun():
         security1_button.draw()
         security2_button.draw()
         goto_c_button.draw()
-
+        hall_button.draw()
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -191,24 +209,35 @@ def maprun():
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
             if goto_b_button.check() == 1: # 예시입니다
-                setscr(1)
-                b_manageroom.maprun()
-
+                if '카드키' in getitem():
+                    if secure['b_long'] == 1:
+                        b_long.maprun()
+                    else:
+                        setscr(4)
+                else:
+                    setscr(3)
             if security1_button.check() == 1:
-                setscr(1)
+                if '카드키' in getitem() and secure['A1'] == 1:
+                    a_security.maprun()
+                else:
+                    setscr(5)
                 # password.enter_password()
                 # security1_button.maprun()
 
             if security2_button.check() == 1:
-                setscr(1)
+                if '카드키' in getitem() and secure['A2'] == 1:
+                    a_security2.maprun()
+                else:
+                    setscr(5)
                 # password.enter_password()
                 # security2_button.maprun()
             
             if goto_c_button.check() == 1:
-                setscr(1)
+                pass
                 # password.enter_password()
                 # c_hall.maprun()
-
+            if hall_button.check() == 1:
+                a_hall.maprun()
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)

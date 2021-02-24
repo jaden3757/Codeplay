@@ -129,16 +129,17 @@ def maprun():
     goto_A_long_button = button("a_long", 300, 40, 650, 200)
     goto_A_long_button.color = (0,0,0)
     goto_A_long_button.textsize = 20
+    goto_A_long_button.font = 'pixel.ttf'
 
-    goto_B_long_button = button("자료실", 300, 40, 650, 240)
+    goto_B_long_button = button("자료실", 300, 40, 650, 250)
     goto_B_long_button.color = (0,0,0)
     goto_B_long_button.textsize = 20
+    goto_B_long_button.font = 'pixel.ttf'
 
-    goto_C_long_button = button("연구실", 300, 40, 650, 280)
+    goto_C_long_button = button("연구실", 300, 40, 650, 300)
     goto_C_long_button.color = (0,0,0)
     goto_C_long_button.textsize = 20
-
-
+    goto_C_long_button.font = 'pixel.ttf'
 
 
     sound.play_cynthia_S()
