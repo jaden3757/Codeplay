@@ -38,6 +38,8 @@ def textls(): # 텍스트 수동 입력
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             t1.reset("> 시스템실에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
+            t1.md = 0
+            t1.mode = 0
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
@@ -52,6 +54,35 @@ def textls(): # 텍스트 수동 입력
             t1.reset("이미 켜져 있다.")
         if scr == 7:
             t1.reset("전원이 아직 꺼져 있다.")
+        if scr == 8:
+            t1.reset('나 : (사람이다..!)')
+            t1.next('나 : (생존자인가..?)')
+            t1.next('휴스턴 : 오오 반갑구만! 자네도 살아있었는가?')
+            t1.next('나 : 당신도 살아있었군요.')
+            t1.next('나 : (에드워드의 자료에 있던 휴스턴 연구원이다..)')
+            t1.next('휴스턴 : 대원들이 전부 사망한줄 알았는데 자네가 살아있을 줄은 몰랐다네!')
+            t1.next('나 : 두고온 키카드를 가지러 가고있었는데 우주선이 폭발하더군요. 당신은 어떻게 살아있는 거죠?')
+            t1.next('휴스턴 : 나는 그러니까... 음.. 알약을 잘못 먹어 수면제를 먹는 바람에.. 우주선으로 가지 못하고 내 침실 D방에서 자버리고 말았다네!')
+            t1.next('나 : (수상해 보인다.. 휴스턴 연구원이 우주선을 폭발 시킨 것 같다..)')
+            t1.next('< 스페이스바를 눌러서 다음으로 >')
+            t1.md = 1
+        if scr == 9:
+            t1.reset('나 : 아.. 그렇군요.')
+            t1.next('휴스턴 : 자네 혹시 연구실.. 아.. 아니라네.')
+            t1.next('휴스턴 : 자네 나와 같이 동행하지!')
+            t1.next('나 : (동행을 하게 된다면 위험하고 무슨 일이 일어날지 모르지만 그래도 통신장치를 고치는데에는 도움이 될지도..?)')
+            t1.next('나 : 그러시죠. 혹시 통신이 안돼서 통신장치를 수리해야 할 것 같은데 도움을 주실 수 있나요?')
+            t1.next('휴스턴 : 아아 물론이지.')
+            t1.next('나 : 그런데 C구역으로 가는 길이 비밀번호로 막혔는데..')
+            t1.next('휴스턴 : 허허 걱정말게. 나는 보안모드가 발생될 경우를 대비해 비밀번호를 외워둔다네. 이전까지 한 번도 보안모드가 발생된 적이')
+            t1.next('없어서 외우고 있는 비밀번호 아직 유효할 것이네.')
+            t1.next('휴스턴 : 통신장치실로 가시게!')
+            t1.next('< 스페이스바를 눌러서 종료 >')
+            t1.md = 1
+        if scr == 10:
+          t1.reset("당신은 아직 이 컴퓨터를 사용하면 안될 것 같다")
+          if mode1['main_event'] == 1:
+            t1.next("통신장치를 수리하고 오자")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -99,6 +130,16 @@ def maprun():
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
+    time2 = 0
+    if mode1['main_event'] == 0 and [mode1['seenote'], mode1['edward'], mode1['tryconnect']] == [1,1,1]:
+        mode1['main_event'] = 1
+        time2 = 1
+        setscr(8)
+    mode1['main_event'] = 1
+    time2 = 1
+    setscr(8)
+    t1.mode = 1
+
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
@@ -136,17 +177,23 @@ def maprun():
     cctv_button.textsize = 20
     cctv_button.font = 'pixel.ttf'
 
+    t_surface = screen.convert_alpha()
+    t_surface.fill((0,0,0,0))
+    
     # mode1['system'] = True
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-
+        
         # | UI |
         prtext4("시스템실 | A-5", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
+        if time2 > 0:
+            pygame.draw.rect(t_surface, (0,0,0, 150), [20, 20, 560, 560])
+            screen.blit(t_surface, (0,0))
         textprinting()
 
         # | 버튼 그리는 곳 |
@@ -215,7 +262,10 @@ def maprun():
                     setscr(4)
             if control_button.check() == 1:
                 if mode1['system'] == True:
-                    a_system1.maprun()
+                    if mode1['main_event'] == 2:
+                        a_system1.maprun()
+                    else:
+                        setscr(10)
                 else:
                     setscr(7)
         if pygame.mouse.get_pressed()[0] == 1:
@@ -224,6 +274,16 @@ def maprun():
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if time2 == 1:
+                    time2 += 1
+                    setscr(9)
+                elif time2 == 2:
+                    time2 = 0
+                    t1.md = 0
+                    t1.mm = 0
+                    setscr(0)
         
         #fin [끝]
         mousechange()

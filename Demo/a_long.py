@@ -233,9 +233,14 @@ def maprun():
                 # security2_button.maprun()
             
             if goto_c_button.check() == 1:
-                pass
-                # password.enter_password()
-                # c_hall.maprun()
+                if '카드키' in getitem():
+                    if secure['c_long'] == 1:
+                        c_hall.maprun()
+                    else:
+                        setscr(4)
+                else:
+                    setscr(3)
+
             if hall_button.check() == 1:
                 a_hall.maprun()
             if move_button.check() == 1: # 예시입니다

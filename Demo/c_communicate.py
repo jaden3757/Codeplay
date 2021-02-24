@@ -48,6 +48,30 @@ def textls(): # 텍스트 수동 입력
             t1.reset("카드키가 필요하다.")
         if scr == 4:
             t1.reset("바닥에 전선이 있다.")
+        if scr == 5:
+            t1.reset('나 : 혹시 뭐가 문제인지 알 것 같나요?')
+            t1.next('휴스턴 : 한 번 전체적으로 봐야 할 것 같다네. 자네는 저기 있는 선좀 정리하고 있어 주게.')
+            t1.next('나 : (무슨 꿍꿍이지..?)')
+            t1.next('휴스턴 : 음.. 아무래도 이건 고치지 못할 것 같네. 우주선의 폭발물로 인해 완전히 수리가 불가능해.')
+            t1.next('나 : (아무래도 에드워드 연구원의 자료와 연구노트에 있던 내용들이 사실인 것 같다. 우주선도 휴스턴 연구원이 터지게 한 것 같다...)')
+            t1.next('나 : 그런가요? 그래도 한 번 제가 수리해 보죠.')
+            t1.next('나 : (아무래도 더 있으면 위험해질 것 같다. 이륙장에 갔을때 보니까 차고에 1인 우주선이 있던데 지구와 통신을 하지 말고 휴스턴의 정부가 오기 전에 위험할 수 있지만 그걸 타고')
+            t1.next('휴스턴의 정부보다 먼저 지구로 가야겠다.)')
+            t1.next('< 스페이스바를 눌러서 다음으로 >')
+            t1.md = 1
+        if scr == 6:
+            t1.reset('나 : (하지만 탑승하기 전에 혹시 모르니 휴스턴에게 통신장치를 수리하기 위해 B창고에 있는 부품을 가져다 달라하고 말한 다음 시스템실에서 B구역을 보안모드로')
+            t1.next('설정해야 겠다. 휴스턴을 B구역에 고립시켜둬야 겠어.)')
+            t1.next('나 : 휴스턴씨, 통신실로 가보죠.')
+            t1.next('휴스턴 : 통신실? 알겠다네.')
+            t1.next('나 : 혹시 B창고에 통신장치를 수리하는데에 쓸만한 부품들을 모아서 가져와주실 수 있나요?')
+            t1.next('휴스턴 : B창고? 흠.. 알겠네.')
+            t1.next('나 : 저는 통신실에서 통신을 좀 시도해 보겠습니다.')
+            t1.next('휴스턴 : 알겠네.')
+            t1.next('< 스페이스바를 눌러서 종료 >')
+            t1.md = 1
+## B구역의 보안모드를 해제하려 할 경우 ("B구역 보안모드는 해제하면 위험해.") 출력 후 B구역 보안모드 해제 불가능
+## "나 : (어서 시스템실에서 B구역을 보안모드로 설정하고 1인용 우주선에 탑승하자.)" 출력
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -94,6 +118,16 @@ def maprun():
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 3] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+    time2 = 0
+    if mode1['main_event'] == 1 and [mode1['seenote'], mode1['edward'], mode1['tryconnect']] == [1,1,1]:
+        mode1['main_event'] = 2
+        time2 = 1
+        setscr(5)
+
+    mode1['main_event'] = 2
+    time2 = 1
+    setscr(5)
+    t1.mode = 1
 
     wire = imagebutton('images/electric.png', 100, 100, 200, 200)
     if mode1['gettedwire'] == True:
@@ -134,6 +168,9 @@ def maprun():
         prtext4("통신 장치실 | C", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
+        if time2 > 0:
+            pygame.draw.rect(t_surface, (0,0,0, 150), [20, 20, 560, 560])
+            screen.blit(t_surface, (0,0))
         textprinting()
 
         # | 버튼 그리는 곳 |
@@ -199,7 +236,16 @@ def maprun():
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
-        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if time2 == 1:
+                    time2 += 1
+                    setscr(6)
+                elif time2 == 2:
+                    time2 = 0
+                    t1.md = 0
+                    t1.mm = 0
+                    setscr(0)
         #fin [끝]
         mousechange()
         pygame.display.flip()
