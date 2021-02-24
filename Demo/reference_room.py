@@ -10,6 +10,7 @@ from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import computer1
+import computer_module
 #import a_hall
 
 # 시작

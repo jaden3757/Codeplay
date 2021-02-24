@@ -181,7 +181,6 @@ def computer_loading(computer_loading_count):
     elif computer_loading_count % 60 < 59:
         b_loading_dot1.draw()
         b_loading_dot2.draw()
-<<<<<<< HEAD
         b_loading_dot3.draw() 
 
 def computer_run(clicked_count):
@@ -199,7 +198,3 @@ def icondraw(clicked_count):
         txt_icon.draw()
     elif clicked_count == 2:
         txt_icon_clicked.draw()
-
-=======
-        b_loading_dot3.draw() 
->>>>>>> d91aff9d75a99327681909797db128f1426f7a66
