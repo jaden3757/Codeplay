@@ -35,7 +35,7 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> A 보안실1에 들어왔다.")
+            t1.reset("> A 보안실2에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
@@ -83,7 +83,7 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'a_security1' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_security2' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
@@ -107,10 +107,10 @@ def maprun():
     a_long_button.textsize = 20
     a_long_button.font = 'pixel.ttf'
 
-    a_power_button = button("A 발전소", 300, 40, 650, 250) # 하위 버튼 디자인
-    a_power_button.color = (0,0,0)
-    a_power_button.textsize = 20
-    a_power_button.font = 'pixel.ttf'
+    a_system_button = button("A 시스템실", 300, 40, 650, 250) # 하위 버튼 디자인
+    a_system_button.color = (0,0,0)
+    a_system_button.textsize = 20
+    a_system_button.font = 'pixel.ttf'
 
     sound.play_cynthia_S()
 
@@ -121,7 +121,7 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
-        prtext4("A 보안실1 | A-Long : A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 보안실2 | A-Long : A-5", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -129,11 +129,11 @@ def maprun():
         # | 버튼 그리는 곳 |
         find_button.off()
         a_long_button.off()
-        a_power_button.off()
+        a_system_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             a_long_button.on()
-            a_power_button.on()
+            a_system_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             find_button.on()
@@ -141,7 +141,7 @@ def maprun():
         move_button.draw()
         find_button.draw()
         a_long_button.draw()
-        a_power_button.draw()
+        a_system_button.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
@@ -161,9 +161,9 @@ def maprun():
                 setscr(2)
             if a_long_button.check() == 1:
                 pass
-            if a_power_button.check() == 1:
+            if a_system_button.check() == 1:
                 if '카드키' in getitem():
-                    a_power.maprun()
+                    pass
                 else:
                     setscr(3)
         if pygame.mouse.get_pressed()[0] == 1:

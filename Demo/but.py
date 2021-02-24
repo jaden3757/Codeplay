@@ -327,7 +327,7 @@ def mapdraw(): # 아이템 상호작용
         screen.blit(t_surface, (0,0))
         primg2(nowitem, 20, itemusing)
         if itemusing == 20:
-            prtextm2('Press X to get out', 25, 300, 560, (255,255,255), ft='moon.otf')
+            prtextm2('Press X to exit', 25, 300, 560, (255,255,255), ft='moon.otf')
 
 def drawui():
     global hunger
