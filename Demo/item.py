@@ -327,3 +327,6 @@ class showitems():
             item_t.pop(self.intro2[2])
         else:
             delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])
+    def refresh(self):
+        if self.isinv == 'inv':
+            self.reseted = 1

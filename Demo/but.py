@@ -192,6 +192,7 @@ class imagebutton:
     item = ['main', 50]
     item_list = []
     mode = 0
+    getted = 0
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy

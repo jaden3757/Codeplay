@@ -36,6 +36,7 @@ def textls(): # 텍스트 수동 입력
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             if mode1['wire2'] == False:
                 t1.reset("> 끊어진 전선이다. 전선을 사용하자")
+                t1.next('(통신실과 통신장치로 통하는 것 같다)')
                 t1.next("[ 인벤토리에서 전선 사용 ]")
             else:
                 t1.reset("> 연결된 전선이다.")
@@ -48,6 +49,8 @@ def textls(): # 텍스트 수동 입력
             t1.reset('전선을 수리했다. 전류를 흘려보낼 수 있다.')
         if scr == 4:
             t1.reset('이미 수리되어 있다.')
+        if scr == 5:
+            t1.reset('왼쪽 전선을 먼저 수리해야한다.')
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -126,15 +129,19 @@ def maprun():
         screen.blit(wirepng, (20, 20))
         if itemui.intro2[0:2] == ['전선', 1]:
             if mode1['wire2'] == False:
-                itemui.intro2[1] = 0
-                setscr(3)
-                itemui.use()
-                mode1['wire2'] = True
-                if mode1['wire2'] == False:
-                    wirepng = pygame.image.load('images/wire1.png')
+                if mode1['wire1'] == True:
+                    itemui.intro2[1] = 0
+                    setscr(3)
+                    itemui.use()
+                    mode1['wire2'] = True
+                    if mode1['wire2'] == False:
+                        wirepng = pygame.image.load('images/wire1.png')
+                    else:
+                        wirepng = pygame.image.load('images/wire2.png')
+                    wirepng = pygame.transform.scale(wirepng, (560, 560))
                 else:
-                    wirepng = pygame.image.load('images/wire2.png')
-                wirepng = pygame.transform.scale(wirepng, (560, 560))
+                    setscr(5)
+                    itemui.intro2[1] = 0
         # | UI |
         prtext4("A 발전소 | A-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
