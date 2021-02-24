@@ -247,7 +247,6 @@ def maprun():
                 if textn < len(textll):
                     textn += 1
                     intext = textll[-textn]
-                print(textn)
             elif event.key == pygame.K_DOWN:
                 retext = intext
                 if textn > 0:
