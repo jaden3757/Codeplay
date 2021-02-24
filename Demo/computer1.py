@@ -10,7 +10,6 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-#import a_hall
 
 # 시작
 pygame.init() 
@@ -92,7 +91,9 @@ def maprun():
     computer_loading_count = 0
     computer = computer_object('images\\computer.png', 1200, 1000, -250, -200)
     loading_bar = computer_object('images\\cp_loading_bar.png', 150, 100, 225, 270)
-    
+
+    txt_icon.on()
+    txt_icon_clicked.on()
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
@@ -102,7 +103,6 @@ def maprun():
         loading_bar.draw()
      
         if computer_loading_count < 760:
-            icon_check_mode = 1
             computer_loading(computer_loading_count)
             if computer_loading_count % 60 == 0 and computer_loading_count < 660:
                 setscr(0)
