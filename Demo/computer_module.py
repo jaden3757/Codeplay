@@ -2,6 +2,7 @@ import pygame
 import sys
 from module1 import *
 from but import *
+import computer1
 import reference_room
 pygame.init()
 screen = pygame.display.set_mode((600, 800))
@@ -194,7 +195,6 @@ def computer_run(clicked_count):
                 if pygame.mouse.get_pressed()[0] == 1:
                     reference_room.maprun()
 def icondraw(clicked_count):
-    if clicked_count == 1:
-        txt_icon.draw()
-    elif clicked_count == 2:
+    txt_icon.draw()
+    if clicked_count == 2:
         txt_icon_clicked.draw()
