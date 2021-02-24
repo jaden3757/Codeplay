@@ -9,7 +9,8 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import b_manageroom
+import a_system
+
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -31,7 +32,7 @@ def textls(): # 텍스트 수동 입력
     global ch
     global scr
     if ch == 1:
-        m1 = ['꺼짐', '켜짐']
+        m1 = ['닫힘', '열림']
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
             t1.reset("Enter a password")
             t1.next("-LOCKED-")
@@ -42,29 +43,26 @@ def textls(): # 텍스트 수동 입력
         if scr == 3:
             t1.reset("-Failed")
         if scr == 4:
-            t1.reset("-보안실 키카드 등록-")
-            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
-            t1.next('<키카드 등록법>')
-            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
-            t1.next('띄어쓰기를 확인해주십시오')
+            t1.reset("--보안 모드 설정하기--")
+            t1.next('::문 목록::')
+            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('<문 설정법> (on:열림, off:닫힘)')
+            t1.next('\"set (문 이름) ( on / off )\"')
+            t1.next('띄어쓰기/대소문자를 확인해주십시오')
         if scr == 5:
             t1.reset("==잘못된 명령어==")
-            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
-            t1.next('<키카드 등록법>')
-            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
-            t1.next('띄어쓰기를 확인해주십시오')
+            t1.next('::문 목록::')
+            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('<문 설정법> (on:열림, off:닫힘)')
+            t1.next('\"set (문 이름) ( on / off )\"')
+            t1.next('띄어쓰기/대소문자를 확인해주십시오')
         if scr == 6:
-            t1.reset("==이미 등록되어 있습니다==")
-            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
-            t1.next('<키카드 등록법>')
-            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
-            t1.next('띄어쓰기를 확인해주십시오')
-        if scr == 7:
-            t1.reset("==등록 성공==")
-            t1.next('보안실 목록 : A1[%s], A2[%s], B[%s]' % (m1[secure['A1']], m1[secure['A2']], m1[secure['B']]))
-            t1.next('<키카드 등록법>')
-            t1.next('\"register (보안실 이름) (키카드 아이디)\"')
-            t1.next('띄어쓰기를 확인해주십시오')
+            t1.reset("==설정 성공==")
+            t1.next('::문 목록::')
+            t1.next('A-long[%s], B-long[%s], C-long[%s]' % (m1[secure['a_long']], m1[secure['b_long']], m1[secure['c_long']]))
+            t1.next('<문 설정법> (on:열림, off:닫힘)')
+            t1.next('\"set (문 이름) ( on / off )\"')
+            t1.next('띄어쓰기/대소문자를 확인해주십시오')
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -105,12 +103,12 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'sp3' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'a_system' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+    # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
+    # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
     move_button = button("< 뒤로", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -159,26 +157,30 @@ def maprun():
         if re == 1:
             re = 0
             if comon == 0:
-                if retext == 'password':
+                if retext == '198206':
                     comon = 1
                     setscr(4)
                 else:
                     setscr(3)
             else:
-                if retext == 'register A1 82710':
-                    if secure['A1'] == 0:
-                        setscr(7)
-                        secure['A1'] = 1
-                    else:
-                        setscr(6)
-                elif retext == 'register A2 82710':
-                    if secure['A2'] == 0:
-                        setscr(7)
-                        secure['A2'] = 1
-                    else:
-                        setscr(6)
-                elif retext == 'register B 82710':
+                if retext == 'set A-long on' or retext == 'set a-long on':
                     setscr(6)
+                    secure['a_long'] = 1
+                elif retext == 'set B-long on' or retext == 'set b-long on':
+                    setscr(6)
+                    secure['b_long'] = 1
+                elif retext == 'set C-long on' or retext == 'set c-long on':
+                    setscr(6)
+                    secure['c_long'] = 1
+                elif retext == 'set A-long off' or retext == 'set a-long off':
+                    setscr(6)
+                    secure['a_long'] = 0
+                elif retext == 'set B-long off' or retext == 'set b-long off':
+                    setscr(6)
+                    secure['b_long'] = 0
+                elif retext == 'set C-long off' or retext == 'set c-long off':
+                    setscr(6)
+                    secure['c_long'] = 0
                 else:
                     setscr(5) # failed
         # | UI |
@@ -208,7 +210,7 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
-                    b_manageroom.maprun()
+                    a_system.maprun()
                 else:
                     setscr(0)
                     buttonmode = 0
