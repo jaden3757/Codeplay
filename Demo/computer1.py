@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+from computer_module import *
 from module1 import *
 from but import *
 from main1 import * #main
@@ -9,7 +10,6 @@ from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import computer1
 #import a_hall
 
 # 시작
@@ -34,14 +34,11 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> 자료실에 들어왔다 .")
-            t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
+            t1.reset("> Loading. . .")
         if scr == 1: # 1번째 대사
-            t1.reset("이동목록을 표시중")
-        if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("중요한 건 없는 것 같다.")
-        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("..")
+            t1.reset("> 환영합니다 .")
+       
+
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -82,29 +79,15 @@ def maprun():
     setscr(0)
     firstsetting()
     buttonmode = 0
-    sheetname = 'reference_room' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'computer' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
-    computer = itemobject('images\\computer.png', '컴퓨터', 200, 150, 0, 100)
-
-    move_button = button("이동목록", 100, 50, 650, 500)
-    move_button.color = (255,255,255)
-    move_button.textcolor = (0,0,0)
-    move_button.textsize = 22
-    move_button.font = 'pixel.ttf'
-
-    find_button = button("집중탐사", 100, 50, 850, 500)
-    find_button.color = (255,255,255)
-    find_button.textcolor = (0,0,0)
-    find_button.textsize = 22
-    find_button.font = 'pixel.ttf'
-
-    a_hall_button = button("a_hall", 300, 40, 650, 200)
-    a_hall_button.color = (0,0,0)
-    a_hall_button.textsize = 20
-    a_hall_button.font = 'pixel.ttf'
-
+    computer_loading_count = 0
+    computer = computer_object('images\\computer.png', 1200, 1000, -250, -200)
+    loading_bar = computer_object('images\\cp_loading_bar.png', 150, 100, 225, 270)
+    loading_logo = computer_object('images\\black_widows.png', 200, 150, 200, 120)
+    computer_desktop = computer_object('images\\computer_desktop.png', 1200, 1000, -250, -200)
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -112,28 +95,23 @@ def maprun():
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         computer.draw()
-
+        loading_bar.draw()
+        loading_logo.draw()
+        if computer_loading_count < 760:
+            computer_loading(computer_loading_count)
+            if computer_loading_count % 60 == 0 and computer_loading_count < 660:
+                setscr(0)
+        else:
+            computer_desktop.draw()
+            if scr == 0:
+                setscr(1)
         # UI
-        prtext4("관리실 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
-        drawui()
+
         textls()
         textprinting()
 
         # 버튼 그리는 곳
-        find_button.off()
-        a_hall_button.off()
-
-        if buttonmode == 1:
-            move_button.txt = '< 뒤로'
-            a_hall_button.on()
-
-        else:
-            move_button.txt = '이동목록'
-            find_button.on()
-
-        move_button.draw()
-        find_button.draw()
-        a_hall_button.draw()
+     
 
         # // All_event [이벤트창]
         event = pygame.event.poll()
@@ -142,35 +120,27 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            if move_button.check() == 1: # 예시입니다
-                if buttonmode == 0:
-                    setscr(1)
-                    buttonmode = 1
-                else:
-                    setscr(0)
-                    buttonmode = 0
-            if find_button.check() == 1:
-                setscr(2)
-            if a_hall_button.check() == 1:
-                a_hall.maprun()
             
+
             
             # itemcheck(holy) # 이미지 오브젝트 예시
             
-        if pygame.mouse.get_pressed()[0] == 1:
-            if computer.check() == 1:
-                computer1.maprun()
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
             pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
-        
+            
+        #print(pygame.mouse.get_pos())
+        if pygame.mouse.get_pos()[0] > 135 and pygame.mouse.get_pos()[1] > 70:
+            if pygame.mouse.get_pos()[0] < 465 and pygame.mouse.get_pos()[1] < 365:
+                mousechange_cp()
         #fin [끝]
         pygame.display.flip()
+       
+        computer_loading_count += 1
         clock.tick(60)
-
     pygame.quit()
 
 if __name__ == '__main__':
