@@ -16,6 +16,7 @@ import sound
 import b_hall
 import password
 import b_manageroom
+import a_long
 
 screen_width = 1000
 screen_height = 600
@@ -186,7 +187,7 @@ def maprun():
             if goto_a_button.check() == 1:
                 setscr(1)
                 password.enter_password()
-                b_hall.maprun()
+                a_long.maprun()
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
@@ -201,10 +202,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             pass
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

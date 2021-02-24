@@ -8,10 +8,10 @@ from main1 import * #main
 from item import *
 from excel import *
 import sound
+import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import sound
-import Sound_controll
+
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -140,7 +140,6 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            itemcheck(holy) # 이미지 오브젝트 예시
         
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
@@ -151,14 +150,9 @@ def maprun():
                     buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
-            # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(holy)
+            itemcheck2(holy) # 오브젝트 예시
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

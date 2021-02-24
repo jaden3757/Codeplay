@@ -54,13 +54,14 @@ def maprun():
     
     screen.fill(pygame.color.Color(50, 50, 50))
 
-    i = 0
-    while i < 60:
-        i += 1
-        screen.blit(tsurface, (0,0))
-        pygame.display.flip()
-        clock.tick(60)
-    
+    # i = 0
+    # while i < 60:
+    #     i += 1
+    #     screen.blit(tsurface, (0,0))
+    #     pygame.display.flip()
+    #     clock.tick(60)
+
+    img = pygame.image.load('teaser-5.png')
     while run:
         scrclear = 1
         if scrclear == 1:
@@ -78,7 +79,7 @@ def maprun():
         #         ri1 -= 100
         #     pygame.draw.rect(screen, (100,100,100), [500 - (ri1 * 5), 300 - (ri1 * 3), ri1 * 10, ri1 * 6], 3)
         #     w += 1
-        primg2('teaser-5.png', 0,0)
+        screen.blit(img, (0, 0))
         # prtextm("Moon Side", 80, 500, 70)
 
         p += 1
@@ -131,13 +132,11 @@ def maprun():
             run = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if load_button.check() == 1: #처음에 생성했던 로드 버튼이 눌렸는지 확인
-                # import rooms
-                start_room.maprun()
             if play_button.check() == 1:
                 pygame.mixer.music.stop()
                 play_button.off()
                 fade = 1
+
         screen.blit(tsurface, (0,0))
         mousechange()
         pygame.display.flip()

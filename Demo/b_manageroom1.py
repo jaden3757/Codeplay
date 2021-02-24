@@ -165,19 +165,19 @@ def maprun():
                 else:
                     setscr(3)
             else:
-                if retext == 'register A1 type40':
+                if retext == 'register A1 82710':
                     if secure['A1'] == 0:
                         setscr(7)
                         secure['A1'] = 1
                     else:
                         setscr(6)
-                elif retext == 'register A2 type40':
+                elif retext == 'register A2 82710':
                     if secure['A2'] == 0:
                         setscr(7)
                         secure['A2'] = 1
                     else:
                         setscr(6)
-                elif retext == 'register B type40':
+                elif retext == 'register B 82710':
                     setscr(6)
                 else:
                     setscr(5) # failed
@@ -249,11 +249,13 @@ def maprun():
                     intext = textll[-textn]
             elif event.key == pygame.K_DOWN:
                 retext = intext
-                if textn > 1:
+                if textn > 0:
                     textn -= 1
                     intext = textll[-textn]
-                elif textn == 1:
+                if textn == 0:
+                # elif textn == 1:
                     intext = ''
+                print(textn)
             else:
                 if intext_rect.width < 520:
                     intext += event.unicode

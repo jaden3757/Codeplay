@@ -16,6 +16,8 @@ import sound
 import b_hall
 import password
 import b_manageroom
+# import a_security1
+# import a_security2
 
 screen_width = 1000
 screen_height = 600
@@ -27,6 +29,7 @@ DARK_WHITE = (180, 180, 180)
 GREEN = (100, 255, 100)
 RED = (255, 50, 50)
 LIGHT_BLACK = (50, 50, 50)
+
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -117,25 +120,21 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    goto_b_button = button("관리실", 300, 40, 650, 200)
+    goto_b_button = button("관리실", 300, 40, 650, 150)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
 
-    goto_a_button = button("보안실", 300, 40, 650, 250)
-    goto_a_button.color = (0,0,0)
-    goto_a_button.textsize = 20
+    security1_button = button("보안실1", 300, 40, 650, 200)
+    security1_button.color = (0,0,0)
+    security1_button.textsize = 20
 
-    goto_a_button = button("보안실", 300, 40, 650, 250)
-    goto_a_button.color = (0,0,0)
-    goto_a_button.textsize = 20
+    security2_button = button("보안실2", 300, 40, 650, 250)
+    security2_button.color = (0,0,0)
+    security2_button.textsize = 20
 
-    goto_a_button = button("A-hall", 300, 40, 650, 250)
-    goto_a_button.color = (0,0,0)
-    goto_a_button.textsize = 20
-
-    goto_a_button = button("A-hall", 300, 40, 650, 250)
-    goto_a_button.color = (0,0,0)
-    goto_a_button.textsize = 20
+    goto_c_button = button("C-hall", 300, 40, 650, 300)
+    goto_c_button.color = (0,0,0)
+    goto_c_button.textsize = 20
 
     sound.play_cynthia_S()
 
@@ -154,31 +153,35 @@ def maprun():
         # | 버튼 그리는 곳 |
         find_button.off()
         lower_button.off()
-        password_button.off()
         goto_b_button.off()
-        goto_a_button.off()
+        security1_button.off()
+        security2_button.off()
+        goto_c_button.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             lower_button.on()
-            password_button.on()
             goto_b_button.on()
-            goto_a_button.on()
+            security1_button.on()
+            security2_button.on()
+            goto_c_button.on()
 
         else: # 꺼진 경우
             move_button.txt = '이동목록'
             lower_button.off()
             find_button.on()
-            password_button.off()
             goto_b_button.off()
-            goto_a_button.off()
+            security1_button.off()
+            security2_button.off()
+            goto_c_button.off()
 
         move_button.draw()
         find_button.draw()
         lower_button.draw()
-        password_button.draw()
         goto_b_button.draw()
-        goto_a_button.draw()
+        security1_button.draw()
+        security2_button.draw()
+        goto_c_button.draw()
 
         # | 이벤트 관리소 |
         event = pygame.event.poll()
@@ -191,10 +194,21 @@ def maprun():
                 setscr(1)
                 b_manageroom.maprun()
 
-            if goto_a_button.check() == 1:
+            if security1_button.check() == 1:
                 setscr(1)
                 password.enter_password()
-                b_hall.maprun()
+                # security1_button.maprun()
+
+            if security2_button.check() == 1:
+                setscr(1)
+                password.enter_password()
+                # security2_button.maprun()
+            
+            if goto_c_button.check() == 1:
+                setscr(1)
+                password.enter_password()
+                # c_hall.maprun()
+                pass
 
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
@@ -209,10 +223,6 @@ def maprun():
         if pygame.mouse.get_pressed()[0] == 1:
             pass
         # key
-
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
