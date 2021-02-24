@@ -182,7 +182,6 @@ def computer_loading(computer_loading_count):
         b_loading_dot1.draw()
         b_loading_dot2.draw()
         b_loading_dot3.draw() 
-        b_loading_dot3.draw() 
 
 def computer_run(clicked_count):
     if clicked_count != 3:

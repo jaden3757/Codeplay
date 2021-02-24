@@ -102,6 +102,7 @@ def maprun():
         loading_bar.draw()
      
         if computer_loading_count < 760:
+            icon_check_mode = 1
             computer_loading(computer_loading_count)
             if computer_loading_count % 60 == 0 and computer_loading_count < 660:
                 setscr(0)
