@@ -1,85 +1,175 @@
-# -*- coding: utf-8 -*-
-
 import pygame
 import sys
 from module1 import *
 from but import *
-from main1 import *
-# 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
-
-import sp3
-import b_hall
-import start_room
-import production_facility
-import b_long
+from main1 import * #main
+from item import *
+from excel import *
+import loading2
+import security_room
+import time
+import Sound_controll
 import sound
 import time
 
-sound.play_cynthia_S()
+screen_width = 1000
+screen_height = 600
 
-class Fade(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.rect = pygame.display.get_surface().get_rect()
-        self.image = pygame.Surface(self.rect.size, flags=pygame.SRCALPHA)
-        self.alpha = 0
-        self.direction = 1
+LIGHT_BLACK = (50, 50, 50)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+DARK_WHITE = (180, 180, 180)
+GREEN = (100, 255, 100)
+RED = (255, 50, 50)
+LIGHT_BLACK = (50, 50, 50)
 
-    def update(self, events):
-        self.image.fill((0, 0, 0, self.alpha))
-        self.alpha += self.direction
+# 시작
+pygame.init() 
+screen = pygame.display.set_mode((1000, 600))
+pygame.display.set_caption("Moon Side")
+clock = pygame.time.Clock()
+run = True
 
-        if self.alpha > 255 or self.alpha < 0:
-            self.direction *= -1
-            self.alpha += self.direction
-
-scr = 0
-ch = 1
-
-def setscr(script): # setscr(a) a번째 대사 출력 
-    global ch
-    global scr
-    scr = script
-    ch = 1
-
-def textls(): # 텍스트 수동 입력
-    global ch
-    global scr
-    if ch == 1:
-        if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("테스트")
-            t1.next("바이러스를 막아라")
-        if scr == 1: # 1번째 대사
-            t1.reset("정부의 계획을 찾아라")
-        if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("스파이의 계획을 찾아라")
-
-        ch = 0
-
-def main():
-    global scr
-    global ch
-    global run
-    setscr(0)
-    pygame.init()
-    screen = pygame.display.set_mode((1000, 600))
-    pygame.display.set_caption("Moon Side")
-    sprites = pygame.sprite.Group(Fade())
-    clock = pygame.time.Clock()
-    while True:
-        # textls()
-        # textprinting()
-
-        events = pygame.event.get()
-        for e in events:
-            if e.type == pygame.QUIT:
-                return
-
-        sprites.update(events)
-        primg2("images/hole.jpg", 0, 0)
-        sprites.draw(screen)
+# 텍스트관련 [삭제하지 말것]
+def fadeout(width, height): 
+    fade = pygame.Surface((width, height))
+    fade.fill((0,0,0))
+    for alpha in range(0, 255):
+        fade.set_alpha(alpha)
+        screen.blit(fade, (0,0))
         pygame.display.update()
+        pygame.time.delay(5)
+
+# def fadein(width, height): 
+#     fade = pygame.Surface((width, height))
+#     fade.fill((0,0,0))
+#     for alpha in range(0, 255):
+#         fade.set_alpha(255-alpha)
+#         # screen.blit(fade, (0,0))
+#         pygame.display.update()
+#         pygame.time.delay(5)
+
+
+# def maprun():
+#     move_button = button("Next", 80, 50, 750, 500)
+#     move_button.color = (50,50,50)
+#     move_button.textcolor = (0,0,0)
+#     move_button.textsize = 22
+#     move_button.font = 'pixel.ttf'
+
+#     move1_button = button("Next", 80, 50, 750, 500)
+#     move1_button.color = (50,50,50)
+#     move1_button.textcolor = (0,0,0)
+#     move1_button.textsize = 22
+#     move1_button.font = 'pixel.ttf'
+
+#     run = True
+
+#     images = ["images/hole.jpg", "teaser-5.png"]
+
+#     while run:
+#         # 세팅 [ 건드리지 말아야 할 것]
+#         # screen.fill(pygame.color.Color(50, 50, 50))
+#         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+#         primg2("images/hole.jpg", 0, 0)
+
+#         # | 이벤트 관리소 |
+
+#         event = pygame.event.poll()
+#         if event.type == pygame.QUIT:
+#             run = False
+
+#         # move_button.draw()
+#         # if move_button.check():
+#         #     if pygame.mouse.get_pressed()[0] == 1:
+#         #         print("Hello")
+#         #         time.sleep(0.5)
+#         #         primg2(images[0], 0, 0)
+#         #         fadeout(1000, 600)
+        
+#         move1_button.draw()
+#         if move1_button.check():
+#             if pygame.mouse.get_pressed()[0] == 1:
+#                 for i in range(0, 2):
+#                     print("Hello")
+#                     # fadeout(1000, 600)
+#                     # time.sleep(0.5)
+#                     primg2(images[i], 0, 0)
+
+#         # // Mouse_click
+#         #fin [끝]
+
+#         pygame.display.flip()
+#         clock.tick(60)
+
+#     pygame.quit()
+
+# if __name__ == '__main__':
+#     maprun()
+
+# -*- coding: utf-8 -*-
+on = False
+
+def maprun():
+    global on
+
+    move_button = button("Next", 100, 50, 800, 500)
+    move_button.color = (255,255,255)
+    move_button.textcolor = (0,0,0)
+    move_button.textsize = 22
+    move_button.font = 'pixel.ttf'
+
+    move1_button = button("Next", 100, 50, 800, 500)
+    move1_button.color = (255,255,255)
+    move1_button.textcolor = (0,0,0)
+    move1_button.textsize = 22
+    move1_button.font = 'pixel.ttf'
+
+    sound.play_cynthia_S()
+    run = True
+
+    image = pygame.image.load("teaser-5.png")
+    image2 = pygame.image.load("images/hole.jpg")
+
+    sound.play_Moodside_S()
+
+    while run:
+        # 세팅 [ 건드리지 말아야 할 것]
+        screen.fill(pygame.color.Color(50, 50, 50))
+        primg2("images/hole.jpg", 0, 0)
+
+        myFont = pygame.font.SysFont( "arial", 30, True, False)
+        text_Title= myFont.render("Click to continue!", True, BLACK)
+        screen.blit(text_Title, (700, 450))
+
+        move_button.draw()
+
+        # | 이벤트 관리소 |
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            run = False
+        # // Mouse_click
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            buttoncheck() # [삭제하면 안되는 것]
+
+        if pygame.mouse.get_pressed()[0] == 1:
+            if move_button.check():
+                on = True
+                print("hello")
+
+        if on == True:
+            primg2("teaser-5.png", 0, 0)
+            move1_button.draw()
+            screen.blit(text_Title, (650, 450))
+            if move1_button.clicking():
+                loading2.maprun()
+
+        #fin [끝]
+        mousechange()
+        pygame.display.flip()
         clock.tick(60)
 
+    pygame.quit()
+
 if __name__ == '__main__':
-    main()
+    maprun()

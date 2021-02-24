@@ -145,7 +145,7 @@ def maprun():
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
-        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("B-Long", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -192,7 +192,7 @@ def maprun():
             buttoncheck() # [삭제하면 안되는 것]
             if goto_b_button.check() == 1: # 예시입니다
                 setscr(1)
-                b_manageroom.maprun()
+                b_long.maprun()
 
             if security1_button.check() == 1:
                 setscr(1)
