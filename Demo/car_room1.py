@@ -1,14 +1,30 @@
 # -*- coding: utf-8 -*-
+
 import pygame
+import sys
 from module1 import *
 from but import *
 from main1 import * #main
 from item import *
 from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
-import loading2
-import c_hall
+import time
+import Sound_controll
+import sound
+import car_room
+import car_room2
 
+
+screen_width = 1000
+screen_height = 600
+
+LIGHT_BLACK = (50, 50, 50)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+DARK_WHITE = (180, 180, 180)
+GREEN = (100, 255, 100)
+RED = (255, 50, 50)
+LIGHT_BLACK = (50, 50, 50)
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -31,16 +47,14 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> C 창고에 들어왔다 .")
+            t1.reset("> 우주선에 탑승하였습니다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
-        if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("중요한 건 없는 것 같다.")
-        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("카드키가 없습니다.")
-        if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("success")
+        if scr == 2: # 1번째 대사
+            t1.reset("연료가 없습니다.")
+
+        
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -77,76 +91,47 @@ def maprun():
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
+    
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'c_warehouse' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+    sheetname = 'car_room' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
-    # | 여기부터 자유롭게 추가 |
-    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 400)
-    box1.item = [sheetname, 2]
-    box2 = itemobject('images/box.png', '상자2', 100, 100, 400, 400)
-    box2.item = [sheetname, 3]
-    box3 = itemobject('images/box.png', '상자3', 100, 100, 200, 400)
-    box3.item = [sheetname, 4]
-    box4 = itemobject('images/box.png', '상자4', 100, 100, 200, 300)
-    box4.item = [sheetname, 5]
-    box5 = itemobject('images/box.png', '상자5', 100, 100, 300, 300)
-    box5.item = [sheetname, 6]
-    box6 = itemobject('images/box.png', '상자6', 100, 100, 400, 300)
-    box6.item = [sheetname, 7]
-
-    move_button = button("이동목록", 100, 50, 650, 500)
+    # | 여기부터 자유롭게 추가 또는 변경 |
+    move_button = button("내리기", 100, 50, 650, 500)
     move_button.color = (255,255,255)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
 
-    find_button = button("집중탐사", 100, 50, 850, 500)
-    find_button.color = (255,255,255)
-    find_button.textcolor = (0,0,0)
-    find_button.textsize = 22
-    find_button.font = 'pixel.ttf'
+    go_button = button("지구로가자 ", 130, 50, 800, 500)
+    go_button.color = (255,255,255)
+    go_button.textcolor = (0,0,0)
+    go_button.textsize = 22
+    go_button.font = 'pixel.ttf'
 
-    c_hall_button = button("C홀", 300, 40, 650, 200)
-    c_hall_button.color = (0,0,0)
-    c_hall_button.textsize = 20
-    c_hall_button.font = 'pixel.ttf'
+
+    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        box1.draw()
-        box2.draw()
-        box3.draw()
-        box4.draw()
-        box5.draw()
-        box6.draw()
+        # holy.draw()
 
-        # UI
-        prtext4("C 창고 | C-2", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        # | UI |
+        prtext4("차고 | C-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
-        # 버튼 그리는 곳
-        find_button.off()
-        c_hall_button.off()
-        if buttonmode == 1:
-            move_button.txt = '< 뒤로'
-            c_hall_button.on()
-        else:
-            move_button.txt = '이동목록'
-            find_button.on()
-
+        # | 버튼 그리는 곳 |
         move_button.draw()
-        find_button.draw()
-        c_hall_button.draw()
-        
+        go_button.draw()
+
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -154,34 +139,31 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
+
             if move_button.check() == 1: # 예시입니다
-                if buttonmode == 0:
-                    setscr(1)
-                    buttonmode = 1
-                else:
-                    setscr(0)
-                    buttonmode = 0
-            if find_button.check() == 1:
-                setscr(2)
-            if c_hall_button.check() == 1:
-                if '카드키' in getitem():
-                    setscr(4)
-                    c_hall.maprun()
-                else:
-                    setscr(3)
+                car_room.maprun()
             
+            if go_button.check() == 1:
+                if '연료통' in getitem():
+                    setscr(3)
+                    car_room2.maprun()
+                else:
+                    setscr(2)
+
+
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(box1)
-            itemcheck2(box2)
-            itemcheck2(box3)
-            itemcheck2(box4)
-            itemcheck2(box5)
-            itemcheck2(box6)
+            pass
+
         # key
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
+
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+
         
         #fin [끝]
         pygame.display.flip()

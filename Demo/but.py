@@ -273,11 +273,11 @@ class imagebutton:
 item_button = button("I", 30, 30, 550, 550)
 item_button.color = (100, 0, 0)
 
-itemmode_button = button("보기방식", 80, 30, 470, 550)
-itemmode_button.textsize = 15
-itemmode_button.color = (20,20,20)
+# itemmode_button = button("보기 모드", 80, 30, 470, 550)
+# itemmode_button.textsize = 15
+# itemmode_button.color = (20,20,20)
 
-floor_button = button("버려진 아이템", 100, 30, 370, 470)
+floor_button = button("버려진 아이템 보기", 150, 30, 400, 440)
 floor_button.textsize = 15
 floor_button.color = (20,20,20)
 floor_button.thick = 0
@@ -285,6 +285,7 @@ floor_button.onoff = 0
 
 itemui = showitems()
 itemui.floornm = floor_button
+itemui.mode = 1
 
 t_surface = screen.convert_alpha()
 t_surface.fill((0,0,0,0))
@@ -295,6 +296,8 @@ nowitem = ''
 
 hunger = 100
 hunger_cool = 0
+
+
 def hungeradd(a):
     global hunger
     hunger += a
@@ -346,14 +349,12 @@ def drawui():
     global hunger
     global hunger_cool
     if itemui.onoff == 1:
-        itemmode_button.on()
-        item_button.y = 470
-        itemmode_button.y = 470
+        # itemmode_button.on()
+        item_button.y = 440
         floor_button.on()
     else:
-        itemmode_button.off()
+        # itemmode_button.off()
         item_button.y = 550
-        itemmode_button.y = 550
         floor_button.off()
     # print(itemui.storage + itemui.clicking_i_a)
 
@@ -398,7 +399,7 @@ def drawui():
     pygame.draw.rect(screen, (50,50,50), [580, 0, 420, 600])
     pygame.draw.rect(screen, (255,255,255), [599.5, 20, 1, 560])
     item_button.draw()
-    itemmode_button.draw()
+    # itemmode_button.draw()
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
@@ -465,11 +466,11 @@ def buttoncheck():
         itemui.reseted = 1
         itemui.isinv = 'inv'
     itemcheck(floor_button)
-    if itemmode_button.check() == 1:
-        if itemui.mode == 1:
-            itemui.mode = 0
-        else:
-            itemui.mode = 1
+    # if itemmode_button.check() == 1:
+    #     if itemui.mode == 1:
+    #         itemui.mode = 0
+    #     else:
+    #         itemui.mode = 1
 
 def getmassitem():
     if itemui.massitem == 0:

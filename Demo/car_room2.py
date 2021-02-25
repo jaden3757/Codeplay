@@ -11,9 +11,9 @@ from excel import *
 import time
 import Sound_controll
 import sound
-import c_communicate
-import c_warehouse
-import car_room
+import car_room1
+
+
 
 screen_width = 1000
 screen_height = 600
@@ -35,7 +35,6 @@ run = True
 # 텍스트관련 [삭제하지 말것]
 scr = 0
 ch = 1
-
 def setscr(script): # setscr(a) a번째 대사 출력 
     global ch
     global scr
@@ -47,17 +46,17 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> C홀에 들어왔다 .")
-            t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
-        if scr == 1: # 1번째 대사
-            t1.reset("이동목록을 표시중")
-        if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("중요한 건 없는 것 같다.")
-        if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("success")
-        if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("카드키가 없습니다.")
-        
+            t1.reset(". . . . . . . . . .")
+        if scr == 1: # 0번째 대사(시작시 무조건 출력)
+            t1.reset("그렇게 나는 차고에 있던 1인 우주선을 타고 지구에 도착할 수 있었다.")
+        if scr == 2:
+            t1.reset("지상에 올라오고 잠깐의 시간이 흐르자 군인들과 마주할 수 있었다.")
+        if scr == 3:
+            t1.reset("다행히 휴스턴의 정부로 온 것은 아니여서 그들에게 달 기지에서 있었던일들을 자료와 함께 설명할 수 있었고 이후 달 기지에서 있었던사실들을 군에서도 알게되어 위로 빠르게 알려져 다행히 휴스턴의 정부의돌아오는 우주선을 막을 수 있었다.")
+        if scr == 4:
+            t1.reset("비밀리에 진행되었던 부칸의계획과 연구시설은 뒤집혔고 모두가 이 사실들을 알게되었다.")
+        if scr == 5:
+            t1.reset("주변 국가들은 휴스턴의 정부를 압박하게 되었고 휴스턴의 정부는 압박을 견디지못해 결국 내부에 분쟁이 일어나게 되었고 자멸했다.")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -94,43 +93,47 @@ def maprun():
     # box = itemobject('box.png', '박스', width, height, x, y)
     # box.item = [sheetname, 1] # sheetname은 미리 지정해야함 / 1은 1번째 가로줄을 의미
 
+    
     # | 이 부분은 지우지는 말고 무조건 수정해야하는 부분 |
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'c_hall' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    a = 0
+
+    sheetname = 'car_room' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
+    abutton1 = button("다음", 100, 50, 650, 500)
+    abutton1.color = (255,255,255)
+    abutton1.textcolor = (0,0,0)
+    abutton1.textsize = 22
+    abutton1.font = 'pixel.ttf'
+    
+    abutton2 = button("다음", 100, 50, 650, 500)
+    abutton2.color = (255,255,255)
+    abutton2.textcolor = (0,0,0)
+    abutton2.textsize = 22
+    abutton2.font = 'pixel.ttf'
+    
+    abutton3 = button("다음", 100, 50, 650, 500)
+    abutton3.color = (255,255,255)
+    abutton3.textcolor = (0,0,0)
+    abutton3.textsize = 22
+    abutton3.font = 'pixel.ttf'
+    
+    abutton4 = button("다음", 100, 50, 650, 500)
+    abutton4.color = (255,255,255)
+    abutton4.textcolor = (0,0,0)
+    abutton4.textsize = 22
+    abutton4.font = 'pixel.ttf'
+    
+    abutton5 = button("다음", 100, 50, 650, 500)
+    abutton5.color = (255,255,255)
+    abutton5.textcolor = (0,0,0)
+    abutton5.textsize = 22
+    abutton5.font = 'pixel.ttf'
 
-    move_button = button("이동목록", 100, 50, 650, 500)
-    move_button.color = (255,255,255)
-    move_button.textcolor = (0,0,0)
-    move_button.textsize = 22
-    move_button.font = 'pixel.ttf'
-
-    find_button = button("집중탐사", 100, 50, 850, 500)
-    find_button.color = (255,255,255)
-    find_button.textcolor = (0,0,0)
-    find_button.textsize = 22
-    find_button.font = 'pixel.ttf'
-
-    lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
-    lower_button.color = (0,0,0)
-    lower_button.textsize = 20
-    lower_button.font = 'pixel.ttf'
-
-    goto_A_long_button = button("차고", 300, 40, 650, 200)
-    goto_A_long_button.color = (0,0,0)
-    goto_A_long_button.textsize = 20
-
-    goto_B_long_button = button("창고", 300, 40, 650, 240)
-    goto_B_long_button.color = (0,0,0)
-    goto_B_long_button.textsize = 20
-
-    goto_C_long_button = button("통신장치", 300, 40, 650, 280)
-    goto_C_long_button.color = (0,0,0)
-    goto_C_long_button.textsize = 20
 
     sound.play_cynthia_S()
 
@@ -142,77 +145,62 @@ def maprun():
         # holy.draw()
 
         # | UI |
-        prtext4("C-HALL | C-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("차고 | C-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
 
         # | 버튼 그리는 곳 |
-        find_button.off()
-        lower_button.off()
-        goto_A_long_button.off()
+        abutton1.draw()
+        abutton2.draw()
+        abutton3.draw()
+        abutton4.draw()
+        abutton5.draw()
 
-
-        if buttonmode == 1: # 이동목록 켜진 경우
-            move_button.txt = '< 뒤로'
-            lower_button.on()
-            goto_A_long_button.on()
-            goto_B_long_button.on()
-            goto_C_long_button.on()
-
-
-        else: # 꺼진 경우
-            move_button.txt = '이동목록'
-            lower_button.off()
-            find_button.on()
-            goto_A_long_button.off()
-            goto_B_long_button.off()
-            goto_C_long_button.off()
-
-
-        move_button.draw()
-        find_button.draw()
-        lower_button.draw()
-        goto_A_long_button.draw()
-        goto_B_long_button.draw()
-        goto_C_long_button.draw()
-
-
+        abutton2.off()
+        abutton3.off()
+        abutton4.off()
+        abutton5.off()
+        
+        if a == 1:
+            setscr(1)
+        
+        if a ==2:
+            abutton2.on()
+            abutton1.off()
+            setscr(2)
+        if a ==3:
+            abutton3.on()
+            abutton1.off()
+            setscr(3)
+        if a ==4:
+            abutton4.on()
+            abutton1.off()
+            setscr(4)
+        if a ==5:
+            abutton5.on()
+            abutton1.off()
+            setscr(5)
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
+
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
 
-            if move_button.check() == 1: # 예시입니다
-                if buttonmode == 0:
-                    setscr(1)
-                    buttonmode = 1
-                else:
-                    setscr(0)
-                    buttonmode = 0
-            if find_button.check() == 1:
-                setscr(2)
-            if goto_A_long_button.check() == 1:
-                if '카드키' in getitem():
-                    setscr(3)
-                    car_room.maprun()
-                else:
-                    setscr(4)
-            if goto_B_long_button.check() == 1:
-                if '카드키' in getitem():
-                    setscr(3)
-                    c_warehouse.maprun()
-                else:
-                    setscr(4)
-            if goto_C_long_button.check() == 1:
-                if '카드키' in getitem():
-                    setscr(3)
-                    c_communicate.maprun()
-                else:
-                    setscr(4)
+            if abutton1.check() == 1: # 예시입니다
+                a = 1
+            if abutton2.check() == 1: # 예시입니다
+                a = 2
+            if abutton3.check() == 1: # 예시입니다
+                a = 3
+            if abutton4.check() == 1: # 예시입니다
+                a = 4
+            if abutton5.check() == 1: # 예시입니다
+                a = 5
+
 
 
             # itemcheck(holy) # 이미지 오브젝트 예시
