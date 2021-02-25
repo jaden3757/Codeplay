@@ -7,30 +7,10 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+import sound
+import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
-import security_room
-import time
-import Sound_controll
-import sound
-import b_hall
-import password
-import b_manageroom
-import a_hall
-import a_security
-import a_security2
-import b_long
-
-screen_width = 1000
-screen_height = 600
-
-LIGHT_BLACK = (50, 50, 50)
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-DARK_WHITE = (180, 180, 180)
-GREEN = (100, 255, 100)
-RED = (255, 50, 50)
-LIGHT_BLACK = (50, 50, 50)
 
 # 시작
 pygame.init() 
@@ -54,18 +34,44 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset("> A 롱에 들어왔다.")
+            t1.reset("> 통신 장치실에 들어왔다.")
             t1.next("[ 인벤토리 열기 : 우측 하단 I 버튼 ]")
         if scr == 1: # 1번째 대사
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("중요한 건 없는 것 같다.")
+            t1.reset("통신 장치가 보인다.")
+            if mode1['main_event'] < 2:
+                t1.next('폭발에 의해 손상된 것 같다.')
+            else:
+                t1.next('고쳐진 상태이다.')
         if scr == 3:
             t1.reset("카드키가 필요하다.")
         if scr == 4:
-            t1.reset("문이 닫혀 있다.")
+            t1.reset("바닥에 전선이 있다.")
         if scr == 5:
-            t1.reset("카드키와 권한이 필요하다.")
+            t1.reset('나 : 혹시 뭐가 문제인지 알 것 같나요?')
+            t1.next('휴스턴 : 한 번 전체적으로 봐야 할 것 같다네. 자네는 저기 있는 선좀 정리하고 있어 주게.')
+            t1.next('나 : (무슨 꿍꿍이지..?)')
+            t1.next('휴스턴 : 음.. 아무래도 이건 고치지 못할 것 같네. 우주선의 폭발물로 인해 완전히 수리가 불가능해.')
+            t1.next('나 : (아무래도 에드워드 연구원의 자료와 연구노트에 있던 내용들이 사실인 것 같다. 우주선도 휴스턴 연구원이 터지게 한 것 같다...)')
+            t1.next('나 : 그런가요? 그래도 한 번 제가 수리해 보죠.')
+            t1.next('나 : (아무래도 더 있으면 위험해질 것 같다. 이륙장에 갔을때 보니까 차고에 1인 우주선이 있던데 지구와 통신을 하지 말고 휴스턴의 정부가 오기 전에 위험할 수 있지만 그걸 타고')
+            t1.next('휴스턴의 정부보다 먼저 지구로 가야겠다.)')
+            t1.next('< 스페이스바를 눌러서 다음으로 >')
+            t1.md = 1
+        if scr == 6:
+            t1.reset('나 : (하지만 탑승하기 전에 혹시 모르니 휴스턴에게 통신장치를 수리하기 위해 B창고에 있는 부품을 가져다 달라하고 말한 다음 시스템실에서 B구역을 보안모드로')
+            t1.next('설정해야 겠다. 휴스턴을 B구역에 고립시켜둬야 겠어.)')
+            t1.next('나 : 휴스턴씨, 통신실로 가보죠.')
+            t1.next('휴스턴 : 통신실? 알겠다네.')
+            t1.next('나 : 혹시 B창고에 통신장치를 수리하는데에 쓸만한 부품들을 모아서 가져와주실 수 있나요?')
+            t1.next('휴스턴 : B창고? 흠.. 알겠네.')
+            t1.next('나 : 저는 통신실에서 통신을 좀 시도해 보겠습니다.')
+            t1.next('휴스턴 : 알겠네.')
+            t1.next('< 스페이스바를 눌러서 종료 >')
+            t1.md = 1
+## B구역의 보안모드를 해제하려 할 경우 ("B구역 보안모드는 해제하면 위험해.") 출력 후 B구역 보안모드 해제 불가능
+## "나 : (어서 시스템실에서 B구역을 보안모드로 설정하고 1인용 우주선에 탑승하자.)" 출력
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -106,10 +112,26 @@ def maprun():
     firstsetting()
     buttonmode = 0
     setscr(0)
-    sheetname = 'a_long' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'c_communicate' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
+    # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
+    # holy.item = [sheetname, 3] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+    time2 = 0
+    if mode1['main_event'] == 1 and [mode1['seenote'], mode1['edward'], mode1['tryconnect']] == [1,1,1]:
+        mode1['main_event'] = 2
+        time2 = 1
+        setscr(5)
+
+    mode1['main_event'] = 2
+    time2 = 1
+    setscr(5)
+    t1.mode = 1
+
+    wire = imagebutton('images/electric.png', 100, 100, 200, 200)
+    if mode1['gettedwire'] == True:
+        wire.off()
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -123,35 +145,15 @@ def maprun():
     find_button.textsize = 22
     find_button.font = 'pixel.ttf'
 
-    lower_button = button("하위 선택지", 300, 40, 650, 200) # 하위 버튼 디자인
-    lower_button.color = (0,0,0)
-    lower_button.textsize = 20
-    lower_button.font = 'pixel.ttf'
-
-    hall_button = button("A 홀", 300, 40, 650, 150)
+    hall_button = button("C 홀", 300, 40, 650, 200) # 하위 버튼 디자인
     hall_button.color = (0,0,0)
     hall_button.textsize = 20
     hall_button.font = 'pixel.ttf'
-    
-    goto_b_button = button("B-long", 300, 40, 650, 200)
-    goto_b_button.color = (0,0,0)
-    goto_b_button.textsize = 20
-    goto_b_button.font = 'pixel.ttf'
 
-    security1_button = button("보안실1", 300, 40, 650, 250)
-    security1_button.color = (0,0,0)
-    security1_button.textsize = 20
-    security1_button.font = 'pixel.ttf'
-
-    security2_button = button("보안실2", 300, 40, 650, 300)
-    security2_button.color = (0,0,0)
-    security2_button.textsize = 20
-    security2_button.font = 'pixel.ttf'
-
-    goto_c_button = button("C 롱", 300, 40, 650, 350)
-    goto_c_button.color = (0,0,0)
-    goto_c_button.textsize = 20
-    goto_c_button.font = 'pixel.ttf'
+    getwire_button = button("전선 얻기", 300, 40, 650, 200) # 하위 버튼 디자인
+    getwire_button.color = (0,0,0)
+    getwire_button.textsize = 20
+    getwire_button.font = 'pixel.ttf'
 
     sound.play_cynthia_S()
 
@@ -160,47 +162,36 @@ def maprun():
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        wire.draw()
 
         # | UI |
-        prtext4("A 롱 | None", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("통신 장치실 | C", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
+        if time2 > 0:
+            pygame.draw.rect(t_surface, (0,0,0, 150), [20, 20, 560, 560])
+            screen.blit(t_surface, (0,0))
         textprinting()
 
         # | 버튼 그리는 곳 |
         find_button.off()
-        lower_button.off()
-        goto_b_button.off()
-        security1_button.off()
-        security2_button.off()
-        goto_c_button.off()
         hall_button.off()
-
+        getwire_button.off()
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            lower_button.on()
-            goto_b_button.on()
-            security1_button.on()
-            security2_button.on()
-            goto_c_button.on()
             hall_button.on()
+        elif buttonmode == 2:
+            move_button.txt = '< 뒤로'
+            getwire_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
-            lower_button.off()
             find_button.on()
-            goto_b_button.off()
-            security1_button.off()
-            security2_button.off()
-            goto_c_button.off()
 
         move_button.draw()
         find_button.draw()
-        lower_button.draw()
-        goto_b_button.draw()
-        security1_button.draw()
-        security2_button.draw()
-        goto_c_button.draw()
         hall_button.draw()
+        getwire_button.draw()
+
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -208,41 +199,7 @@ def maprun():
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
-            if goto_b_button.check() == 1: # 예시입니다
-                if '카드키' in getitem():
-                    if secure['b_long'] == 1:
-                        b_long.maprun()
-                    else:
-                        setscr(4)
-                else:
-                    setscr(3)
-            if security1_button.check() == 1:
-                if '카드키' in getitem() and secure['A1'] == 1:
-                    a_security.maprun()
-                else:
-                    setscr(5)
-                # password.enter_password()
-                # security1_button.maprun()
-
-            if security2_button.check() == 1:
-                if '카드키' in getitem() and secure['A2'] == 1:
-                    a_security2.maprun()
-                else:
-                    setscr(5)
-                # password.enter_password()
-                # security2_button.maprun()
-            
-            if goto_c_button.check() == 1:
-                if '카드키' in getitem():
-                    if secure['c_long'] == 1:
-                        c_hall.maprun()
-                    else:
-                        setscr(4)
-                else:
-                    setscr(3)
-
-            if hall_button.check() == 1:
-                a_hall.maprun()
+        
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)
@@ -252,15 +209,45 @@ def maprun():
                     buttonmode = 0
             if find_button.check() == 1:
                 setscr(2)
-            # itemcheck(holy) # 이미지 오브젝트 예시
+            if hall_button.check() == 1:
+                if '카드키' in getitem():
+                    # c_hall.maprun()
+                    pass
+                else:
+                    setscr(3)
+            if wire.check() == 1:
+                if mode1['gettedwire'] == False:
+                    setscr(4)
+                    buttonmode = 2
+                else:
+                    pass
+            if getwire_button.check() == 1:
+                if mode1['gettedwire'] == False:
+                    wire.off()
+                    mode1['gettedwire'] = True
+                    item_t.append('전선')
+                    itemui.refresh()
+                    buttonmode = 0
+                    setscr(0)
         if pygame.mouse.get_pressed()[0] == 1:
             pass
+            # itemcheck2(holy) # 오브젝트 예시
         # key
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
-        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if time2 == 1:
+                    time2 += 1
+                    setscr(6)
+                elif time2 == 2:
+                    time2 = 0
+                    t1.md = 0
+                    t1.mm = 0
+                    setscr(0)
         #fin [끝]
+        mousechange()
         pygame.display.flip()
         clock.tick(60)
 
