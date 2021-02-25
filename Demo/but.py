@@ -99,6 +99,7 @@ class itemobject:
     item = ['main', 50]
     item_list = []
     finding_time = 0
+    offwait = 0
     def __init__(self, name, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -443,15 +444,20 @@ def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
             if buttonnm.finding_time == 60:
                 itemui.mode = 1
                 itemui.on()
+            buttonnm.offwait = 0
         else:
             if itemui.isinv == buttonnm and buttonnm.finding_time < 60:
-                itemui.off()
+                buttonnm.offwait += 1
+                if buttonnm.offwait > 1:
+                    itemui.off()
         if buttonnm.finding_time == 60:
             itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
             itemui.itemlist.pop(0)
             itemui.mousex = 0
             itemui.reseted = 1
             itemui.isinv = buttonnm
+    else:
+        buttonnm.offwait = 0
 
 def buttoncheck():
     if item_button.check() == 1:

@@ -14,6 +14,7 @@ import sound
 import c_communicate
 import c_warehouse
 import car_room
+import a_long
 
 screen_width = 1000
 screen_height = 600
@@ -123,14 +124,22 @@ def maprun():
     goto_A_long_button = button("차고", 300, 40, 650, 200)
     goto_A_long_button.color = (0,0,0)
     goto_A_long_button.textsize = 20
-
-    goto_B_long_button = button("창고", 300, 40, 650, 240)
+    goto_A_long_button.font = 'pixel.ttf'
+    
+    goto_B_long_button = button("창고", 300, 40, 650, 250)
     goto_B_long_button.color = (0,0,0)
     goto_B_long_button.textsize = 20
+    goto_B_long_button.font = 'pixel.ttf'
 
-    goto_C_long_button = button("통신장치", 300, 40, 650, 280)
+    goto_C_long_button = button("통신장치", 300, 40, 650, 300)
     goto_C_long_button.color = (0,0,0)
     goto_C_long_button.textsize = 20
+    goto_C_long_button.font = 'pixel.ttf'
+
+    long_button = button("A 롱", 300, 40, 650, 350)
+    long_button.color = (0,0,0)
+    long_button.textsize = 20
+    long_button.font = 'pixel.ttf'
 
     sound.play_cynthia_S()
 
@@ -151,7 +160,7 @@ def maprun():
         find_button.off()
         lower_button.off()
         goto_A_long_button.off()
-
+        long_button.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
@@ -159,7 +168,7 @@ def maprun():
             goto_A_long_button.on()
             goto_B_long_button.on()
             goto_C_long_button.on()
-
+            long_button.on()
 
         else: # 꺼진 경우
             move_button.txt = '이동목록'
@@ -176,8 +185,8 @@ def maprun():
         goto_A_long_button.draw()
         goto_B_long_button.draw()
         goto_C_long_button.draw()
-
-
+        long_button.draw()
+        
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
@@ -211,6 +220,12 @@ def maprun():
                 if '카드키' in getitem():
                     setscr(3)
                     c_communicate.maprun()
+                else:
+                    setscr(4)
+            if long_button.check() == 1:
+                if '카드키' in getitem():
+                    setscr(3)
+                    a_long.maprun()
                 else:
                     setscr(4)
 

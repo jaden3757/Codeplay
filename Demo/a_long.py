@@ -20,6 +20,7 @@ import a_hall
 import a_security
 import a_security2
 import b_long
+import c_hall
 
 screen_width = 1000
 screen_height = 600
