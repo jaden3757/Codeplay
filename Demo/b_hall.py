@@ -7,6 +7,7 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+from pygame.locals import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import sp3
@@ -21,6 +22,7 @@ import Sound_controll
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
+screen = pygame.display.set_mode((1000, 600), HWSURFACE | DOUBLEBUF)
 pygame.display.set_caption("Moon Side")
 clock = pygame.time.Clock()
 run = True
@@ -231,7 +233,6 @@ def maprun():
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
         
-        mousechange()
         #fin [끝]
         pygame.display.flip()
         clock.tick(60)

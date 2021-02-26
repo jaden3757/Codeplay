@@ -118,17 +118,20 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    password_button = button("ENTER PASSWORD", 300, 40, 650, 200) # 하위 버튼 디자인
-    password_button.color = (0,0,0)
-    password_button.textsize = 20
+    # password_button = button("비밀번호를 입력하세요", 300, 40, 650, 200) # 하위 버튼 디자인
+    # password_button.color = (0,0,0)
+    # password_button.textsize = 20
+    # lower_button.font = 'pixel.ttf'
 
     goto_b_button = button("관리실", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
+    lower_button.font = 'pixel.ttf'
 
-    goto_a_button = button("A-long", 300, 40, 650, 250)
+    goto_a_button = button("A-롱", 300, 40, 650, 250)
     goto_a_button.color = (0,0,0)
     goto_a_button.textsize = 20
+    lower_button.font = 'pixel.ttf'
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
@@ -145,14 +148,12 @@ def maprun():
         # | 버튼 그리는 곳 |
         find_button.off()
         lower_button.off()
-        password_button.off()
         goto_b_button.off()
         goto_a_button.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
             lower_button.on()
-            password_button.on()
             goto_b_button.on()
             goto_a_button.on()
 
@@ -160,14 +161,12 @@ def maprun():
             move_button.txt = '이동목록'
             lower_button.off()
             find_button.on()
-            password_button.off()
             goto_b_button.off()
             goto_a_button.off()
 
         move_button.draw()
         find_button.draw()
         lower_button.draw()
-        password_button.draw()
         goto_b_button.draw()
         goto_a_button.draw()
 

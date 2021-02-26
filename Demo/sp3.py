@@ -158,7 +158,6 @@ def maprun():
             Sound_controll.sound_controll()
         
         #fin [끝]
-        mousechange()
         pygame.display.flip()
         clock.tick(60)
 

@@ -166,7 +166,7 @@ def maprun():
             if c_hall_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(4)
-                    c_hall.maprun
+                    c_hall.maprun()
                 else:
                     setscr(3)
             

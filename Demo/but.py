@@ -99,6 +99,7 @@ class itemobject:
     item = ['main', 50]
     item_list = []
     finding_time = 0
+    offwait = 0
     def __init__(self, name, txt, sx, sy, x, y):
         self.txt = txt
         self.sx = sx
@@ -193,6 +194,7 @@ class imagebutton:
     item_list = []
     mode = 0
     getted = 0
+    seetxt = "살펴보기"
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy
@@ -212,7 +214,7 @@ class imagebutton:
                     t_surface.fill((0,0,0,0))
                     pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
                     screen.blit(t_surface, (0,0))
-                    self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+                    self.prtext(self.seetxt, self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
             pass
     def check(self):
@@ -273,11 +275,11 @@ class imagebutton:
 item_button = button("I", 30, 30, 550, 550)
 item_button.color = (100, 0, 0)
 
-itemmode_button = button("보기방식", 80, 30, 470, 550)
-itemmode_button.textsize = 15
-itemmode_button.color = (20,20,20)
+# itemmode_button = button("보기 모드", 80, 30, 470, 550)
+# itemmode_button.textsize = 15
+# itemmode_button.color = (20,20,20)
 
-floor_button = button("버려진 아이템", 100, 30, 370, 470)
+floor_button = button("버려진 아이템 보기", 150, 30, 400, 440)
 floor_button.textsize = 15
 floor_button.color = (20,20,20)
 floor_button.thick = 0
@@ -285,6 +287,7 @@ floor_button.onoff = 0
 
 itemui = showitems()
 itemui.floornm = floor_button
+itemui.mode = 1
 
 t_surface = screen.convert_alpha()
 t_surface.fill((0,0,0,0))
@@ -295,6 +298,11 @@ nowitem = ''
 
 hunger = 100
 hunger_cool = 0
+
+bookn = 0
+prev_button = imagebutton('images/none.png', 100, 100, 100, 300)
+next_button = imagebutton('images/none.png', 100, 100, 400, 300)
+
 def hungeradd(a):
     global hunger
     hunger += a
@@ -304,6 +312,7 @@ def hungeradd(a):
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
+    global bookn
     itemon = 0
     # event = pygame.event.poll()
     if pygame.key.get_pressed()[pygame.K_x]:
@@ -314,12 +323,23 @@ def mapdraw(): # 아이템 상호작용
         # primg2("map560.png", 20, 20)
         itemon = 1
         nowitem = 'map560.png'
-    if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
+    prev_button.off()
+    next_button.off()
+    if [itemui.intro2[0], itemui.intro2[1]] == ['만화책', 1]:
         itemon = 1
         nowitem = 'map560.png'
+        prev_button.on()
+        next_button.on()
+        if prev_button.clicking() == 1:# previous
+            pass
+        if next_button.clicking() == 1:# next
+            pass
+    
     if [itemui.intro2[0], itemui.intro2[1]] == ['카드키', 1]:
         itemon = 1
         nowitem = 'images/cardkey.png'
+    if [itemui.intro2[0], itemui.intro2[1]] == ['연구노트', 1]:
+        mode1['seenote'] = 1
     # [ 이 아래로는 건드리지 마시오 ]
     if [itemui.intro2[0], itemui.intro2[1]] == ['빵', 1]:
         itemui.intro2[1] = 0
@@ -341,19 +361,20 @@ def mapdraw(): # 아이템 상호작용
         primg2(nowitem, 20, itemusing)
         if itemusing == 20:
             prtextm2('Press X to exit', 25, 300, 560, (255,255,255), ft='moon.otf')
+        # buttondraw
+        prev_button.draw()
+        next_button.draw()
 
 def drawui():
     global hunger
     global hunger_cool
     if itemui.onoff == 1:
-        itemmode_button.on()
-        item_button.y = 470
-        itemmode_button.y = 470
+        # itemmode_button.on()
+        item_button.y = 440
         floor_button.on()
     else:
-        itemmode_button.off()
+        # itemmode_button.off()
         item_button.y = 550
-        itemmode_button.y = 550
         floor_button.off()
     # print(itemui.storage + itemui.clicking_i_a)
 
@@ -381,7 +402,7 @@ def drawui():
     #item trash
     if itemui.clicking == 1:
         if itemui.isinv == 'inv':
-            if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
+            if 580 > pygame.mouse.get_pos()[0] > 20 and 470 > pygame.mouse.get_pos()[1] > 20:
                 drawrect("바닥에 버리기", 540, 480, 300, 260, (0,80,0,150))
             else:
                 drawrect("바닥에 버리기", 540, 480, 300, 260, (0,0,0,150))
@@ -389,7 +410,7 @@ def drawui():
             if itemui.storage + itemui.clicking_i_a > 100:
                 drawrect("인벤토리에 공간이 부족합니다", 540, 480, 300, 260, (100,0,0,150))
             else:
-                if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
+                if 580 > pygame.mouse.get_pos()[0] > 20 and 470 > pygame.mouse.get_pos()[1] > 20:
                     drawrect("인벤토리에 넣기", 540, 480, 300, 260, (0,80,0,150))
                 else:
                     drawrect("인벤토리에 넣기", 540, 480, 300, 260, (0,0,0,150))
@@ -398,7 +419,7 @@ def drawui():
     pygame.draw.rect(screen, (50,50,50), [580, 0, 420, 600])
     pygame.draw.rect(screen, (255,255,255), [599.5, 20, 1, 560])
     item_button.draw()
-    itemmode_button.draw()
+    # itemmode_button.draw()
     msitem = getmassitem()
     itemui.massitem = 0
     floor_button.draw()
@@ -442,15 +463,20 @@ def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
             if buttonnm.finding_time == 60:
                 itemui.mode = 1
                 itemui.on()
+            buttonnm.offwait = 0
         else:
             if itemui.isinv == buttonnm and buttonnm.finding_time < 60:
-                itemui.off()
+                buttonnm.offwait += 1
+                if buttonnm.offwait > 1:
+                    itemui.off()
         if buttonnm.finding_time == 60:
             itemui.itemlist = getxllist(buttonnm.item[0], buttonnm.item[1]) # 엑셀에서 가져오기
             itemui.itemlist.pop(0)
             itemui.mousex = 0
             itemui.reseted = 1
             itemui.isinv = buttonnm
+    else:
+        buttonnm.offwait = 0
 
 def buttoncheck():
     if item_button.check() == 1:
@@ -465,11 +491,11 @@ def buttoncheck():
         itemui.reseted = 1
         itemui.isinv = 'inv'
     itemcheck(floor_button)
-    if itemmode_button.check() == 1:
-        if itemui.mode == 1:
-            itemui.mode = 0
-        else:
-            itemui.mode = 1
+    # if itemmode_button.check() == 1:
+    #     if itemui.mode == 1:
+    #         itemui.mode = 0
+    #     else:
+    #         itemui.mode = 1
 
 def getmassitem():
     if itemui.massitem == 0:
@@ -515,8 +541,9 @@ def firstsetting():
     pygame.mouse.set_visible(True)
 
 def mousechange():
-    pygame.mouse.set_visible(False)
-    if pygame.mouse.get_pressed()[0] == 1:
-        primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
-    else:
-        primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    # pygame.mouse.set_visible(False)
+    # if pygame.mouse.get_pressed()[0] == 1:
+    #     primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    # else:
+    #     primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    pass
