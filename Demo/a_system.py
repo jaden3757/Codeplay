@@ -138,7 +138,7 @@ def maprun():
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
-    print([mode1['seenote'], mode1['edward'], mode1['tryconnect']])
+
     time2 = 0
     if mode1['main_event'] == 0 and [mode1['seenote'], mode1['edward'], mode1['tryconnect']] == [1,1,1]:
         mode1['main_event'] = 1
