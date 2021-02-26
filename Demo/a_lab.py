@@ -148,7 +148,6 @@ def maprun():
         box2.draw()
         box3.draw()
 
-
         # | UI |
         prtext4("A-LAB | A-4", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()

@@ -46,17 +46,39 @@ def textls(): # 텍스트 수동 입력
     global scr
     if ch == 1:
         if scr == 0: # 0번째 대사(시작시 무조건 출력)
-            t1.reset(". . . . . . . . . .")
-        if scr == 1: # 0번째 대사(시작시 무조건 출력)
+            t1.reset("투투투투투웅우웅")
+        if scr == 1:
             t1.reset("그렇게 나는 차고에 있던 1인 우주선을 타고 지구에 도착할 수 있었다.")
         if scr == 2:
             t1.reset("지상에 올라오고 잠깐의 시간이 흐르자 군인들과 마주할 수 있었다.")
         if scr == 3:
-            t1.reset("다행히 휴스턴의 정부로 온 것은 아니여서 그들에게 달 기지에서 있었던일들을 자료와 함께 설명할 수 있었고 이후 달 기지에서 있었던사실들을 군에서도 알게되어 위로 빠르게 알려져 다행히 휴스턴의 정부의돌아오는 우주선을 막을 수 있었다.")
+            t1.reset("다행히 휴스턴의 정부로 온 것은 아니여서 그들에게 달 기지에서 있었던일들을 자료와 함께 설명할 수 있었고 ")
         if scr == 4:
-            t1.reset("비밀리에 진행되었던 부칸의계획과 연구시설은 뒤집혔고 모두가 이 사실들을 알게되었다.")
+            t1.reset("이후 달 기지에서 있었던사실들을 군에서도 알게되어 위로 빠르게 알려져 다행히 휴스턴의 정부의돌아오는 우주선을 막을 수 있었다.")
         if scr == 5:
+            t1.reset("비밀리에 진행되었던 부칸의계획과 연구시설은 뒤집혔고 모두가 이 사실들을 알게되었다.")
+        if scr == 6:
             t1.reset("주변 국가들은 휴스턴의 정부를 압박하게 되었고 휴스턴의 정부는 압박을 견디지못해 결국 내부에 분쟁이 일어나게 되었고 자멸했다.")
+        if scr == 7:
+            t1.reset("이후 달 기지에서 있었던사실들을 군에서도 알게되어 위로 빠르게 알려져 다행히 휴스턴의 정부의돌아오는 우주선을 막을 수 있었다.")
+
+        if scr == 8: # 0번째 대사(시작시 무조건 출력)
+            t1.reset(". . . . . . . . . .")
+        if scr == 9:
+            t1.reset("그렇게 나는 차고에 있던 1인 우주선을 타고 지구에 도착할 수 있었다.")
+        if scr == 10:
+            t1.reset("지상에 올라오고 잠깐의 시간이 흐르자 군인들과 마주할 수 있었다.")
+        if scr == 11:
+            t1.reset("다행히 휴스턴의 정부로 온 것은 아니여서 그들에게 달 기지에서 있었던일들을 설명했다.")
+        if scr == 12:
+            t1.reset("하지만 입증할 방법이 없었기 때문에 정신이상자취급을 받았다. ")
+        if scr == 13:
+            t1.reset("시간이 지체되었고 결국 휴스턴은 다시 지구로복귀하는 것에 성공했다.")
+        if scr == 14:
+            t1.reset("하지만 왜인지 휴스턴의 정부에서 바이러스가매우 급속도로 퍼져나갔다. ")
+        if scr == 15:
+            t1.reset("인류는 갑작스러운 바이러스에대항할 수 없었고 대재앙은 시작되었다..")
+
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -99,41 +121,17 @@ def maprun():
     buttonmode = 0
     setscr(0)
     a = 0
+    b = 0
 
     sheetname = 'car_room' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    abutton1 = button("다음", 100, 50, 650, 500)
+    abutton1 = button("다음", 100, 50, 750, 500)
     abutton1.color = (255,255,255)
     abutton1.textcolor = (0,0,0)
     abutton1.textsize = 22
     abutton1.font = 'pixel.ttf'
-    
-    abutton2 = button("다음", 100, 50, 650, 500)
-    abutton2.color = (255,255,255)
-    abutton2.textcolor = (0,0,0)
-    abutton2.textsize = 22
-    abutton2.font = 'pixel.ttf'
-    
-    abutton3 = button("다음", 100, 50, 650, 500)
-    abutton3.color = (255,255,255)
-    abutton3.textcolor = (0,0,0)
-    abutton3.textsize = 22
-    abutton3.font = 'pixel.ttf'
-    
-    abutton4 = button("다음", 100, 50, 650, 500)
-    abutton4.color = (255,255,255)
-    abutton4.textcolor = (0,0,0)
-    abutton4.textsize = 22
-    abutton4.font = 'pixel.ttf'
-    
-    abutton5 = button("다음", 100, 50, 650, 500)
-    abutton5.color = (255,255,255)
-    abutton5.textcolor = (0,0,0)
-    abutton5.textsize = 22
-    abutton5.font = 'pixel.ttf'
-
 
     sound.play_cynthia_S()
 
@@ -152,56 +150,50 @@ def maprun():
 
         # | 버튼 그리는 곳 |
         abutton1.draw()
-        abutton2.draw()
-        abutton3.draw()
-        abutton4.draw()
-        abutton5.draw()
 
-        abutton2.off()
-        abutton3.off()
-        abutton4.off()
-        abutton5.off()
-        
-        if a == 1:
-            setscr(1)
-        
-        if a ==2:
-            abutton2.on()
-            abutton1.off()
-            setscr(2)
-        if a ==3:
-            abutton3.on()
-            abutton1.off()
-            setscr(3)
-        if a ==4:
-            abutton4.on()
-            abutton1.off()
-            setscr(4)
-        if a ==5:
-            abutton5.on()
-            abutton1.off()
-            setscr(5)
         # | 이벤트 관리소 |
         event = pygame.event.poll()
         if event.type == pygame.QUIT:
             run = False
-
+        
+       
         # // Mouse_click
         if event.type == pygame.MOUSEBUTTONDOWN:
             buttoncheck() # [삭제하면 안되는 것]
 
-            if abutton1.check() == 1: # 예시입니다
-                a = 1
-            if abutton2.check() == 1: # 예시입니다
-                a = 2
-            if abutton3.check() == 1: # 예시입니다
-                a = 3
-            if abutton4.check() == 1: # 예시입니다
-                a = 4
-            if abutton5.check() == 1: # 예시입니다
-                a = 5
-
-
+            if abutton1.check() == 1:
+                if '자료' in getitem():
+                    a += 1
+                    if a ==1:
+                        setscr(1)
+                    if a ==2:
+                        setscr(2)
+                    if a ==3:
+                        setscr(3)
+                    if a ==4:
+                        setscr(4)
+                    if a ==5:
+                        setscr(5)
+                    if a ==6:
+                        setscr(6) 
+                else:
+                    b += 1
+                    if b ==1:
+                        setscr(8)
+                    if b ==2:
+                        setscr(9)
+                    if b ==3:
+                        setscr(10)
+                    if b ==4:
+                        setscr(11)
+                    if b ==5:
+                        setscr(12)
+                    if b ==6:
+                        setscr(13)
+                    if b ==7:
+                        setscr(14)
+                    if b ==8:
+                        setscr(15)
 
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:

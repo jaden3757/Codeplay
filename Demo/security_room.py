@@ -122,6 +122,8 @@ def maprun():
     goto_production_facility.color = (0,0,0)
     goto_production_facility.textsize = 20
 
+    bgimg = pygame.image.load('images/security.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
 
     sound.play_cynthia_S()
 
@@ -129,6 +131,7 @@ def maprun():
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         # holy.draw()
 

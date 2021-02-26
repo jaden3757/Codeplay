@@ -20,6 +20,8 @@ import a_hall
 import a_security
 import a_security2
 import b_long
+import c_hall
+import c_long
 
 screen_width = 1000
 screen_height = 600
@@ -155,10 +157,14 @@ def maprun():
 
     sound.play_cynthia_S()
 
+    bgimg = pygame.image.load('images/a_long.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
@@ -235,7 +241,7 @@ def maprun():
             if goto_c_button.check() == 1:
                 if '카드키' in getitem():
                     if secure['c_long'] == 1:
-                        c_hall.maprun()
+                        c_long.maprun()
                     else:
                         setscr(4)
                 else:

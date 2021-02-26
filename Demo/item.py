@@ -33,6 +33,8 @@ class button1:
     font = 'gulim.ttf'
     item = []
     checkon = 1
+    firstset = 0
+    imx = 0
     def __init__(self, txt, sx, sy, x, y, fuse):
         self.txt = txt
         self.sx = sx
@@ -52,7 +54,7 @@ class button1:
                 if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and self.checkon == 1:
                     pygame.draw.rect(screen, (255 - self.clicking() * 100,255 - self.clicking() * 100,255), (self.x, self.y, self.sx, self.sy), 2 - (self.clicking() * 1))
                 # prtextm("클릭", 10, self.x + self.sx / 2, self.y + self.sy / 2)
-            self.prtext(self.txt, self.textsize, (self.x + self.sx / 2), (self.y + self.sy / 2))
+            self.prtext(self.txt, self.font, self.textsize, (self.x + self.sx / 2), (self.y + self.sy / 2))
         else:
             pass
     def check(self):
@@ -105,8 +107,8 @@ class button1:
                 return 0
         else:
             return 0
-    def prtext(self, txt, sz, x, y):
-        # myFont = pygame.font.Font(font1, sz)
+    def prtext(self, txt, font1, sz, x, y):
+        myFont = pygame.font.Font(font1, sz)
         text_title = myFont.render(txt, False, self.textcolor)
         t_rect = text_title.get_rect()
         t_rect.centerx = x
@@ -163,7 +165,7 @@ class showitems():
         if self.onoff == 1:
             if pygame.mouse.get_pressed()[0]:
                 if self.check() == 1 and self.mode == 1:
-                    if self.o == 1:
+                    if self.o == 1 and self.clicking == 0:
                         if 20 < pygame.mouse.get_pos()[0] < 580 and 550 < pygame.mouse.get_pos()[1] < 580:
                             self.mousex -= pygame.mouse.get_pos()[0] - self.lx
             # if self.mousex > 0:
@@ -172,9 +174,10 @@ class showitems():
             t_surface.fill((0,0,0,0))
             t_surface2 = screen.convert_alpha()
             t_surface2.fill((0,0,0,0))
-            pygame.draw.rect(t_surface, (200,200,200,100), [20, 550, 560, 30])
+            pygame.draw.rect(t_surface, (0,0,0,200), [20, 550, 560, 30])
             pygame.draw.rect(t_surface, (0,0,0,200), [20, 500, 560, 50])
             pygame.draw.rect(t_surface, (0,0,0,200), [20, 470, 560, 30])
+            pygame.draw.rect(t_surface, (255,255,255,100), [20, 550, 560, 1])
             pygame.draw.rect(t_surface, (255,255,255,100), [20, 500, 560, 1])
             pygame.draw.rect(t_surface, (255,255,255,100), [20, 470, 560, 1])
             screen.blit(t_surface, (0,0))
@@ -198,14 +201,22 @@ class showitems():
                     else:
                         item.checkon = 0
                 item.fuse = 1 # self.mode
-                item.x = self.il + self.mousex
+                item.imx = self.il + self.mousex
+                if item.firstset == 0:
+                    item.x = item.imx + self.il/2
+                    item.firstset = 1
                 
                 self.il += item.sx + 20
-                if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and self.clicking == 1:
+                if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and self.clicking == 1 and self.clicking_i == item:
                     self.clicking_i.x = pygame.mouse.get_pos()[0] - self.clicking_i.sx / 2
                     self.clicking_i.y = pygame.mouse.get_pos()[1] - 20
                 else:
-                    item.y = 580 - 80
+                    if 496 <= item.y <= 504 and item.imx-4 <= item.x <= item.imx+4:
+                        item.y = 580 - 80
+                        item.x = item.imx
+                    else:
+                        item.x -= (item.x-item.imx)/5
+                        item.y -= (item.y-500)/5
                 if self.clicking == 0 and 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and item.check() == 1: #
                     try:
                         self.plpl3 = item.txt + "[" + str(item_y[item.txt]) + "]" + " : " + item_s[item.txt]
@@ -230,7 +241,7 @@ class showitems():
                     self.buttonnum = self.i
                 if pygame.mouse.get_pressed()[0] == 0:
                     if self.clicking == 1:
-                        if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
+                        if 580 > pygame.mouse.get_pos()[0] > 20 and 470 > pygame.mouse.get_pos()[1] > 20:
                             if self.isinv == 'inv':
                                 self.massitem = self.clicking_i.txt
                                 del self.buttonlist[self.buttonnum]
@@ -249,7 +260,10 @@ class showitems():
                     pygame.draw.rect(t_surface2, (255,255,255,70), [item.x - 10, 505, 1, 40])
                 self.i += 1
             if self.il > 580:
-                pygame.draw.rect(t_surface2, (200,200,200,100), [20 + (-self.mousex/(self.il-560))*((560-(560/self.il)*560)), 550, (560/self.il)*560, 30])
+                pygame.draw.rect(t_surface2, (200,200,200,200), [20 + (-self.mousex/(self.il-560))*((560-(560/self.il)*560)), 550, (560/self.il)*560, 30])
+            else:
+                pygame.draw.rect(t_surface2, (200,200,200,200), [20 - self.mousex, 550, 560, 30])
+
             # button fin
             # trash or getitem
             if self.massitem == 0:
@@ -274,7 +288,7 @@ class showitems():
             else:
                 prtext2(self.plpl3, 15, 40, 480)
             if len(self.buttonlist) == 0:
-                prtextm('비어 있습니다, 다른 오브젝트를 찾으십시오.', 20, 300, 555)
+                prtextm('비어 있습니다, 다른 오브젝트를 찾으십시오.', 20, 300, 525)
 
             self.lx = pygame.mouse.get_pos()[0]
             self.o = 1

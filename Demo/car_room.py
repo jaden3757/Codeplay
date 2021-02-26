@@ -102,10 +102,11 @@ def maprun():
     # | 여기부터 자유롭게 추가 또는 변경 |
     box = itemobject('images/box.png', '상자2', 100, 100, 400, 400)
     box.item = [sheetname, 4]
+    aaa = itemobject('images/aaa.png', '우주선', 100, 100, 300, 400)
 
     ship_button = button("우주선", 100, 100, 300, 400)
-    ship_button.color = (255,255,255)
-    ship_button.textcolor = (0,0,0)
+    ship_button.color = (0,0,0)
+    ship_button.textcolor = (255,255,255)
     ship_button.textsize = 22
     ship_button.font = 'pixel.ttf'
 
@@ -152,6 +153,7 @@ def maprun():
         lower_button.off()
         goto_A_long_button.off()
         ship_button.draw()
+        aaa.draw()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
