@@ -31,6 +31,7 @@ clock = pygame.time.Clock()
 run = True
 
 # 텍스트관련 [삭제하지 말것]
+
 def fadeout(width, height): 
     fade = pygame.Surface((width, height))
     fade.fill((0,0,0))

@@ -134,7 +134,6 @@ def maprun():
     hall_button.textsize = 20
     hall_button.font = 'pixel.ttf'
 
-
     goto_c_button = button("C 홀", 300, 40, 650, 250)
     goto_c_button.color = (0,0,0)
     goto_c_button.textsize = 20
@@ -142,10 +141,14 @@ def maprun():
 
     sound.play_cynthia_S()
 
+    bgimg = pygame.image.load('images/c_long.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
 
         # | UI |
