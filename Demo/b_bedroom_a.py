@@ -84,14 +84,14 @@ def maprun():
     floor_button.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
-    bed = itemobject('images/box.png', '침대', 100, 100, 400, 100)
-    drawer = itemobject('images/box.png', '서랍', 100, 100, 100, 200)
-    desk = itemobject('images/box.png', '책상', 100, 100, 150, 300)
-    box = itemobject('images/box.png', '상자', 100, 100, 350, 350)
-    bed.item = [sheetname, 3]
-    drawer.item = [sheetname, 4]
-    desk.item = [sheetname, 5]
-    box.item = [sheetname, 6]
+    # bed = itemobject('images/box.png', '침대', 100, 100, 400, 100)
+    drawer = itemobject('images/none.png', '서랍', 200, 200, 150, 150)
+    drawer.item = [sheetname, 3]
+    # desk = itemobject('images/box.png', '책상', 100, 100, 150, 300)
+    # box = itemobject('images/box.png', '상자', 100, 100, 350, 350)
+    # bed.item = [sheetname, 3]
+    # desk.item = [sheetname, 5]
+    # box.item = [sheetname, 6]
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -110,16 +110,16 @@ def maprun():
     bedroom_button.textsize = 20
     bedroom_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/bedroom.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        bed.draw()
         drawer.draw()
-        desk.draw()
-        box.draw()
 
         # UI
         prtext4("B 침실 - A 방 | B-1", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
@@ -166,10 +166,7 @@ def maprun():
             # itemcheck(holy) # 이미지 오브젝트 예시
             
         if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(bed)
             itemcheck2(drawer)
-            itemcheck2(desk)
-            itemcheck2(box)
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

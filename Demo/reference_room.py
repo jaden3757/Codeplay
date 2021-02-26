@@ -87,7 +87,7 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
-    computer = itemobject('images\\computer.png', '컴퓨터', 200, 150, 0, 100)
+    computer = itemobject('images\\none.png', '컴퓨터', 200, 150, 350, 250)
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -106,11 +106,14 @@ def maprun():
     a_hall_button.textsize = 20
     a_hall_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/a_data.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         computer.draw()
 
