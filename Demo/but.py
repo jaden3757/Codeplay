@@ -4,7 +4,7 @@ import pygame
 import sys
 from module1 import *
 from item import *
-import game_over
+from game_over import *
 
 pygame.init()
 screen = pygame.display.set_mode((600, 800))
