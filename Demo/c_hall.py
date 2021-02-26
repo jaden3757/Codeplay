@@ -15,6 +15,7 @@ import c_communicate
 import c_warehouse
 import car_room
 import a_long
+import c_hall
 
 screen_width = 1000
 screen_height = 600
@@ -55,7 +56,7 @@ def textls(): # 텍스트 수동 입력
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
         if scr == 3: # 2번째 대사 [이 아래에 더 추가 가능]
-            t1.reset("success")
+            t1.reset("성공")
         if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("카드키가 없습니다.")
         
@@ -136,7 +137,7 @@ def maprun():
     goto_C_long_button.textsize = 20
     goto_C_long_button.font = 'pixel.ttf'
 
-    long_button = button("A 롱", 300, 40, 650, 350)
+    long_button = button("C 롱", 300, 40, 650, 350)
     long_button.color = (0,0,0)
     long_button.textsize = 20
     long_button.font = 'pixel.ttf'

@@ -21,6 +21,7 @@ import a_security
 import a_security2
 import b_long
 import c_hall
+import c_long
 
 screen_width = 1000
 screen_height = 600
@@ -236,7 +237,7 @@ def maprun():
             if goto_c_button.check() == 1:
                 if '카드키' in getitem():
                     if secure['c_long'] == 1:
-                        c_hall.maprun()
+                        c_long.maprun()
                     else:
                         setscr(4)
                 else:
