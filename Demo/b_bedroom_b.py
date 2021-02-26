@@ -81,7 +81,7 @@ def maprun():
     firstsetting()
     buttonmode = 0
     sheetname = 'b_bedroom' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    floor_button.item = [sheetname, 4] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+    floor_button.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
     # bed = itemobject('images/box.png', '침대', 100, 100, 400, 100)
@@ -93,7 +93,7 @@ def maprun():
     # desk.item = [sheetname, 10]
     # box.item = [sheetname, 11]
     drawer = itemobject('images/none.png', '서랍', 200, 200, 150, 150)
-    drawer.item = [sheetname, 3]
+    drawer.item = [sheetname, 4]
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
