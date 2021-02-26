@@ -134,7 +134,8 @@ def maprun():
     hall_button.textsize = 20
     hall_button.font = 'pixel.ttf'
 
-    goto_c_button = button("C 홀", 300, 40, 650, 250)
+
+    goto_c_button = button("C-홀", 300, 40, 650, 250)
     goto_c_button.color = (0,0,0)
     goto_c_button.textsize = 20
     goto_c_button.font = 'pixel.ttf'
@@ -200,6 +201,11 @@ def maprun():
             if find_button.check() == 1:
                 setscr(2)
 
+            if hall_button.check() == 1: # 예시입니다
+                if '카드키' in getitem():
+                    a_long.maprun()
+                else:
+                    setscr(3)
             if goto_c_button.check() == 1:
                 if '카드키' in getitem():
                     if secure['c_long'] == 1:
