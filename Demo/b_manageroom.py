@@ -120,10 +120,14 @@ def maprun():
     box1 = itemobject('images/box.png', ' 상자1', 100, 100, 100, 420)
     box1.item = [sheetname, 3]
 
+    bgimg = pygame.image.load('images/b_manage.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         box1.draw()
 
