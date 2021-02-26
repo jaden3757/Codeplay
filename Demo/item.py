@@ -54,7 +54,7 @@ class button1:
                 if 580 > pygame.mouse.get_pos()[0] > 20 and 580 > pygame.mouse.get_pos()[1] > 20 and self.checkon == 1:
                     pygame.draw.rect(screen, (255 - self.clicking() * 100,255 - self.clicking() * 100,255), (self.x, self.y, self.sx, self.sy), 2 - (self.clicking() * 1))
                 # prtextm("클릭", 10, self.x + self.sx / 2, self.y + self.sy / 2)
-            self.prtext(self.txt, self.textsize, (self.x + self.sx / 2), (self.y + self.sy / 2))
+            self.prtext(self.txt, self.font, self.textsize, (self.x + self.sx / 2), (self.y + self.sy / 2))
         else:
             pass
     def check(self):
@@ -107,8 +107,8 @@ class button1:
                 return 0
         else:
             return 0
-    def prtext(self, txt, sz, x, y):
-        # myFont = pygame.font.Font(font1, sz)
+    def prtext(self, txt, font1, sz, x, y):
+        myFont = pygame.font.Font(font1, sz)
         text_title = myFont.render(txt, False, self.textcolor)
         t_rect = text_title.get_rect()
         t_rect.centerx = x

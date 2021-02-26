@@ -84,19 +84,19 @@ def maprun():
     setscr(0)
     sheetname = 'b_warehouse' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
-
+    
     # | 여기부터 자유롭게 추가 |
-    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 400)
+    box1 = itemobject('images/none.png', '상자1', 100, 150, 240, 220)
     box1.item = [sheetname, 2]
-    box2 = itemobject('images/box.png', '상자2', 100, 100, 50, 450)
+    box2 = itemobject('images/none.png', '상자2', 100, 150, 240, 350)
     box2.item = [sheetname, 3]
-    box3 = itemobject('images/box.png', '상자3', 100, 100, 250, 300)
+    box3 = itemobject('images/none.png', '상자3', 100, 150, 350, 250)
     box3.item = [sheetname, 4]
-    box4 = itemobject('images/box.png', '상자4', 100, 100, 200, 330)
+    box4 = itemobject('images/none.png', '상자4', 100, 150, 350, 380)
     box4.item = [sheetname, 5]
-    box5 = itemobject('images/box.png', '상자5', 100, 100, 450, 400)
+    box5 = itemobject('images/none.png', '상자5', 100, 150, 480, 300)
     box5.item = [sheetname, 6]
-    box6 = itemobject('images/box.png', '상자6', 100, 100, 300, 450)
+    box6 = itemobject('images/none.png', '상자6', 100, 150, 480, 430)
     box6.item = [sheetname, 7]
 
     move_button = button("이동목록", 100, 50, 650, 500)
@@ -116,10 +116,14 @@ def maprun():
     b_hall_button.textsize = 20
     b_hall_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/b_warehouse.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         box1.draw()
         box2.draw()
