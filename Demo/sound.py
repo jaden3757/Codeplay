@@ -29,6 +29,11 @@ def play_Moodside_S():
     pygame.mixer.music.load(sound)
     pygame.mixer.music.play(-1)
 
+def play_turn():
+    sound = ("sounds/turn_over_a_new_leaf.mp3")
+    pygame.mixer.music.load(sound)
+    pygame.mixer.music.play(-1)
+
 def play_check():
     sound = pygame.mixer.Sound("sounds/Check.wav")
     sound.play()

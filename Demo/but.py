@@ -4,6 +4,7 @@ import pygame
 import sys
 from module1 import *
 from item import *
+import game_over
 
 pygame.init()
 screen = pygame.display.set_mode((600, 800))
@@ -309,6 +310,7 @@ def hungeradd(a):
     if hunger > 100:
         hunger = 100
 
+
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
@@ -390,7 +392,8 @@ def drawui():
         hunger -= 1
     if hunger < 1: # game over
         hunger = 0
-        pass
+        game_over.maprun()
+
     if itemui.intro2[0] in item_f:
         if type(item_f[itemui.intro2[0]]) == int:
             hunger += item_f[itemui.intro2[0]]
