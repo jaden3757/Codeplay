@@ -194,6 +194,7 @@ class imagebutton:
     item_list = []
     mode = 0
     getted = 0
+    seetxt = "살펴보기"
     def __init__(self, name, sx, sy, x, y):
         self.sx = sx
         self.sy = sy
@@ -213,7 +214,7 @@ class imagebutton:
                     t_surface.fill((0,0,0,0))
                     pygame.draw.rect(t_surface, (0,0,0,100), (pygame.mouse.get_pos()[0]-40, pygame.mouse.get_pos()[1]-30, 80, 20))
                     screen.blit(t_surface, (0,0))
-                    self.prtext("살펴보기", self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
+                    self.prtext(self.seetxt, self.textsize, pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20)
         else:
             pass
     def check(self):
@@ -298,6 +299,9 @@ nowitem = ''
 hunger = 100
 hunger_cool = 0
 
+bookn = 0
+prev_button = imagebutton('images/none.png', 100, 100, 100, 300)
+next_button = imagebutton('images/none.png', 100, 100, 400, 300)
 
 def hungeradd(a):
     global hunger
@@ -308,6 +312,7 @@ def hungeradd(a):
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
+    global bookn
     itemon = 0
     # event = pygame.event.poll()
     if pygame.key.get_pressed()[pygame.K_x]:
@@ -318,12 +323,23 @@ def mapdraw(): # 아이템 상호작용
         # primg2("map560.png", 20, 20)
         itemon = 1
         nowitem = 'map560.png'
-    if [itemui.intro2[0], itemui.intro2[1]] == ['소설책', 1]:
+    prev_button.off()
+    next_button.off()
+    if [itemui.intro2[0], itemui.intro2[1]] == ['만화책', 1]:
         itemon = 1
         nowitem = 'map560.png'
+        prev_button.on()
+        next_button.on()
+        if prev_button.clicking() == 1:# previous
+            pass
+        if next_button.clicking() == 1:# next
+            pass
+    
     if [itemui.intro2[0], itemui.intro2[1]] == ['카드키', 1]:
         itemon = 1
         nowitem = 'images/cardkey.png'
+    if [itemui.intro2[0], itemui.intro2[1]] == ['연구노트', 1]:
+        mode1['seenote'] = 1
     # [ 이 아래로는 건드리지 마시오 ]
     if [itemui.intro2[0], itemui.intro2[1]] == ['빵', 1]:
         itemui.intro2[1] = 0
@@ -345,6 +361,9 @@ def mapdraw(): # 아이템 상호작용
         primg2(nowitem, 20, itemusing)
         if itemusing == 20:
             prtextm2('Press X to exit', 25, 300, 560, (255,255,255), ft='moon.otf')
+        # buttondraw
+        prev_button.draw()
+        next_button.draw()
 
 def drawui():
     global hunger
@@ -383,7 +402,7 @@ def drawui():
     #item trash
     if itemui.clicking == 1:
         if itemui.isinv == 'inv':
-            if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
+            if 580 > pygame.mouse.get_pos()[0] > 20 and 470 > pygame.mouse.get_pos()[1] > 20:
                 drawrect("바닥에 버리기", 540, 480, 300, 260, (0,80,0,150))
             else:
                 drawrect("바닥에 버리기", 540, 480, 300, 260, (0,0,0,150))
@@ -391,7 +410,7 @@ def drawui():
             if itemui.storage + itemui.clicking_i_a > 100:
                 drawrect("인벤토리에 공간이 부족합니다", 540, 480, 300, 260, (100,0,0,150))
             else:
-                if 580 > pygame.mouse.get_pos()[0] > 20 and 500 > pygame.mouse.get_pos()[1] > 20:
+                if 580 > pygame.mouse.get_pos()[0] > 20 and 470 > pygame.mouse.get_pos()[1] > 20:
                     drawrect("인벤토리에 넣기", 540, 480, 300, 260, (0,80,0,150))
                 else:
                     drawrect("인벤토리에 넣기", 540, 480, 300, 260, (0,0,0,150))
@@ -522,8 +541,9 @@ def firstsetting():
     pygame.mouse.set_visible(True)
 
 def mousechange():
-    pygame.mouse.set_visible(False)
-    if pygame.mouse.get_pressed()[0] == 1:
-        primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
-    else:
-        primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    # pygame.mouse.set_visible(False)
+    # if pygame.mouse.get_pressed()[0] == 1:
+    #     primg2('images/cursor2.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    # else:
+    #     primg2('images/cursor.png', pygame.mouse.get_pos()[0]-10, pygame.mouse.get_pos()[1]-10)
+    pass

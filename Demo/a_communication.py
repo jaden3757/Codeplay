@@ -46,6 +46,14 @@ def textls(): # 텍스트 수동 입력
             t1.reset("..신호가 없다.")
         if scr == 5:
             t1.reset("열리지 않는다.")
+        if scr == 6:
+            t1.reset("지구와의 통신에 성공했다.")
+            if secure['b_long'] == 1:
+                t1.next('\'이제 남은 것은 단 하나\'')
+            else:
+                t1.next('이제 휴스턴을 가둬야한다.')
+        if scr == 7:
+            t1.reset("전기가 공급되고 있지 않다")
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -92,6 +100,10 @@ def maprun():
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
+
+    mode1['wire1'] = True
+    mode1['wire2'] = True
+    mode1['electric'] = True
 
     ddu = imagebutton("light2.png", 100, 100, 300, 420) # 예시
 
@@ -169,15 +181,19 @@ def maprun():
             if system_button.check() == 1:
                 a_system.maprun()
             if com_button.check() == 1:
-                if mode1['communication'] == True:
-                    if mode1['main_event'] == 1:
-                        pass # 통신 시작
+                if mode1['electric'] == True and mode1['wire1'] == True and mode1['wire2'] == True:
+                    if mode1['communication'] == True:
+                        if mode1['main_event'] == 2:
+                            setscr(6)
+                        else:
+                            setscr(4)
                     else:
-                        setscr(4)
+                        setscr(3)
+                        mode1['tryconnect'] = 1
                 else:
-                    setscr(3)
+                    setscr(7)
             if ddu.check() == 1:
-                if mode1['main_event'] == 1:
+                if mode1['main_event'] == 2:
                     pass
                 else:
                     setscr(5)
@@ -190,7 +206,6 @@ def maprun():
             Sound_controll.sound_controll()
         
         #fin [끝]
-        mousechange()
         pygame.display.flip()
         clock.tick(60)
 

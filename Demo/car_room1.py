@@ -53,6 +53,8 @@ def textls(): # 텍스트 수동 입력
             t1.reset("이동목록을 표시중")
         if scr == 2: # 1번째 대사
             t1.reset("연료가 없습니다.")
+        if scr == 3: # 1번째 대사
+            t1.reset("아직 휴스턴을 처리하지 못했다.")
 
         
         # if scr == i: # i번째 대사 (샘플)
@@ -112,7 +114,6 @@ def maprun():
     go_button.textsize = 22
     go_button.font = 'pixel.ttf'
 
-
     sound.play_cynthia_S()
 
     while run:
@@ -145,8 +146,10 @@ def maprun():
             
             if go_button.check() == 1:
                 if '연료통' in getitem():
-                    setscr(3)
-                    car_room2.maprun()
+                    if secure['b_long'] == 0:
+                        car_room2.maprun()
+                    else:
+                        setscr(3)
                 else:
                     setscr(2)
 

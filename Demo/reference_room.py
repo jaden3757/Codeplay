@@ -160,6 +160,7 @@ def maprun():
             
         if pygame.mouse.get_pressed()[0] == 1:
             if computer.check() == 1:
+                mode1['edward'] = 1
                 computer1.maprun()
 
         if pygame.key.get_pressed()[pygame.K_m]:
