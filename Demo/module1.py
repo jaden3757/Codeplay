@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+import random
 
 font1 = 'gulim.ttf'
 screen = pygame.display.set_mode((600, 800)) 
@@ -39,7 +40,10 @@ def prtextm(txt, sz, x, y):
 
 def prtextm2(txt, sz, x, y, *col, ft):
     myFont = pygame.font.Font(ft, sz)
-    text_title = myFont.render(txt, False, col)
+    try:
+        text_title = myFont.render(txt, col[0][3], col)
+    except:
+        text_title = myFont.render(txt, False, col)
     t_rect = text_title.get_rect()
     t_rect.centerx = x
     t_rect.centery = y
@@ -201,5 +205,35 @@ class prtext3:
     def next(self, text):
         self.txt.append(text)
 
+class actionbar:
+    txt = ''
+    time = 0
+    fade = 0
+    font = 'pixel.ttf'
+    tsize = 25
+    def __init__(self):
+        pass
+    def print(self, txt):
+        self.txt = txt
+        self.time = 60
+        self.fade = 150
+    def draw(self):
+        t_surface = screen.convert_alpha()
+        t_surface.fill((0,0,0,0))
+        if self.fade > 0:
+            myFont = pygame.font.Font(self.font, self.tsize)
+            text_title = myFont.render(self.txt, True, (255, 255, 255), (0,0,0,0))
+            text_title.set_alpha(self.fade/150*255)
+            t_rect = text_title.get_rect()
+            t_rect.centerx = 300
+            t_rect.centery = 400
+            pygame.draw.rect(t_surface, (0,0,0,self.fade), [300-(t_rect.width+16)/2, 400-(self.tsize/2+4), t_rect.width+16, self.tsize+8])
+            t_surface.blit(text_title, t_rect)
+            screen.blit(t_surface, (0,0))
+            if self.time < 1:
+                self.fade -= 3
+            else:
+                self.time -= 1
 
+actionbar = actionbar()
 #primg2(이미지이름, x좌표, y좌표)

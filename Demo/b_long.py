@@ -56,6 +56,11 @@ def textls(): # 텍스트 수동 입력
             t1.reset("이동목록을 표시중")
         if scr == 2: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3: # 1번째 대사
+            t1.reset("생산시설에서 산소를 켜야한다")
+        if scr == 4: # 1번째 대사
+            t1.reset("어두워서 갈 수 없다.")
+            t1.next('길을 밝혀줄 것이 필요하다.')
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
         #   t1.next("그 다음줄 추가")
@@ -126,12 +131,12 @@ def maprun():
     goto_b_button = button("관리실", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
-    lower_button.font = 'pixel.ttf'
+    goto_b_button.font = 'pixel.ttf'
 
     goto_a_button = button("A-롱", 300, 40, 650, 250)
     goto_a_button.color = (0,0,0)
     goto_a_button.textsize = 20
-    lower_button.font = 'pixel.ttf'
+    goto_a_button.font = 'pixel.ttf'
 
     bgimg = pygame.image.load('images/b_long.png')
     bgimg = pygame.transform.scale(bgimg, (560, 560))
@@ -188,8 +193,13 @@ def maprun():
             if goto_a_button.check() == 1:
                 setscr(1)
                 password.enter_password()
-                a_long.maprun()
-
+                if mode1['oxygen'] == True:
+                    if mode1['light'] == True:
+                        a_long.maprun()
+                    else:
+                        setscr(4)
+                else:
+                    setscr(3)
             if move_button.check() == 1: # 예시입니다
                 if buttonmode == 0:
                     setscr(1)
