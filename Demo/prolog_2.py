@@ -54,12 +54,15 @@ def maprun():
 
     run = True
 
-    image2 = pygame.image.load("teaser-5.png")
+    image2 = pygame.image.load("images/prolog2.png") # 임시 파일
+    image2 = pygame.transform.scale(image2, (1000, 800))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
-        primg2("teaser-5.png", 0, 0)
+        # primg2(image2, 0, 0)
+
+        screen.blit(image2, (0, 0))
 
         # myFont = pygame.font.SysFont( "arial", 30, True, False)
         # text_Title= myFont.render("Click to continue!", True, BLACK)
