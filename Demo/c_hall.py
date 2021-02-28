@@ -59,6 +59,8 @@ def textls(): # 텍스트 수동 입력
             t1.reset("성공")
         if scr == 4: # 2번째 대사 [이 아래에 더 추가 가능]
             t1.reset("카드키가 없습니다.")
+        if scr == 5:
+            t1.reset("강철 자물쇠가 걸려 있다")
         
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
@@ -207,8 +209,10 @@ def maprun():
                 setscr(2)
             if goto_A_long_button.check() == 1:
                 if '카드키' in getitem():
-                    setscr(3)
-                    car_room.maprun()
+                    if mode1['main_event'] > 0:
+                        car_room.maprun()
+                    else:
+                        setscr(5)
                 else:
                     setscr(4)
             if goto_B_long_button.check() == 1:

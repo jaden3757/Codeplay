@@ -156,8 +156,8 @@ def maprun():
     vio = 0
 
     #test
-    item_t.append('망치')
-    item_t.append('카드키')
+    # item_t.append('망치')
+    # item_t.append('카드키')
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))

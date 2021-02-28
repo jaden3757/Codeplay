@@ -289,6 +289,7 @@ def maprun():
                     t1.md = 0
                     t1.mm = 0
                     setscr(0)
+                    actionbar.print('차고가 열렸습니다')
         
         #fin [끝]
         pygame.display.flip()
