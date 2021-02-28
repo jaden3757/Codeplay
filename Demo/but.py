@@ -417,12 +417,8 @@ def drawui():
         hunger -= 1
     if hunger < 1: # game over
         hunger = 0
-<<<<<<< HEAD
-        import game_over
-=======
         die()
         # import game_over
->>>>>>> 35c4abc6af16c422793f4e5185a5b4f29eb49ad6
 
     if itemui.intro2[0] in item_f:
         if type(item_f[itemui.intro2[0]]) == int:

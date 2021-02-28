@@ -55,7 +55,7 @@ def maprun():
     run = True
 
     image2 = pygame.image.load("images/prolog2.png") # 임시 파일
-    image2 = pygame.transform.scale(image2, (1000, 800))
+    image2 = pygame.transform.scale(image2, (1000, 545))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]

@@ -55,7 +55,7 @@ on = False
 def maprun():
     global on
 
-    move_button = button("Next", 80, 30, 900, 20)
+    move_button = button("Next", 80, 30, 900, 545)
     move_button.color = (70,70,70)
     move_button.textcolor = (0,0,0)
     move_button.textsize = 22
@@ -66,7 +66,7 @@ def maprun():
     run = True
 
     image2 = pygame.image.load("images/prolog1.png") # 임시 파일
-    image2 = pygame.transform.scale(image2, (1000, 800))
+    image2 = pygame.transform.scale(image2, (1000, 600))
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
