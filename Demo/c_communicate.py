@@ -162,6 +162,8 @@ def maprun():
     
     bgimg = pygame.transform.scale(bgimg, (560, 560))
 
+    sound.play_cynthia_S()
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))

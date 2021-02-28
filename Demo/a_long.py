@@ -155,6 +155,7 @@ def maprun():
     goto_c_button.textsize = 20
     goto_c_button.font = 'pixel.ttf'
 
+    sound.play_cynthia_S()
 
     bgimg = pygame.image.load('images/a_long.png')
     bgimg = pygame.transform.scale(bgimg, (560, 560))

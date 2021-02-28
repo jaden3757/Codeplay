@@ -138,6 +138,7 @@ def maprun():
     on_button.textsize = 20
     on_button.font = 'pixel.ttf'
     
+    sound.play_cynthia_S()
     bg = pygame.image.load('images/a_power.png')
 
     while run:

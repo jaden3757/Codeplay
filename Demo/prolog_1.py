@@ -61,7 +61,7 @@ def maprun():
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
 
-    sound.play_plants_S()
+    sound.play_planets_S()
 
     run = True
 
@@ -71,8 +71,12 @@ def maprun():
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
-        # primg2(image2, 0, 0)
-        screen.blit(image2, (0, 0))
+        primg2("images/prolog1.png", 0, 0)
+        # fadein(1000, 800)
+
+        # myFont = pygame.font.SysFont( "arial", 30, True, False)
+        # text_Title= myFont.render("Click to continue!", True, BLACK)
+        # screen.blit(text_Title, (700, 450))
 
         move_button.draw()
 

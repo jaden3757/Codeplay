@@ -115,6 +115,7 @@ def maprun():
     go_button.textsize = 22
     go_button.font = 'pixel.ttf'
 
+    sound.play_cynthia_S()
 
     showing = 1
     fade = 0
