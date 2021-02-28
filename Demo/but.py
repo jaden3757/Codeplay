@@ -400,7 +400,7 @@ def drawui():
     hunger_cool += 1
     if hunger_cool > 240:
         hunger_cool = 0
-        hunger -= 100
+        hunger -= 1
     if hunger < 1: # game over
         hunger = 0
         import game_over
