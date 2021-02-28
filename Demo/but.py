@@ -344,6 +344,8 @@ def mapdraw(): # 아이템 상호작용
         itemon = 1
         nowitem = 'images/cardkey.png'
     if [itemui.intro2[0], itemui.intro2[1]] == ['연구노트', 1]:
+        itemon = 1
+        nowitem = 'images/labbook.png'
         mode1['seenote'] = 1
     if [itemui.intro2[0], itemui.intro2[1]] == ['손전등', 1]:
         mode1['light'] = True
