@@ -302,7 +302,9 @@ nowitem = ''
 hunger = 100
 hunger_cool = 0
 
-bookn = 0
+px = 0
+bookimg = pygame.image.load('images/book_1.png')
+
 prev_button = imagebutton('images/none.png', 100, 100, 100, 300)
 next_button = imagebutton('images/none.png', 100, 100, 400, 300)
 usingitem = ''
@@ -317,8 +319,9 @@ def hungeradd(a):
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
-    global bookn
     global usingitem
+    global px
+    global bookimg
     itemon = 0
     # event = pygame.event.poll()
     if pygame.key.get_pressed()[pygame.K_x]:
@@ -329,18 +332,14 @@ def mapdraw(): # 아이템 상호작용
         # primg2("map560.png", 20, 20)
         itemon = 1
         nowitem = 'map560.png'
-    prev_button.off()
-    next_button.off()
-    if [itemui.intro2[0], itemui.intro2[1]] == ['만화책', 1]:
+    if [itemui.intro2[0], itemui.intro2[1]] == ['일기장', 1]:
         itemon = 1
-        nowitem = 'map560.png'
-        prev_button.on()
-        next_button.on()
-        if prev_button.clicking() == 1:# previous
-            pass
-        if next_button.clicking() == 1:# next
-            pass
-    
+        nowitem = 'images/book_1.png'
+        if pygame.mouse.get_pos()[1] < 500:
+            if pygame.mouse.get_pressed()[0] == 1:
+                px -= 5
+            if pygame.mouse.get_pressed()[2] == 1:
+                px += 5
     if [itemui.intro2[0], itemui.intro2[1]] == ['카드키', 1]:
         itemon = 1
         nowitem = 'images/cardkey.png'
@@ -370,16 +369,18 @@ def mapdraw(): # 아이템 상호작용
             itemusing += (580-itemusing)/8 + 1
             if itemusing > 580:
                 itemusing = 580
-    
     if itemusing < 580:
         pygame.draw.rect(t_surface, (0, 0, 0, (1-itemusing/580)*200), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
-        primg2(nowitem, 20, itemusing)
+        if nowitem != 'images/book_1.png':
+            primg2(nowitem, 20, itemusing)
+        else:
+            screen.blit(bookimg, (20+px, itemusing))
         if itemusing == 20:
             prtextm2('Press X to exit', 25, 300, 560, (255,255,255), ft='moon.otf')
+    else:
+        px = 0
         # buttondraw
-        prev_button.draw()
-        next_button.draw()
 
 def drawui():
     global hunger
@@ -432,15 +433,19 @@ def drawui():
                 else:
                     drawrect("인벤토리에 넣기", 540, 480, 300, 260, (0,0,0,150))
     itemui.draw()
+    item_button.draw()
+    actionbar.draw()
+    floor_button.draw()
+    mapdraw()
     pygame.draw.rect(screen, (50,50,50), [0, 0, 20, 600])
     pygame.draw.rect(screen, (50,50,50), [580, 0, 420, 600])
     pygame.draw.rect(screen, (255,255,255), [599.5, 20, 1, 560])
-    item_button.draw()
-    actionbar.draw()
+    # item_button.draw()
+    # actionbar.draw()
     # itemmode_button.draw()
     msitem = getmassitem()
     itemui.massitem = 0
-    floor_button.draw()
+    # floor_button.draw()
 
     if msitem == 0:
         pass
@@ -453,7 +458,7 @@ def drawui():
     #         drawrect("바닥에 버리기", 540, 480, 300, 260)
     #     else:
     #         drawrect("인벤토리에 넣기", 540, 480, 300, 260)
-    mapdraw()
+    # mapdraw()
     # primg2('images/cursor.png', pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 map_onoff = 0
 

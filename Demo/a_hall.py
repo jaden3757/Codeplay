@@ -104,9 +104,9 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    box1 = itemobject('images/box.png', '책상', 100, 100, 300, 300)
+    box1 = itemobject('images/box.png', '상자1', 100, 100, 250, 270)
     box1.item = [sheetname, 3]
-    box2 = itemobject('images/box.png', '상자', 100, 100, 300, 400)
+    box2 = itemobject('images/box.png', '상자2', 100, 100, 300, 400)
     box2.item = [sheetname, 4]
 
     move_button = button("이동목록", 100, 50, 650, 500)
@@ -141,6 +141,8 @@ def maprun():
     goto_C_long_button.textsize = 20
     goto_C_long_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/hall.png')
+    bgimg = pygame.transform.scale(bgimg, (560,560))
 
     sound.play_cynthia_S()
 
@@ -148,6 +150,7 @@ def maprun():
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         # holy.draw()
         box1.draw()
