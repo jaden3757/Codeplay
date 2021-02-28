@@ -498,12 +498,13 @@ def itemcheck2(buttonnm): # buttonnm : 버튼이름 / 이미지오브젝트 이�
 
 def buttoncheck():
     if item_button.check() == 1:
-        if itemui.onoff == 0:
-            itemui.mode = 1
-            itemui.on()
-        else:
-            if itemui.itemlist == getitem():
-                itemui.off()
+        if itemui.isinv == 'inv':
+            if itemui.onoff == 0:
+                itemui.mode = 1
+                itemui.on()
+            else:
+                if itemui.itemlist == getitem():
+                    itemui.off()
         itemui.itemlist = getitem()
         itemui.mousex = 0
         itemui.reseted = 1

@@ -181,8 +181,8 @@ def maprun():
                 car_room.maprun()
             
             if go_button.check() == 1:
-                item_t.append('연료통')
-                secure['b_long'] = 0
+                # item_t.append('연료통')
+                # secure['b_long'] = 0
                 if '연료통' in getitem():
                     if secure['b_long'] == 0:
                         if 'USB' in getitem():
