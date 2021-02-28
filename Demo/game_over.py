@@ -29,6 +29,7 @@ game_over_button.textsize = 22
 game_over_button.font = 'pixel.ttf'
 
 pygame.mixer.music.stop()
+sound.play_planets_S()
 
 run = True
 

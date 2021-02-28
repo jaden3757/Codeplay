@@ -11,7 +11,7 @@ WHITE = (255, 255, 255)
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-def play_plants_S():
+def play_planets_S():
     #screen setting
     sound = ("Planets.mp3")
     pygame.mixer.music.load(sound)
