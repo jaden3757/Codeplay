@@ -29,7 +29,7 @@ game_over_button.textcolor = (0,0,0)
 game_over_button.textsize = 22
 game_over_button.font = 'pixel.ttf'
 
-sound.play_cynthia_S()
+sound.play_plants_S()
 
 run = True
 

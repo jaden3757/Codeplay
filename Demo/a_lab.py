@@ -151,8 +151,6 @@ def maprun():
     bgimg = pygame.image.load('images/a_lab.png')
     bgimg = pygame.transform.scale(bgimg, (560,560))
 
-    sound.play_cynthia_S()
-
     vio = 0
 
     #test

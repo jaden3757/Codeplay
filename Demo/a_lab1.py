@@ -101,7 +101,6 @@ def maprun():
     goto_A_long_button.color = (0,0,0)
     goto_A_long_button.textsize = 20
 
-    sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]

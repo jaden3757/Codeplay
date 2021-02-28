@@ -61,7 +61,7 @@ def maprun():
     move_button.textsize = 22
     move_button.font = 'pixel.ttf'
 
-    sound.play_Moodside_S()
+    sound.play_plants_S()
 
     run = True
 
