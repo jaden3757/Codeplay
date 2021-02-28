@@ -135,6 +135,8 @@ def maprun():
     bgimg = pygame.image.load('images/b_production.png')
     bgimg = pygame.transform.scale(bgimg, (560,560))
     
+    #222
+    
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
