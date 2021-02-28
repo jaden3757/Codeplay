@@ -182,6 +182,9 @@ def maprun():
     cctv_button.textsize = 20
     cctv_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/a_system.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     t_surface = screen.convert_alpha()
     t_surface.fill((0,0,0,0))
     
@@ -190,6 +193,7 @@ def maprun():
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         
         # | UI |
