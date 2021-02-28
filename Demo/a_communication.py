@@ -12,6 +12,7 @@ import Sound_controll
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import a_system
+import a_communication1
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -100,8 +101,11 @@ def maprun():
     # | 여기부터 자유롭게 추가 또는 변경 |
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
-
-    ddu = imagebutton("images/ddu.png", 200, 200, 50, 450) # 예시
+    ddu2 = pygame.image.load('images/ddu2.png')
+    ddu2 = pygame.transform.scale(ddu2, (200, 200))
+    ddu3 = imagebutton("images/ddu3.png", 200, 200, 50, 450) # 예시
+    ddu3.mode= 1
+    ddu = imagebutton("images/none.png", 200, 200, 50, 450)
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -134,8 +138,12 @@ def maprun():
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         screen.blit(bgimg,(20,20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        ddu3.draw()
+        if mode1['dduopen'] == True:
+            screen.blit(ddu2, (-100, 450))
+        else:
+            screen.blit(ddu2, (50, 450))
         ddu.draw()
-
         # | UI |
         prtext4("A 통신실 | A-6", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
@@ -193,10 +201,7 @@ def maprun():
                 else:
                     setscr(7)
             if ddu.check() == 1:
-                if mode1['main_event'] == 2:
-                    pass
-                else:
-                    setscr(5)
+                a_communication1.maprun()
         if pygame.mouse.get_pressed()[0] == 1:
             pass
             # itemcheck2(holy) # 오브젝트 예시
