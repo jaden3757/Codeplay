@@ -7,6 +7,7 @@ from but import *
 from main1 import * #main
 from item import *
 from excel import *
+import random
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import time
@@ -152,6 +153,8 @@ def maprun():
 
     sound.play_cynthia_S()
 
+    vio = 0
+
     #test
     item_t.append('망치')
     item_t.append('카드키')
@@ -159,8 +162,14 @@ def maprun():
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-        screen.blit(bgimg, (20, 20))
-
+        if vio > 0:
+            if vio%5 == 0:
+                screen.blit(bgimg, (20+(random.randrange(-50, -10)), 20))
+            else:
+                screen.blit(bgimg, (20+(random.randrange(10, 50)), 20))
+            vio -= 1
+        else:
+            screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         # holy.draw()
         box1.draw()
@@ -238,6 +247,7 @@ def maprun():
             if break2_button.check() == 1:
                 buttonmode = 0
                 mode1['labbreak'] = True
+                vio = 10
 
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
