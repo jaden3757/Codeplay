@@ -132,7 +132,13 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
+<<<<<<< HEAD
 
+=======
+    bgimg = pygame.image.load('images/b_production.png')
+    bgimg = pygame.transform.scale(bgimg, (560,560))
+    
+>>>>>>> 34b103822c26843d69a33a9f4f2322aa1ecb812b
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))

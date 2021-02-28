@@ -99,13 +99,13 @@ def maprun():
     holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     holy.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 2번째 가로줄을 할당
 
-    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 300)
+    box1 = itemobject('images/box.png', '상자1', 100, 100, 300, 200)
     box1.item = [sheetname, 3]
-    box2 = itemobject('images/box.png', '상자2', 100, 100, 50, 290)
+    box2 = itemobject('images/box.png', '상자2', 100, 100, 0, 370)
     box2.item = [sheetname, 4]
     box3 = itemobject('images/box.png', '상자3', 100, 100, 400, 100)
     box3.item = [sheetname, 5]
-    box4 = itemobject('images/box.png', '상자4', 100, 100, 150, 330)
+    box4 = itemobject('images/box.png', '상자4', 100, 100, 150, 470)
     box4.item = [sheetname, 6]
     box5 = itemobject('images/box.png', '상자5', 100, 100, 200, 400)
     box5.item = [sheetname, 7]
@@ -142,12 +142,16 @@ def maprun():
     manage_button.textsize = 20
     manage_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/hall.png')
+    bgimg = pygame.transform.scale(bgimg, (560,560))
+
     sound.play_cynthia_S()
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         box1.draw()
         box2.draw()
