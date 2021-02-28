@@ -19,7 +19,7 @@ item_s = {} # 아이템 관련 설명 (딕셔너리 형태) # items시트의 3�
 item_y = {} # 아이템의 고유 값(무게) # items시트의 2번째 세로줄
 item_f = {}
 secure = {'A1':0, 'A2':0, 'B':1, 'a_long':1, 'b_long':1, 'c_long':1}
-mode1 = {'main_event':0,'light':False,'oxygen':False, 'electric':False, 'wire1':False, 'wire2':False, 'system':False, 'b_long':False, 'a_long':False, 'c_long':False, 'communication':False, 'gettedwire':False, 'seenote':0, 'edward':0, 'tryconnect':0}
+mode1 = {'main_event':0,'light':False,'oxygen':False, 'electric':False, 'wire1':False, 'wire2':False, 'system':False, 'b_long':False, 'a_long':False, 'c_long':False, 'communication':False, 'gettedwire':False, 'seenote':0, 'edward':0, 'tryconnect':0, 'labbreak':False}
 
 # hunger = 100
 # hunger_cool = 0

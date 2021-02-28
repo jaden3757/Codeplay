@@ -54,6 +54,10 @@ def textls(): # 텍스트 수동 입력
             t1.reset("이동목록을 표시중")
         if scr == 2: # 
             t1.reset("중요한 건 없는 것 같다.")
+        if scr == 3: # 
+            t1.reset("이 벽을 부술까?")
+        if scr == 4: # 
+            t1.reset("카드키가 없습니다")
 
         # if scr == i: # i번째 대사 (샘플)
         #   t1.reset("가장 위쪽에 나오는 대사(1번째 줄)")
@@ -103,9 +107,10 @@ def maprun():
     box1.item = [sheetname, 3]
     box2 = itemobject('images/box.png', '서랍', 100, 100, 300, 400)
     box2.item = [sheetname, 4]
-    box3 = itemobject('images/box.png', 'USB', 100, 100, 200, 300)
+    box3 = itemobject('images/breaked.png', '비밀공간', 100, 100, 230, 20)
     box3.item = [sheetname, 6]
     
+    break_button = imagebutton('images/none.png', 100, 100, 230, 20)
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -129,24 +134,46 @@ def maprun():
     goto_A_long_button.textsize = 20
     goto_A_long_button.font = 'pixel.ttf'
 
-    a1_button = button("현미경", 100, 50, 300, 100)
-    a1_button.color = (255,255,255)
-    a1_button.textcolor = (0,0,0)
-    a1_button.textsize = 22
-    a1_button.font = 'pixel.ttf'
+    break2_button = button("부순다", 300, 40, 650, 200) # 하위 버튼 디자인
+    break2_button.color = (0,0,0)
+    break2_button.textsize = 20
+    break2_button.font = 'pixel.ttf'
 
+    # a1_button = button("현미경", 100, 50, 300, 100)
+    # a1_button.color = (255,255,255)
+    # a1_button.textcolor = (0,0,0)
+    # a1_button.textsize = 22
+    # a1_button.font = 'pixel.ttf'
+
+    a1_button = imagebutton('images/none.png', 150, 150, 200, 150)
+
+    bgimg = pygame.image.load('images/a_lab.png')
+    bgimg = pygame.transform.scale(bgimg, (560,560))
 
     sound.play_cynthia_S()
 
+    #test
+    item_t.append('망치')
+    item_t.append('카드키')
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg, (20, 20))
+
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         # holy.draw()
         box1.draw()
         box2.draw()
-        box3.draw()
+        box3.off()
+        break_button.off()
+        if mode1['labbreak'] == True:
+            box3.on()
+            box3.draw()
+        else:
+            if '망치' in getitem():
+                break_button.on()
+        break_button.draw()
 
         # | UI |
         prtext4("A-LAB | A-4", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
@@ -159,18 +186,16 @@ def maprun():
         lower_button.off()
         goto_A_long_button.off()
         a1_button.draw()
-
-
+        break2_button.off()
 
         if buttonmode == 1: # 이동목록 켜진 경우
             move_button.txt = '< 뒤로'
-            lower_button.on()
             goto_A_long_button.on()
-
-
+        elif buttonmode == 2:
+            move_button.txt = '< 뒤로'
+            break2_button.on()
         else: # 꺼진 경우
             move_button.txt = '이동목록'
-            lower_button.off()
             find_button.on()
             goto_A_long_button.off()
 
@@ -179,7 +204,7 @@ def maprun():
         find_button.draw()
         lower_button.draw()
         goto_A_long_button.draw()
-
+        break2_button.draw()
 
 
         # | 이벤트 관리소 |
@@ -207,8 +232,12 @@ def maprun():
                     setscr(4)
             if a1_button.check() ==1:
                 a_lab1.maprun()
-
-
+            if break_button.check() == 1:
+                setscr(3)
+                buttonmode = 2
+            if break2_button.check() == 1:
+                buttonmode = 0
+                mode1['labbreak'] = True
 
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
