@@ -89,13 +89,12 @@ def maprun():
     firstsetting()
     movelist = False
     airlist = False
+    mode = False
 
-    sheetname = 'b_production' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
+    sheetname = 'production_facility' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
-    # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
     move_button = button("이동목록", 100, 50, 750, 500) # 상위 버튼 디자인
     move_button.color = (255,255,255)
@@ -132,17 +131,16 @@ def maprun():
     lower_button.textsize = 20
     lower_button.font = 'pixel.ttf'
 
-    bgimg = pygame.image.load('images/b_production.png')
-    bgimg = pygame.transform.scale(bgimg, (560,560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
-        screen.blit(bgimg, (20,20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
+        holy.draw()
 
         # | UI |
-        prtext4("B 생산시설 | B-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()
@@ -202,19 +200,27 @@ def maprun():
                     airlist = True
             if airon_button.check() == 1:
                 setscr(3)
-                mode1['oxygen'] = True
+                mode = True
             if airoff_button.check() == 1:
                 setscr(4)
-                mode1['oxygen'] = False
+                mode = False
             if mode_button.check() == 1:
-                if mode1['oxygen'] == True:
+                if mode == True:
                     setscr(5)
                 else:
                     setscr(6)
 
 
+
+
+
+            itemcheck(holy) # 이미지 오브젝트 예시
             if lower_button.check() == 1:
                 security_room.maprun()
+        
+        if pygame.key.get_pressed()[pygame.K_m]:
+            Sound_controll.sound_controll()
+            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()

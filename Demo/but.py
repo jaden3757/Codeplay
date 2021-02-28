@@ -4,7 +4,6 @@ import pygame
 import sys
 from module1 import *
 from item import *
-import game_over
 
 pygame.init()
 screen = pygame.display.set_mode((600, 800))
@@ -404,7 +403,7 @@ def drawui():
         hunger -= 1
     if hunger < 1: # game over
         hunger = 0
-        game_over.maprun()
+        import game_over
 
     if itemui.intro2[0] in item_f:
         if type(item_f[itemui.intro2[0]]) == int:
