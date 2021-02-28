@@ -61,11 +61,13 @@ def textls(): # 텍스트 수동 입력
 #    방이름(파일이름).maprun() 으로 다른 방으로 이동
 # 3. 변수 선언은 반드시 maprun함수 안에 해야함(지역변수 문제 때문)
 # 4. 대사 출력은 setscr(a), 대사들은 textls 안에 알아서 만들기
+mode = False
 
 def maprun():
     global scr
     global ch
     global run
+    global mode
     # 버튼 만드는 곳
     # variable(버튼이름) = button(text, width, height, x좌표, y좌표)
     # variable.draw() // 버튼을 화면에 출력
@@ -89,7 +91,6 @@ def maprun():
     firstsetting()
     movelist = False
     airlist = False
-    mode = False
 
     sheetname = 'production_facility' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
@@ -137,7 +138,6 @@ def maprun():
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        holy.draw()
 
         # | UI |
         prtext4("ROOMNAME | ROOMCODE", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
@@ -210,17 +210,8 @@ def maprun():
                 else:
                     setscr(6)
 
-
-
-
-
-            itemcheck(holy) # 이미지 오브젝트 예시
             if lower_button.check() == 1:
                 security_room.maprun()
-        
-        if pygame.key.get_pressed()[pygame.K_m]:
-            Sound_controll.sound_controll()
-            pygame.mixer.music.stop()
 
         if pygame.key.get_pressed()[pygame.K_m]:
             Sound_controll.sound_controll()
