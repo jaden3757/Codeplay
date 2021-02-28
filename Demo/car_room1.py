@@ -13,7 +13,8 @@ import Sound_controll
 import sound
 import car_room
 import car_room2
-
+import ending1
+import ending2
 
 screen_width = 1000
 screen_height = 600
@@ -116,13 +117,48 @@ def maprun():
 
     sound.play_cynthia_S()
 
+    showing = 1
+    fade = 0
+    fading = 0
+    fadewait = 0
+    im = 0
+
+    t_surface = screen.convert_alpha()
+    t_surface.fill((0,0,0,0))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        # holy.draw()
+        if fade > 0:
+            pygame.draw.rect(t_surface, (0,0,0,(fade/100)*255), [0,0,1000,600])
+            screen.blit(t_surface, (0,0))
 
+        
+        if fading == 1:
+            if fade < 100:
+                if fadewait > 0:
+                    fadewait -= 1
+                else:
+                    fade += 1
+            else:
+                fading = 2
+                fadewait = 0
+                im += 1
+                if 'USB' in getitem():
+                    ending1.maprun()
+                else:
+                    ending2.maprun()
+        if fading == 2:
+            if fade > 0:
+                if fadewait > 0:
+                    fadewait -= 1
+                else:
+                    fade -= 1
+            else:
+                fading = 0
+        
         # | UI |
         prtext4("차고 | C-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
@@ -145,9 +181,18 @@ def maprun():
                 car_room.maprun()
             
             if go_button.check() == 1:
+                item_t.append('연료통')
+                secure['b_long'] = 0
                 if '연료통' in getitem():
                     if secure['b_long'] == 0:
-                        car_room2.maprun()
+                        if 'USB' in getitem():
+                            if showing == 1:
+                                fading = 1
+                                showing = 0
+                        else:
+                            if showing == 1:
+                                fading = 1
+                                showing = 0
                     else:
                         setscr(3)
                 else:
@@ -169,6 +214,7 @@ def maprun():
 
         
         #fin [끝]
+        screen.blit(t_surface, (0,0))
         pygame.display.flip()
         clock.tick(60)
 

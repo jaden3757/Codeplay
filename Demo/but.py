@@ -4,6 +4,7 @@ import pygame
 import sys
 from module1 import *
 from item import *
+import game_over
 
 pygame.init()
 screen = pygame.display.set_mode((600, 800))
@@ -113,7 +114,8 @@ class itemobject:
         if pygame.mouse.get_pressed()[0] == 0 or self.check() == 0:
             self.finding_time = 0
         if self.onoff == 1:
-            screen.blit(self.img, [self.x, self.y])
+            if self.name != 'images/none.png':
+                screen.blit(self.img, [self.x, self.y])
             #primg2(self.name, self.x, self.y)
             if self.check() == 0 or itemui.clicking == 1:
                 pass
@@ -205,7 +207,8 @@ class imagebutton:
         self.img = pygame.transform.scale(self.img, (self.sx, self.sy))
     def draw(self):
         if self.onoff == 1:
-            screen.blit(self.img, [self.x, self.y])
+            if self.name != 'images/none.png':
+                screen.blit(self.img, [self.x, self.y])
             if self.check() == 0 or itemui.clicking == 1:
                 pass
             else:
@@ -302,6 +305,7 @@ hunger_cool = 0
 bookn = 0
 prev_button = imagebutton('images/none.png', 100, 100, 100, 300)
 next_button = imagebutton('images/none.png', 100, 100, 400, 300)
+usingitem = ''
 
 def hungeradd(a):
     global hunger
@@ -309,10 +313,12 @@ def hungeradd(a):
     if hunger > 100:
         hunger = 100
 
+
 def mapdraw(): # 아이템 상호작용
     global itemusing
     global nowitem
     global bookn
+    global usingitem
     itemon = 0
     # event = pygame.event.poll()
     if pygame.key.get_pressed()[pygame.K_x]:
@@ -340,6 +346,10 @@ def mapdraw(): # 아이템 상호작용
         nowitem = 'images/cardkey.png'
     if [itemui.intro2[0], itemui.intro2[1]] == ['연구노트', 1]:
         mode1['seenote'] = 1
+    if [itemui.intro2[0], itemui.intro2[1]] == ['손전등', 1]:
+        mode1['light'] = True
+        itemui.use()
+        actionbar.print('손전등을 장착했다')
     # [ 이 아래로는 건드리지 마시오 ]
     if [itemui.intro2[0], itemui.intro2[1]] == ['빵', 1]:
         itemui.intro2[1] = 0
@@ -350,11 +360,15 @@ def mapdraw(): # 아이템 상호작용
             itemusing -= itemusing/8 + 1
             if itemusing < 20:
                 itemusing = 20
+            if usingitem != itemui.intro2[0]:
+                usingitem = itemui.intro2[0]
+                itemusing = 580
     else:
         if itemui.intro2[1] == 0:
             itemusing += (580-itemusing)/8 + 1
             if itemusing > 580:
                 itemusing = 580
+    
     if itemusing < 580:
         pygame.draw.rect(t_surface, (0, 0, 0, (1-itemusing/580)*200), [20, 20, 560, 560])
         screen.blit(t_surface, (0,0))
@@ -390,7 +404,8 @@ def drawui():
         hunger -= 1
     if hunger < 1: # game over
         hunger = 0
-        pass
+        game_over.maprun()
+
     if itemui.intro2[0] in item_f:
         if type(item_f[itemui.intro2[0]]) == int:
             hunger += item_f[itemui.intro2[0]]
@@ -419,6 +434,7 @@ def drawui():
     pygame.draw.rect(screen, (50,50,50), [580, 0, 420, 600])
     pygame.draw.rect(screen, (255,255,255), [599.5, 20, 1, 560])
     item_button.draw()
+    actionbar.draw()
     # itemmode_button.draw()
     msitem = getmassitem()
     itemui.massitem = 0
@@ -505,8 +521,8 @@ def getmassitem():
         itemui.massitem = 0
 
 def drawrect(txt, sx, sy, x, y, *col):
-    t_surface = screen.convert_alpha()
-    t_surface.fill((0,0,0,0))
+    # t_surface = screen.convert_alpha()
+    # t_surface.fill((0,0,0,0))
     lll = pygame.Rect(0, 0, sx, sy)
     lll.centerx = x
     lll.centery = y

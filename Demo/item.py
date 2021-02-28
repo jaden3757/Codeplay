@@ -147,6 +147,9 @@ class showitems():
     intro = 0 # 현재 클릭중인 거 표현
     storage = 0
     intro2 = ['None', 0, 0] # [가장 최근에 클릭된 아이템, 온오프, 번호]
+    thick = 4
+    scrolly = 548
+    scrollwait = 0
     def reseted1(self):
         if self.reseted == 1:
             self.intro2 = ['None', 0]
@@ -259,10 +262,31 @@ class showitems():
                     pygame.draw.rect(t_surface2, (255,255,255,70), [item.x + item.sx + 10, 505, 1, 40])
                     pygame.draw.rect(t_surface2, (255,255,255,70), [item.x - 10, 505, 1, 40])
                 self.i += 1
-            if self.il > 580:
-                pygame.draw.rect(t_surface2, (200,200,200,200), [20 + (-self.mousex/(self.il-560))*((560-(560/self.il)*560)), 550, (560/self.il)*560, 30])
+            if 580 > pygame.mouse.get_pos()[0] > 20 and 600 > pygame.mouse.get_pos()[1] > 550:
+                self.scrollwait = 0
             else:
-                pygame.draw.rect(t_surface2, (200,200,200,200), [20 - self.mousex, 550, 560, 30])
+                if self.scrollwait > 30:
+                    if self.thick > 4:
+                        self.thick -= -(4-self.thick)/5 + 0.5
+                        self.scrolly -= 2
+                    if self.thick < 4:
+                        self.thick = 4
+                    if self.scrolly < 548:
+                        self.scrolly = 548
+                else:
+                    self.scrollwait += 1
+            if self.scrollwait <= 30:
+                if self.thick < 22:
+                    self.thick += (22-self.thick)/5 + 0.5
+                    self.scrolly += 2
+                if self.thick > 22:
+                    self.thick = 22
+                if self.scrolly > 555:
+                    self.scrolly = 555
+            if self.il > 580:
+                pygame.draw.rect(t_surface2, (255,255,255,200), [20 + (-self.mousex/(self.il-560))*((560-(560/self.il)*560))+3, self.scrolly, (560/self.il)*560-6, self.thick])
+            else:
+                pygame.draw.rect(t_surface2, (255,255,255,200), [20 - self.mousex+3, self.scrolly, 560-6, self.thick])
 
             # button fin
             # trash or getitem
@@ -346,6 +370,7 @@ class showitems():
             item_t.pop(self.intro2[2])
         else:
             delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])
+        self.intro2 = ['none', 0, 0]
     def refresh(self):
         if self.isinv == 'inv':
             self.reseted = 1

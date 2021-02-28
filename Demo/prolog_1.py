@@ -41,6 +41,15 @@ def fadeout(width, height):
         pygame.display.update()
         pygame.time.delay(5)
 
+def fadein(width, height): 
+    fade = pygame.Surface((width, height))
+    fade.fill((0,0,0))
+    for alpha in range(0, 255):
+        fade.set_alpha(alpha - 254)
+        screen.blit(fade, (0,0))
+        pygame.display.update()
+        # pygame.time.delay(5)
+
 on = False
 
 def maprun():
@@ -56,12 +65,13 @@ def maprun():
 
     run = True
 
-    image2 = pygame.image.load("images/hole.jpg")
+    image2 = pygame.image.load("images/hole.jpg") # 임시 파일
 
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         primg2("images/hole.jpg", 0, 0)
+        # fadein(1000, 800)
 
         # myFont = pygame.font.SysFont( "arial", 30, True, False)
         # text_Title= myFont.render("Click to continue!", True, BLACK)
