@@ -101,11 +101,7 @@ def maprun():
     # holy = itemobject("light2.png", "빛", 100, 100, 200, 200) # 예시
     # holy.item = [sheetname, 2] # 엑셀파일의 'sp3'시트의 2번째 가로줄을 할당
 
-    mode1['wire1'] = True
-    mode1['wire2'] = True
-    mode1['electric'] = True
-
-    ddu = imagebutton("light2.png", 100, 100, 300, 420) # 예시
+    ddu = imagebutton("images/ddu.png", 200, 200, 50, 450) # 예시
 
     move_button = button("이동목록", 100, 50, 650, 500)
     move_button.color = (255,255,255)
@@ -129,15 +125,19 @@ def maprun():
     com_button.textsize = 20
     com_button.font = 'pixel.ttf'
 
+    bgimg = pygame.image.load('images/a_communicate.png')
+    bgimg = pygame.transform.scale(bgimg, (560, 560))
+
     while run:
         # 세팅 [ 건드리지 말아야 할 것]
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
+        screen.blit(bgimg,(20,20))
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
         ddu.draw()
 
         # | UI |
-        prtext4("Communication room | None", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
+        prtext4("A 통신실 | A-6", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
         drawui()
         textls()
         textprinting()

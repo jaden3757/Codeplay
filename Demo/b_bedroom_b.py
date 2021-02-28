@@ -10,6 +10,7 @@ from excel import *
 # 방 import 하는 곳 (지도상에서 붙어있는 방 알아서 전부 import 해주길 바람)
 import loading2
 import b_bedroom
+
 # 시작
 pygame.init() 
 screen = pygame.display.set_mode((1000, 600))
@@ -81,7 +82,7 @@ def maprun():
     firstsetting()
     buttonmode = 0
     sheetname = 'b_bedroom' # 엑셀파일에 자신이 원하는 방의 이름을 시트로 추가 (건드려야할 것)
-    floor_button.item = [sheetname, 2] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
+    floor_button.item = [sheetname, 8] # 엑셀파일의 'sp2'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 |
     # bed = itemobject('images/box.png', '침대', 100, 100, 400, 100)

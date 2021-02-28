@@ -264,13 +264,6 @@ class showitems():
                 self.i += 1
             if 580 > pygame.mouse.get_pos()[0] > 20 and 600 > pygame.mouse.get_pos()[1] > 550:
                 self.scrollwait = 0
-                if self.thick < 22:
-                    self.thick += (22-self.thick)/5 + 0.5
-                    self.scrolly += 2
-                if self.thick > 22:
-                    self.thick = 22
-                if self.scrolly > 555:
-                    self.scrolly = 555
             else:
                 if self.scrollwait > 30:
                     if self.thick > 4:
@@ -282,6 +275,14 @@ class showitems():
                         self.scrolly = 548
                 else:
                     self.scrollwait += 1
+            if self.scrollwait <= 30:
+                if self.thick < 22:
+                    self.thick += (22-self.thick)/5 + 0.5
+                    self.scrolly += 2
+                if self.thick > 22:
+                    self.thick = 22
+                if self.scrolly > 555:
+                    self.scrolly = 555
             if self.il > 580:
                 pygame.draw.rect(t_surface2, (255,255,255,200), [20 + (-self.mousex/(self.il-560))*((560-(560/self.il)*560))+3, self.scrolly, (560/self.il)*560-6, self.thick])
             else:
@@ -369,6 +370,7 @@ class showitems():
             item_t.pop(self.intro2[2])
         else:
             delxllist(self.isinv.item[0], self.isinv.item[1], self.intro2[2])
+        self.intro2 = ['none', 0, 0]
     def refresh(self):
         if self.isinv == 'inv':
             self.reseted = 1

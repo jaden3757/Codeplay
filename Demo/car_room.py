@@ -100,8 +100,8 @@ def maprun():
     floor_button.item = [sheetname, 1] # 엑셀파일의 'sp3'시트의 1번째 가로줄을 할당
 
     # | 여기부터 자유롭게 추가 또는 변경 |
-    box = itemobject('images/box.png', '상자2', 100, 100, 400, 400)
-    box.item = [sheetname, 4]
+    # box = itemobject('images/box.png', '상자2', 100, 100, 400, 400)
+    # box.item = [sheetname, 4]
     aaa = itemobject('images/aaa.png', '우주선', 100, 100, 300, 400)
 
     ship_button = button("우주선", 100, 100, 300, 400)
@@ -130,6 +130,7 @@ def maprun():
     goto_A_long_button = button("C홀", 300, 40, 650, 200)
     goto_A_long_button.color = (0,0,0)
     goto_A_long_button.textsize = 20
+    goto_A_long_button.font = 'pixel.ttf'
 
 
     sound.play_cynthia_S()
@@ -139,8 +140,6 @@ def maprun():
         screen.fill(pygame.color.Color(50, 50, 50))
         pygame.draw.rect(screen, (20,20,20), [20, 20, 560, 560])
         # main [여기에 코드 입력] > 이미지 오브젝트, 텍스트(prtext) 등등
-        # holy.draw()
-        box.draw()
         
         # | UI |
         prtext4("차고 | C-3", 'pixel.ttf', 20, 30, 30) # 여기는 바꿔도 됨
@@ -167,8 +166,6 @@ def maprun():
             lower_button.off()
             find_button.on()
             goto_A_long_button.off()
-
-
 
         move_button.draw()
         find_button.draw()
@@ -204,8 +201,6 @@ def maprun():
             # itemcheck(holy) # 이미지 오브젝트 예시
         if pygame.mouse.get_pressed()[0] == 1:
             pass
-        if pygame.mouse.get_pressed()[0] == 1:
-            itemcheck2(box) 
 
         # key
 

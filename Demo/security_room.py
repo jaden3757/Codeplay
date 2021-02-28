@@ -117,10 +117,12 @@ def maprun():
     goto_b_button = button("B-hall", 300, 40, 650, 200)
     goto_b_button.color = (0,0,0)
     goto_b_button.textsize = 20
+    goto_b_button.font = 'pixel.ttf'
 
     goto_production_facility = button("생산시설", 300, 40, 650, 250)
     goto_production_facility.color = (0,0,0)
     goto_production_facility.textsize = 20
+    goto_production_facility.font = 'pixel.ttf'
 
     bgimg = pygame.image.load('images/security.png')
     bgimg = pygame.transform.scale(bgimg, (560, 560))

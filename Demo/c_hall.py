@@ -14,8 +14,8 @@ import sound
 import c_communicate
 import c_warehouse
 import car_room
-import a_long
 import c_hall
+import c_long
 
 screen_width = 1000
 screen_height = 600
@@ -226,7 +226,7 @@ def maprun():
             if long_button.check() == 1:
                 if '카드키' in getitem():
                     setscr(3)
-                    a_long.maprun()
+                    c_long.maprun()
                 else:
                     setscr(4)
 
